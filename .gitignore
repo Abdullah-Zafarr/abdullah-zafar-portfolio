@@ -1,0 +1,17 @@
+# Local QA and temporary output
+tmp/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and local environment files
+*.log
+.env
+.env.*
+
+# Dependency directories if tooling is added later
+node_modules/
