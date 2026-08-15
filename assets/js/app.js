@@ -584,6 +584,43 @@ const listCard = p => `<article class="list-item-card" data-project="${p.id}" da
   </div>
 </article>`;
 
+const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-card reveal" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}">
+  <div class="pcard-header">
+    <div class="pcard-meta-left">
+      <span class="netflix-n-badge">A</span>
+      <span class="pcard-rank-tag">TOP ${p.rank}</span>
+    </div>
+    <div class="pcard-meta-right">
+      <span class="pcard-match-tag">${p.match} Match</span>
+      <span class="pcard-runtime-tag">${p.runtime}</span>
+    </div>
+  </div>
+
+  <div class="pcard-preview" onclick="openDetails('${p.id}')">
+    <img src="${p.image}" alt="${p.title}" loading="lazy">
+    <div class="pcard-preview-gradient"></div>
+    <span class="pcard-teaser-pill">${p.teaserTag}</span>
+    <button class="pcard-expand-btn" aria-label="Expand details"><i data-lucide="maximize-2"></i></button>
+  </div>
+
+  <div class="pcard-body">
+    <h3 class="pcard-title" onclick="openDetails('${p.id}')">${p.title}</h3>
+    <p class="pcard-desc">${p.desc}</p>
+    <div class="pcard-stack">
+      ${p.stack.map(s => `<span>${s}</span>`).join('')}
+    </div>
+    <div class="pcard-actions">
+      <button class="play-btn pcard-btn" onclick="openDetails('${p.id}')">
+        <i data-lucide="info"></i> Details
+      </button>
+      <a href="${p.repo}" target="_blank" class="info-btn pcard-btn" title="View Source Code on GitHub">
+        <i data-lucide="github"></i> Code
+      </a>
+      ${p.demo ? `<a href="${p.demo}" target="_blank" class="demo-btn pcard-btn" title="Launch Live Demo"><i data-lucide="external-link"></i> Demo</a>` : ''}
+    </div>
+  </div>
+</article>`;
+
 const rail = (title, items, klass='') => `<section class="rail-section ${klass} reveal" data-rail-group="rail">
   <div class="rail-heading">
     <h2>${title}</h2>
@@ -754,21 +791,31 @@ function projectsPage(){
   <main class="sub-page">
     <section class="page-billboard projects-billboard">
       <div>
-        <p class="original"><span>A</span> COLLECTION</p>
+        <p class="original"><span>A</span> COLLECTION · PRODUCTION BUILDS</p>
         <h1>MY LIST</h1>
-        <p>Six pinned repositories. Real product interfaces. Every project opens directly to its source.</p>
+        <p>Six production-grade AI systems and architectures. Every project opens directly to its source code and live interface.</p>
       </div>
     </section>
     <section class="catalog">
       <div class="catalog-head">
-        <h2>Abdullah's Pinned Projects</h2>
-        <div class="catalog-controls">
-          <button class="${!isListView?'active':''}" id="view-grid-btn" aria-label="Grid view" title="Grid View"><i data-lucide="grid-3x3"></i></button>
-          <button class="${isListView?'active':''}" id="view-list-btn" aria-label="List view" title="List View"><i data-lucide="list"></i></button>
+        <div class="catalog-title-group">
+          <h2>Abdullah's Pinned Projects</h2>
+          <span class="catalog-count-badge">6 Production AI Repositories</span>
+        </div>
+        <div class="catalog-actions-right">
+          <a href="${links.github}?tab=repositories" target="_blank" class="github-catalog-btn" title="View all repositories on GitHub">
+            <i data-lucide="github"></i>
+            <span>View all on GitHub</span>
+            <i data-lucide="arrow-up-right"></i>
+          </a>
+          <div class="catalog-controls">
+            <button class="${!isListView?'active':''}" id="view-grid-btn" aria-label="Grid view" title="Grid View"><i data-lucide="grid-3x3"></i></button>
+            <button class="${isListView?'active':''}" id="view-list-btn" aria-label="List view" title="List View"><i data-lucide="list"></i></button>
+          </div>
         </div>
       </div>
       <div class="project-grid ${isListView?'list-mode':''}" id="catalog-container">
-        ${isListView ? projects.map(p=>listCard(p)).join('') : projects.map(p=>card(p)).join('')}
+        ${isListView ? projects.map(p=>listCard(p)).join('') : projects.map(p=>projectCatalogCard(p)).join('')}
       </div>
     </section>
   </main>
@@ -1155,7 +1202,7 @@ function initTVKeyboardNavigation(){
     if (artDialog && artDialog.open) {
       return $$('button, a, input, [tabindex="0"]', artDialog).filter(el => !el.hidden && el.offsetParent !== null);
     }
-    return $$('.billboard-buttons a, .title-card, .continue-card, .skill-tile, .project-grid .title-card, .article-card, .filter-pill, .episode, .stack-section span, .achievement-row article, .footer-links a, .eledra-links-row a', document)
+    return $$('.billboard-buttons a, .title-card, .continue-card, .skill-tile, .project-grid .title-card, .project-catalog-card, .article-card, .filter-pill, .episode, .stack-section span, .achievement-row article, .footer-links a, .eledra-links-row a', document)
       .filter(el => !el.hidden && el.offsetParent !== null);
   }
 
@@ -1285,7 +1332,7 @@ function setup(){
 
   $('.search-box input')?.addEventListener('input', e => {
     const val = e.target.value.toLowerCase().trim();
-    const cards = $$('.title-card, .list-item-card, .article-card');
+    const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card');
     cards.forEach(c => {
       const searchData = c.dataset.search || '';
       c.hidden = val ? !searchData.includes(val) : false;
@@ -1313,7 +1360,7 @@ function setup(){
     listBtn?.classList.remove('active');
     catalog?.classList.remove('list-mode');
     localStorage.setItem('az-projects-view', 'grid');
-    if (catalog) catalog.innerHTML = projects.map(p => card(p)).join('');
+    if (catalog) catalog.innerHTML = projects.map(p => projectCatalogCard(p)).join('');
     bindRailInteractions();
     iconify();
   });
