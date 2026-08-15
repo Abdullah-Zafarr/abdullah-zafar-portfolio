@@ -230,7 +230,7 @@ const nav = active => {
       </div>
       <button class="profile-menu" title="Switch Profile (Current: ${prof})" aria-label="Change profile">
         <span class="nav-avatar">
-          <img src="${profileMemes[prof] || profileMemes.Developer}" alt="${prof}">
+          <img src="${profileMemes[prof] || profileMemes.Recruiter}" alt="${prof}">
         </span>
         <i data-lucide="chevron-down"></i>
       </button>
@@ -735,8 +735,13 @@ function applyProfileUI(profileName) {
 
   const navAvatar = $('.nav-avatar');
   if (navAvatar) {
-    navAvatar.style.background = cfg.avatarColor;
-    navAvatar.textContent = profileName.slice(0,2).toUpperCase();
+    const memeSrc = profileMemes[profileName] || profileMemes.Recruiter;
+    navAvatar.style.background = 'transparent';
+    navAvatar.innerHTML = `<img src="${memeSrc}" alt="${profileName}">`;
+  }
+  const profileBtn = $('.profile-menu');
+  if (profileBtn) {
+    profileBtn.title = `Switch Profile (Current: ${profileName})`;
   }
 
   const railsContainer = $('#browse-rails-container');
