@@ -543,10 +543,6 @@ const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-p
     <span class="netflix-n">A</span>
   </div>
   <div class="card-hover">
-    <div class="teaser-viewport">
-      ${teaserSnippet(p)}
-      <span class="teaser-tag">${p.teaserTag}</span>
-    </div>
     <div class="hover-actions">
       <a href="${p.repo}" target="_blank" aria-label="Open repository" title="View Code on GitHub"><i data-lucide="play"></i></a>
       <button data-info="${p.id}" aria-label="More information" title="Open Project Details"><i data-lucide="info"></i></button>

@@ -650,7 +650,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .rail-section {
   position: relative;
-  margin-bottom: 115px;
+  margin-bottom: 58px;
 }
 .rail-heading {
   display: flex;
@@ -692,8 +692,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
-  padding: 35px 4% 135px;
-  margin: -35px 0 -115px;
+  padding: 30px 4% 85px;
+  margin: -30px 0 -65px;
   scroll-padding-left: 4%;
 }
 .title-rail::-webkit-scrollbar { display: none; }
@@ -714,7 +714,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-sizing: border-box;
 }
 .title-card:hover, .title-card.tv-focus {
-  transform: scale(1.26) translateY(-14px);
+  transform: scale(1.24) translateY(-8px);
   z-index: 35;
   transition-delay: .22s;
 }
@@ -767,17 +767,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   text-shadow: 0 0 8px var(--red-glow);
 }
 
-/* Card Hover & Micro-Teaser Viewport */
+/* Card Hover overlay */
 .card-hover {
   position: absolute;
   left: 0;
   right: 0;
   top: calc(100% - 2px);
   background: #11141d;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(229, 9, 20, 0.7);
   border-top: 0;
-  box-shadow: 0 24px 50px rgba(0,0,0,0.98), 0 0 25px rgba(229, 9, 20, 0.25);
-  padding: 12px 14px 16px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.95), 0 0 25px rgba(229, 9, 20, 0.25);
+  padding: 12px 14px 14px;
   border-radius: 0 0 8px 8px;
   opacity: 0;
   pointer-events: none;
