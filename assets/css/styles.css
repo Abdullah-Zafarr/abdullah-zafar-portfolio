@@ -650,7 +650,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .rail-section {
   position: relative;
-  margin-bottom: 3.6vw;
+  margin-bottom: 115px;
 }
 .rail-heading {
   display: flex;
@@ -688,38 +688,35 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .title-rail {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
-  padding: 16px 4% 20px;
-  margin: 0;
+  padding: 35px 4% 135px;
+  margin: -35px 0 -115px;
   scroll-padding-left: 4%;
 }
 .title-rail::-webkit-scrollbar { display: none; }
 
 .title-card {
   position: relative;
-  flex: 0 0 clamp(230px, 18vw, 300px);
-  width: clamp(230px, 18vw, 300px);
-  height: clamp(130px, 10.1vw, 170px);
-  min-width: 230px;
-  min-height: 130px;
+  flex: 0 0 clamp(225px, 17.5vw, 295px);
+  width: clamp(225px, 17.5vw, 295px);
+  height: clamp(126px, 9.8vw, 166px);
+  min-width: 225px;
+  min-height: 126px;
   background: var(--black-card);
-  border-radius: 8px;
-  transition: transform .25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .25s ease, border-color .25s ease;
+  border-radius: 6px;
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), z-index 0s .14s, box-shadow .28s ease;
   transform-origin: center center;
   z-index: 1;
   outline: none;
   box-sizing: border-box;
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden;
 }
 .title-card:hover, .title-card.tv-focus {
-  transform: scale(1.08) translateY(-4px);
-  z-index: 25;
-  border-color: rgba(229, 9, 20, 0.75);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(229, 9, 20, 0.3);
+  transform: scale(1.26) translateY(-14px);
+  z-index: 35;
+  transition-delay: .22s;
 }
 .title-card:first-child { transform-origin: left center; }
 .title-card:last-child { transform-origin: right center; }
@@ -732,6 +729,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 6px 18px rgba(0,0,0,0.6);
   background: #08090c;
   z-index: 1;
+  border: 1px solid rgba(255,255,255,0.06);
 }
 .card-poster img {
   width: 100%;
@@ -740,12 +738,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   object-position: center 15%;
   transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.title-card:hover .card-poster img { transform: scale(1.05); }
+.title-card:hover .card-poster img { transform: scale(1.04); }
 .card-poster:after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(10,11,14,0.6) 65%, rgba(10,11,14,0.95) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(10,11,14,0.65) 70%, rgba(10,11,14,0.98) 100%);
 }
 .card-title {
   position: absolute;
@@ -757,9 +755,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: .04em;
   color: #fff;
   text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-  transition: opacity .2s;
 }
-.title-card:hover .card-title { opacity: 0; }
 .netflix-n {
   position: absolute;
   z-index: 2;
@@ -771,30 +767,28 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   text-shadow: 0 0 8px var(--red-glow);
 }
 
-/* Card Hover overlay - completely contained inside card bounds */
+/* Card Hover & Micro-Teaser Viewport */
 .card-hover {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(8, 10, 16, 0.98) 0%, rgba(10, 12, 20, 0.88) 55%, rgba(10, 12, 20, 0.4) 100%);
-  backdrop-filter: blur(5px);
-  padding: 14px 16px;
-  border-radius: 6px;
+  left: 0;
+  right: 0;
+  top: calc(100% - 2px);
+  background: #11141d;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-top: 0;
+  box-shadow: 0 24px 50px rgba(0,0,0,0.98), 0 0 25px rgba(229, 9, 20, 0.25);
+  padding: 12px 14px 16px;
+  border-radius: 0 0 8px 8px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .22s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  box-sizing: border-box;
+  transition: opacity .2s ease;
+  z-index: 35;
 }
 .title-card:hover .card-hover,
 .title-card.tv-focus .card-hover {
   opacity: 1;
   pointer-events: auto;
-}
-.card-hover .teaser-viewport {
-  display: none;
+  transition-delay: .22s;
 }
 
 /* Live Animated Teaser Previews */
