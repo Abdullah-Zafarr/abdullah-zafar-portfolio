@@ -9,12 +9,12 @@ const links = {
   codeforces:'https://codeforces.com/profile/rodrickkkk'
 };
 const routes = {
-  home:'pages/home.html',
-  projects:'pages/projects.html',
-  experience:'pages/experience.html',
-  about:'pages/about.html',
-  blog:'pages/blog.html',
-  contact:'pages/contact.html'
+  home:'./',
+  projects:'projects/',
+  experience:'experience/',
+  about:'about/',
+  blog:'blog/',
+  contact:'contact/'
 };
 const files = {
   logo:'assets/brand/az-mark.svg',
@@ -598,7 +598,7 @@ const rail = (title, items, klass='') => `<section class="rail-section ${klass} 
 
 function profileGate(){
   return `<section class="profiles-screen" id="profiles">
-    <a href="index.html" class="profiles-logo"><img src="${files.logo}" alt="AZ"></a>
+    <a href="${routes.home}" class="profiles-logo"><img src="${files.logo}" alt="AZ"></a>
     <button class="profile-sound-status" id="sound-toggle" aria-label="Toggle Sound">
       <i data-lucide="${soundEnabled?'volume-2':'volume-x'}"></i> Sound ${soundEnabled?'on':'off'}
     </button>
@@ -1374,7 +1374,7 @@ function setup(){
 
   $('.profile-menu')?.addEventListener('click', () => {
     sessionStorage.removeItem('az-profile');
-    location.href = 'index.html';
+    location.href = routes.home;
   });
 
   const dialog = $('#details-modal');
