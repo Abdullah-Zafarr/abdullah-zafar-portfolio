@@ -775,7 +775,6 @@ function modal(){
       <div>
         <strong class="modal-match"></strong>
         <p class="modal-desc"></p>
-        <div id="modal-extra-playground"></div>
       </div>
       <aside>
         <p><b>Technologies:</b> <span class="modal-stack"></span></p>
@@ -1654,90 +1653,6 @@ function openDetails(id){
     <a class="play-btn" target="_blank" href="${p.repo}"><i data-lucide="github"></i> View Repository</a>
     ${p.demo ? `<a class="info-btn" target="_blank" href="${p.demo}"><i data-lucide="external-link"></i> Live Demo</a>` : ''}
   `;
-
-  const extraEl = $('#modal-extra-playground', d);
-  if (extraEl) {
-    if (p.id === 'voice') {
-      extraEl.innerHTML = `
-        <div class="latency-playground">
-          <div class="latency-head">
-            <span class="latency-title"><i data-lucide="activity"></i> LIVE TELEPHONY STREAM TELEMETRY</span>
-            <span class="latency-badge"><span class="pulse-dot"></span> Sub-750ms SLA</span>
-          </div>
-          <div class="waterfall-bars">
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>1. Twilio Inbound Audio WebSocket</span><span class="bar-ms">45ms</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-1" style="width: 14%"></div></div>
-            </div>
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>2. Deepgram Nova-2 Streaming STT</span><span class="bar-ms">120ms</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-2" style="width: 28%"></div></div>
-            </div>
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>3. Groq LPU Inference (LLaMA-3.3 70B @ 320 t/s)</span><span class="bar-ms">180ms</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-3" style="width: 42%"></div></div>
-            </div>
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>4. ElevenLabs Streaming Audio Synthesis</span><span class="bar-ms">310ms</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-4" style="width: 68%"></div></div>
-            </div>
-          </div>
-          <div class="waterfall-footer">
-            <div class="telemetry-live-stat">
-              <span class="stat-label">TOTAL ROUNDTRIP:</span>
-              <span class="stat-val" id="telemetry-val">655ms (Sub-750ms SLA)</span>
-            </div>
-            <button class="sim-stream-btn" id="sim-stream-btn"><i data-lucide="zap"></i> Simulate Stream</button>
-          </div>
-        </div>
-      `;
-      const simBtn = $('#sim-stream-btn', extraEl);
-      simBtn?.addEventListener('click', () => {
-        const fills = $$('.waterfall-fill', extraEl);
-        fills.forEach(f => f.style.width = '0%');
-        const telVal = $('#telemetry-val', extraEl);
-        if (telVal) telVal.textContent = 'Streaming packets...';
-        setTimeout(() => { if (fills[0]) fills[0].style.width = '14%'; }, 100);
-        setTimeout(() => { if (fills[1]) fills[1].style.width = '28%'; }, 250);
-        setTimeout(() => { if (fills[2]) fills[2].style.width = '42%'; }, 450);
-        setTimeout(() => {
-          if (fills[3]) fills[3].style.width = '68%';
-          if (telVal) telVal.textContent = '655ms (Sub-750ms SLA)';
-        }, 750);
-      });
-    } else if (p.id === 'rag') {
-      extraEl.innerHTML = `
-        <div class="latency-playground">
-          <div class="latency-head">
-            <span class="latency-title"><i data-lucide="database"></i> ZERO-FRAMEWORK RAG TELEMETRY</span>
-            <span class="latency-badge"><span class="pulse-dot"></span> 100% In-Memory</span>
-          </div>
-          <div class="waterfall-bars">
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>Document Ingestion & OCR Parse</span><span class="bar-ms">0.82s / page</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-1" style="width: 45%"></div></div>
-            </div>
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>ChromaDB Cosine Vector Query</span><span class="bar-ms">18ms</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-2" style="width: 18%"></div></div>
-            </div>
-            <div class="waterfall-item">
-              <div class="waterfall-info"><span>Groq Streaming TTFT (Time-to-First-Token)</span><span class="bar-ms">140ms</span></div>
-              <div class="waterfall-track"><div class="waterfall-fill wf-3" style="width: 32%"></div></div>
-            </div>
-          </div>
-          <div class="waterfall-footer">
-            <div class="telemetry-live-stat">
-              <span class="stat-label">RETRIEVAL ACCURACY:</span>
-              <span class="stat-val">97.4% Grounded Fact Match</span>
-            </div>
-          </div>
-        </div>
-      `;
-    } else {
-      extraEl.innerHTML = '';
-    }
-  }
 
   iconify();
   d.showModal();
