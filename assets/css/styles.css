@@ -688,35 +688,38 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .title-rail {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
-  padding: 25px 4% 195px;
-  margin: -25px 0 -165px;
+  padding: 16px 4% 20px;
+  margin: 0;
   scroll-padding-left: 4%;
 }
 .title-rail::-webkit-scrollbar { display: none; }
 
 .title-card {
   position: relative;
-  flex: 0 0 clamp(225px, 17.5vw, 295px);
-  width: clamp(225px, 17.5vw, 295px);
-  height: clamp(126px, 9.8vw, 166px);
-  min-width: 225px;
-  min-height: 126px;
+  flex: 0 0 clamp(230px, 18vw, 300px);
+  width: clamp(230px, 18vw, 300px);
+  height: clamp(130px, 10.1vw, 170px);
+  min-width: 230px;
+  min-height: 130px;
   background: var(--black-card);
-  border-radius: 6px;
-  transition: transform .28s cubic-bezier(.2,.7,.2,1), z-index 0s .14s, box-shadow .28s ease;
+  border-radius: 8px;
+  transition: transform .25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .25s ease, border-color .25s ease;
   transform-origin: center center;
   z-index: 1;
   outline: none;
   box-sizing: border-box;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
 }
 .title-card:hover, .title-card.tv-focus {
-  transform: scale(1.28);
-  z-index: 30;
-  transition-delay: .35s;
+  transform: scale(1.08) translateY(-4px);
+  z-index: 25;
+  border-color: rgba(229, 9, 20, 0.75);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(229, 9, 20, 0.3);
 }
 .title-card:first-child { transform-origin: left center; }
 .title-card:last-child { transform-origin: right center; }
@@ -729,7 +732,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-shadow: 0 6px 18px rgba(0,0,0,0.6);
   background: #08090c;
   z-index: 1;
-  border: 1px solid rgba(255,255,255,0.06);
 }
 .card-poster img {
   width: 100%;
@@ -738,12 +740,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   object-position: center 15%;
   transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.title-card:hover .card-poster img { transform: scale(1.04); }
+.title-card:hover .card-poster img { transform: scale(1.05); }
 .card-poster:after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(10,11,14,0.65) 70%, rgba(10,11,14,0.98) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 20%, rgba(10,11,14,0.6) 65%, rgba(10,11,14,0.95) 100%);
 }
 .card-title {
   position: absolute;
@@ -755,7 +757,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: .04em;
   color: #fff;
   text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+  transition: opacity .2s;
 }
+.title-card:hover .card-title { opacity: 0; }
 .netflix-n {
   position: absolute;
   z-index: 2;
@@ -767,28 +771,30 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   text-shadow: 0 0 8px var(--red-glow);
 }
 
-/* Card Hover & Micro-Teaser Viewport */
+/* Card Hover overlay - completely contained inside card bounds */
 .card-hover {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% - 2px);
-  background: #11141d;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-top: 0;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.95);
-  padding: 12px 14px 16px;
-  border-radius: 0 0 8px 8px;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(8, 10, 16, 0.98) 0%, rgba(10, 12, 20, 0.88) 55%, rgba(10, 12, 20, 0.4) 100%);
+  backdrop-filter: blur(5px);
+  padding: 14px 16px;
+  border-radius: 6px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .2s ease;
-  z-index: 35;
+  transition: opacity .22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
 }
 .title-card:hover .card-hover,
 .title-card.tv-focus .card-hover {
   opacity: 1;
   pointer-events: auto;
-  transition-delay: .35s;
+}
+.card-hover .teaser-viewport {
+  display: none;
 }
 
 /* Live Animated Teaser Previews */
@@ -977,40 +983,44 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .hover-actions > a, .hover-actions > button {
   width: 32px;
   height: 32px;
-  border: 2px solid #64748b;
+  border: 1.5px solid rgba(255,255,255,0.6);
   border-radius: 50%;
   background: #fff;
   color: #000;
   display: grid;
   place-items: center;
   padding: 0;
+  cursor: pointer;
   transition: transform .15s, border-color .15s, background .15s;
 }
-.hover-actions > button { background: #1a1e2b; color: #fff; }
+.hover-actions > button { background: #1a1e2b; color: #fff; border-color: rgba(255,255,255,0.25); }
 .hover-actions > a:hover, .hover-actions > button:hover {
   border-color: #fff;
+  background: var(--red);
+  color: #fff;
   transform: scale(1.12);
 }
 .hover-actions svg { width: 14px; height: 14px; }
 .hover-actions > span { flex: 1; }
-.hover-actions .secondary { background: #1a1e2b; color: #fff; }
-.card-hover > strong { font-size: .72rem; color: var(--green); font-weight: 800; }
-.hover-meta { font-size: .62rem; margin: 4px 0 6px; color: #cbd5e1; font-weight: 500; }
-.hover-meta span { border: 1px solid #475569; padding: 1px 4px; border-radius: 2px; }
-.card-hover > p { font-size: .6rem; color: #94a3b8; margin: 0; font-weight: 500; }
+.hover-actions .secondary { background: #1a1e2b; color: #fff; border-color: rgba(255,255,255,0.25); }
+.card-hover > strong { font-size: .8rem; color: var(--green); font-weight: 800; display: block; margin-bottom: 2px; }
+.hover-meta { font-size: .68rem; margin: 2px 0 4px; color: #cbd5e1; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.hover-meta span { border: 1px solid #475569; padding: 1px 4px; border-radius: 2px; font-size: 0.62rem; }
+.card-hover > p { font-size: .68rem; color: #94a3b8; margin: 0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Rail Arrow Paddles */
 .rail-arrow {
   position: absolute;
   z-index: 60;
-  top: 25px;
-  height: clamp(126px, 9.8vw, 166px);
-  width: 46px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: clamp(90px, 7.5vw, 130px);
+  width: 44px;
   border: 0;
   background: rgba(10, 12, 18, 0.88);
   backdrop-filter: blur(12px);
@@ -1027,11 +1037,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--red);
   box-shadow: 0 0 20px var(--red-glow);
   opacity: 1 !important;
-  transform: scale(1.08);
+  transform: translateY(-50%) scale(1.06);
 }
 .rail-arrow.prev { left: 0.4vw; }
 .rail-arrow.next { right: 0.4vw; }
-.rail-arrow svg { width: 28px; height: 28px; }
+.rail-arrow svg { width: 26px; height: 26px; }
 
 /* Ranked Rail */
 .ranked-rail .title-rail {
