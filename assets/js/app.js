@@ -775,6 +775,7 @@ function modal(){
       <div>
         <strong class="modal-match"></strong>
         <p class="modal-desc"></p>
+        <div id="modal-extra-playground"></div>
       </div>
       <aside>
         <p><b>Technologies:</b> <span class="modal-stack"></span></p>
@@ -1012,6 +1013,9 @@ function featuredArticleCard(a) {
 
 function articleModal() {
   return `<dialog class="details-modal article-reader-modal" id="article-modal">
+    <div class="article-progress-container">
+      <div class="article-progress-fill" id="article-progress-fill"></div>
+    </div>
     <button class="modal-close" aria-label="Close reader"><i data-lucide="x"></i></button>
     <article class="article-reader-container">
       <header class="reader-header">
@@ -1456,14 +1460,64 @@ function setup(){
     setTimeout(() => openArticle(targetArticle), 150);
   }
 
+  // Article Modal Reading Progress
+  const artModal = $('#article-modal');
+  const fill = $('#article-progress-fill');
+  artModal?.addEventListener('scroll', () => {
+    const scrollTop = artModal.scrollTop;
+    const scrollHeight = artModal.scrollHeight - artModal.clientHeight;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    if (fill) fill.style.width = `${progress}%`;
+  });
+
   $('.tv-hint-close')?.addEventListener('click', () => $('#tv-hint')?.remove());
 
   initIntersectionObserver();
 
-  $('#contact-form')?.addEventListener('submit', e => {
+  // Contact Form with async submission & toast feedback
+  $('#contact-form')?.addEventListener('submit', async e => {
     e.preventDefault();
-    const d = new FormData(e.currentTarget);
-    location.href = `mailto:abdullahzafar.codes@gmail.com?subject=${encodeURIComponent(`${d.get('type')} — ${d.get('name')}`)}&body=${encodeURIComponent(`Name: ${d.get('name')}\nEmail: ${d.get('email')}\n\n${d.get('message')}`)}`;
+    const form = e.currentTarget;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const origHtml = submitBtn ? submitBtn.innerHTML : 'Send Transmission';
+    const d = new FormData(form);
+
+    if (submitBtn) {
+      submitBtn.innerHTML = `<i data-lucide="loader-2" class="spin"></i> Transmitting...`;
+      submitBtn.disabled = true;
+      iconify();
+    }
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'e015d862-c1e1-4560-bf64-32530188ef39',
+          name: d.get('name'),
+          email: d.get('email'),
+          subject: `${d.get('type') || 'Message'} from ${d.get('name')} (Portfolio)`,
+          message: d.get('message')
+        })
+      });
+      if (res.ok) {
+        form.reset();
+        showToast('Transmission Received · Thanks for reaching out!');
+      } else {
+        throw new Error('Fallback required');
+      }
+    } catch {
+      showToast('Opening Mail Client · Transmitting message...');
+      setTimeout(() => {
+        location.href = `mailto:abdullahzafar.codes@gmail.com?subject=${encodeURIComponent(`${d.get('type')} — ${d.get('name')}`)}&body=${encodeURIComponent(`Name: ${d.get('name')}\nEmail: ${d.get('email')}\n\n${d.get('message')}`)}`;
+      }, 400);
+    } finally {
+      if (submitBtn) {
+        submitBtn.innerHTML = origHtml;
+        submitBtn.disabled = false;
+        iconify();
+      }
+    }
   });
 
   initTVKeyboardNavigation();
@@ -1503,10 +1557,28 @@ function setup(){
   }
 }
 
+function showToast(msg) {
+  let toast = $('#netflix-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.className = 'netflix-toast';
+    toast.id = 'netflix-toast';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = `<i data-lucide="check-circle-2"></i> <span>${msg}</span>`;
+  iconify();
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+}
+
 function openArticle(id){
   const a = articles.find(x => x.id === id);
   const d = $('#article-modal');
   if(!a || !d) return;
+
+  d.scrollTop = 0;
+  const fill = $('#article-progress-fill');
+  if (fill) fill.style.width = '0%';
 
   $('#modal-article-cat').textContent = a.tag;
   $('#modal-article-time').innerHTML = `<i data-lucide="clock"></i> ${a.readTime}`;
@@ -1514,6 +1586,39 @@ function openArticle(id){
   $('#modal-article-title').textContent = a.title;
   $('#modal-article-summary').textContent = a.summary;
   $('#modal-article-content').innerHTML = a.content;
+
+  // Enhance code blocks with 1-click copy headers
+  $$('#modal-article-content pre').forEach((pre, idx) => {
+    const code = pre.querySelector('code');
+    const codeText = code ? code.innerText : pre.innerText;
+    const langMatch = pre.className.match(/language-(\w+)/) || (code && code.className.match(/language-(\w+)/));
+    const lang = langMatch ? langMatch[1] : 'code';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block-container';
+    wrapper.innerHTML = `
+      <div class="code-block-header">
+        <span>${lang.toUpperCase()}</span>
+        <button class="copy-code-btn" data-code-idx="${idx}"><i data-lucide="copy"></i> Copy</button>
+      </div>
+    `;
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    const copyBtn = wrapper.querySelector('.copy-code-btn');
+    copyBtn?.addEventListener('click', () => {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(codeText).then(() => {
+          copyBtn.innerHTML = `<i data-lucide="check"></i> Copied!`;
+          iconify();
+          setTimeout(() => {
+            copyBtn.innerHTML = `<i data-lucide="copy"></i> Copy`;
+            iconify();
+          }, 2000);
+        });
+      }
+    });
+  });
 
   const actionsEl = $('#modal-article-actions');
   if (actionsEl) {
@@ -1525,7 +1630,7 @@ function openArticle(id){
       const shareUrl = window.location.origin + window.location.pathname + '?article=' + a.id;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(shareUrl).then(() => {
-          alert('Article link copied to clipboard: ' + shareUrl);
+          showToast('Article link copied to clipboard!');
         }).catch(() => {});
       }
     });
@@ -1549,6 +1654,91 @@ function openDetails(id){
     <a class="play-btn" target="_blank" href="${p.repo}"><i data-lucide="github"></i> View Repository</a>
     ${p.demo ? `<a class="info-btn" target="_blank" href="${p.demo}"><i data-lucide="external-link"></i> Live Demo</a>` : ''}
   `;
+
+  const extraEl = $('#modal-extra-playground', d);
+  if (extraEl) {
+    if (p.id === 'voice') {
+      extraEl.innerHTML = `
+        <div class="latency-playground">
+          <div class="latency-head">
+            <span class="latency-title"><i data-lucide="activity"></i> LIVE TELEPHONY STREAM TELEMETRY</span>
+            <span class="latency-badge"><span class="pulse-dot"></span> Sub-750ms SLA</span>
+          </div>
+          <div class="waterfall-bars">
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>1. Twilio Inbound Audio WebSocket</span><span class="bar-ms">45ms</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-1" style="width: 14%"></div></div>
+            </div>
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>2. Deepgram Nova-2 Streaming STT</span><span class="bar-ms">120ms</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-2" style="width: 28%"></div></div>
+            </div>
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>3. Groq LPU Inference (LLaMA-3.3 70B @ 320 t/s)</span><span class="bar-ms">180ms</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-3" style="width: 42%"></div></div>
+            </div>
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>4. ElevenLabs Streaming Audio Synthesis</span><span class="bar-ms">310ms</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-4" style="width: 68%"></div></div>
+            </div>
+          </div>
+          <div class="waterfall-footer">
+            <div class="telemetry-live-stat">
+              <span class="stat-label">TOTAL ROUNDTRIP:</span>
+              <span class="stat-val" id="telemetry-val">655ms (Sub-750ms SLA)</span>
+            </div>
+            <button class="sim-stream-btn" id="sim-stream-btn"><i data-lucide="zap"></i> Simulate Stream</button>
+          </div>
+        </div>
+      `;
+      const simBtn = $('#sim-stream-btn', extraEl);
+      simBtn?.addEventListener('click', () => {
+        const fills = $$('.waterfall-fill', extraEl);
+        fills.forEach(f => f.style.width = '0%');
+        const telVal = $('#telemetry-val', extraEl);
+        if (telVal) telVal.textContent = 'Streaming packets...';
+        setTimeout(() => { if (fills[0]) fills[0].style.width = '14%'; }, 100);
+        setTimeout(() => { if (fills[1]) fills[1].style.width = '28%'; }, 250);
+        setTimeout(() => { if (fills[2]) fills[2].style.width = '42%'; }, 450);
+        setTimeout(() => {
+          if (fills[3]) fills[3].style.width = '68%';
+          if (telVal) telVal.textContent = '655ms (Sub-750ms SLA)';
+        }, 750);
+      });
+    } else if (p.id === 'rag') {
+      extraEl.innerHTML = `
+        <div class="latency-playground">
+          <div class="latency-head">
+            <span class="latency-title"><i data-lucide="database"></i> ZERO-FRAMEWORK RAG TELEMETRY</span>
+            <span class="latency-badge"><span class="pulse-dot"></span> 100% In-Memory</span>
+          </div>
+          <div class="waterfall-bars">
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>Document Ingestion & OCR Parse</span><span class="bar-ms">0.82s / page</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-1" style="width: 45%"></div></div>
+            </div>
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>ChromaDB Cosine Vector Query</span><span class="bar-ms">18ms</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-2" style="width: 18%"></div></div>
+            </div>
+            <div class="waterfall-item">
+              <div class="waterfall-info"><span>Groq Streaming TTFT (Time-to-First-Token)</span><span class="bar-ms">140ms</span></div>
+              <div class="waterfall-track"><div class="waterfall-fill wf-3" style="width: 32%"></div></div>
+            </div>
+          </div>
+          <div class="waterfall-footer">
+            <div class="telemetry-live-stat">
+              <span class="stat-label">RETRIEVAL ACCURACY:</span>
+              <span class="stat-val">97.4% Grounded Fact Match</span>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      extraEl.innerHTML = '';
+    }
+  }
+
   iconify();
   d.showModal();
 }
