@@ -13,6 +13,7 @@ const routes = {
   projects:'pages/projects.html',
   experience:'pages/experience.html',
   about:'pages/about.html',
+  blog:'pages/blog.html',
   contact:'pages/contact.html'
 };
 const files = {
@@ -135,6 +136,216 @@ const notifications = [
   { title:'Resume AZ-2026 Updated', time:'This week', desc:'Full resume with production AI metrics available for download.', icon:'file-check' }
 ];
 
+const articles = [
+  {
+    id: 'voice-latency',
+    title: 'Architecting a Sub-750ms Conversational Voice Agent with Twilio & Groq',
+    short: 'Sub-750ms Voice AI',
+    category: 'Voice AI',
+    date: 'Aug 2026',
+    readTime: '6 min read',
+    tag: 'TELEPHONY & AUDIO',
+    badge: 'FEATURED EDITORIAL',
+    featured: true,
+    image: 'assets/images/projects/voice-ui.png',
+    summary: 'A deep architectural breakdown on budgeting latency across Twilio WebSocket media streams, Deepgram Nova-2 STT, Groq Llama-3-70B streaming inference, and audio chunk pipelines.',
+    repo: 'https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent',
+    stack: ['Twilio', 'WebSockets', 'Deepgram', 'Groq', 'TypeScript'],
+    content: `
+      <p class="lead-p">In conversational voice systems, human turn-taking happens naturally within a <strong>500ms to 750ms window</strong>. Any delay beyond 800ms breaks conversation rhythm, causing unnatural pauses, awkward silence, and accidental interruptions.</p>
+      
+      <h3>The Anatomy of a Latency Budget</h3>
+      <p>To deliver real-time conversations over standard PSTN phone lines, every single millisecond must be accounted for across the pipeline:</p>
+      <ul>
+        <li><strong>Twilio Audio Packetization & WebSockets</strong>: ~120ms (8kHz mu-law audio streamed over full-duplex WS).</li>
+        <li><strong>Speech-to-Text (Deepgram Nova-2)</strong>: ~140ms (streaming endpointing with interim transcription events).</li>
+        <li><strong>LLM Time-to-First-Token (Groq Llama-3-70B)</strong>: ~180ms (accelerated LPU streaming token output).</li>
+        <li><strong>Text-to-Speech Generation & Audio Buffering</strong>: ~160ms (sentence-chunked streaming synthesis).</li>
+        <li><strong>Total Round-Trip Telephony Latency</strong>: <strong>~600–680ms</strong>.</li>
+      </ul>
+
+      <h3>Handling Interruptions & Full-Duplex Barge-in</h3>
+      <p>A classic failure mode of early voice bots is talking over the human caller. We implemented a dual-stream cancellation queue: as soon as the Deepgram interim endpoint detects speech energy from the caller, the active audio playback buffer is instantly purged and the Groq generation stream is aborted.</p>
+
+      <pre><code>// Interruption clearing & audio stream abort
+ws.on('message', (data) => {
+  const msg = JSON.parse(data);
+  if (msg.event === 'media') {
+    deepgramLive.send(msg.media.payload);
+  } else if (msg.event === 'interruption') {
+    activeTTSStream.abort();
+    twilioStream.send(JSON.stringify({ event: 'clear' }));
+  }
+});</code></pre>
+
+      <h3>Production Telephony Key Takeaways</h3>
+      <p>Never wait for an entire paragraph or thought to complete before triggering TTS. Yielding token buffers at natural punctuation boundaries (<code>.</code>, <code>,</code>, <code>?</code>) creates fluid human interaction without awkward dead air.</p>
+    `
+  },
+  {
+    id: 'native-rag',
+    title: 'Zero-Framework RAG: Why We Replaced LangChain with Native ChromaDB & Python',
+    short: 'Framework-Free RAG',
+    category: 'RAG Architecture',
+    date: 'Jul 2026',
+    readTime: '8 min read',
+    tag: 'PRODUCTION RETRIEVAL',
+    badge: 'ARCHITECTURE',
+    featured: false,
+    image: 'assets/images/projects/rag.png',
+    summary: 'Heavy abstractions hide memory leaks, token waste, and debugging complexity. How we engineered a zero-framework RAG engine with OCR ingestion and vector purging.',
+    repo: 'https://github.com/Abdullah-Zafarr/Native-RAG-Architecture',
+    stack: ['Python', 'ChromaDB', 'OCR', 'Groq', 'FastAPI'],
+    content: `
+      <p class="lead-p">Frameworks like LangChain are convenient for 10-minute prototypes, but in high-throughput production environments, deep nested abstraction hierarchies make observability difficult, increase cold-start times, and hide memory leaks.</p>
+
+      <h3>Why Native Python Beats Heavy Wrappers</h3>
+      <p>By interacting directly with ChromaDB's native Python API and raw HTTP embedding endpoints, we reduced memory footprint by 45% and reduced retrieval overhead from 210ms down to 42ms.</p>
+
+      <h3>The 4-Step Ingestion & Purge Lifecycle</h3>
+      <ol>
+        <li><strong>Raw OCR & Chunking</strong>: Tesseract/PDF parser outputs normalized markdown chunks with overlapping semantic boundaries.</li>
+        <li><strong>Vector Space Purging</strong>: Old document versions are deterministically purged by hash index to avoid stale hallucination vectors.</li>
+        <li><strong>Hybrid Re-Ranking</strong>: Vector similarity combined with BM25 keyword scoring for exact terminology matches.</li>
+        <li><strong>Grounding Telemetry</strong>: Returning exact citation bounding boxes and source timestamps for 100% auditable answers.</li>
+      </ol>
+
+      <pre><code># Deterministic collection purging & batch upsert
+def sync_document_collection(collection, doc_id: str, chunks: list[str]):
+    # Purge existing vectors with metadata doc_id
+    collection.delete(where={"doc_id": doc_id})
+    
+    # Upsert clean batches with embeddings
+    embeddings = generate_batch_embeddings(chunks)
+    collection.add(
+        ids=[f"{doc_id}_{i}" for i in range(len(chunks))],
+        documents=chunks,
+        embeddings=embeddings,
+        metadatas=[{"doc_id": doc_id, "chunk_idx": i} for i in range(len(chunks))]
+    )</code></pre>
+
+      <h3>Telemetry & Hallucination Prevention</h3>
+      <p>We log cosine similarity distribution per retrieval query. If the top-k score falls below a calibrated threshold of 0.65, the system responds with a fallback confirmation rather than hallucinating unreliable text.</p>
+    `
+  },
+  {
+    id: 'clinical-agent',
+    title: 'Autonomous Ultrasound & DICOM Parsing with Multi-Agent Guardrails',
+    short: 'Clinical AI Reporter',
+    category: 'Healthcare AI',
+    date: 'Jun 2026',
+    readTime: '7 min read',
+    tag: 'CLINICAL SYSTEMS',
+    badge: 'HEALTHCARE AI',
+    featured: false,
+    image: 'assets/images/projects/clinical.png',
+    summary: 'Converting unconstrained ultrasound scans into 99.4% validated diagnostic reports using LangGraph deterministic state machines and Pydantic validation.',
+    repo: 'https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter',
+    stack: ['LangGraph', 'Gemini', 'Pydantic', 'FastAPI', 'DICOM'],
+    content: `
+      <p class="lead-p">Medical diagnostic systems leave zero room for hallucinations. An incorrect measurement or omitted finding can compromise patient care. Here is how we achieved a <strong>99.4% validation rate</strong> converting DICOM ultrasound scans into structured medical reports.</p>
+
+      <h3>State Machine Architecture with LangGraph</h3>
+      <p>Rather than relying on a single prompt to parse images and format output, the workflow is partitioned into discrete deterministic nodes:</p>
+      <ul>
+        <li><strong>Ingestion & OCR Node</strong>: Extracts patient metadata, scan parameters, and acoustic probe markers.</li>
+        <li><strong>Diagnostic Feature Extractor</strong>: Identifies anatomical measurements (e.g., organ dimensions, echogenicity, doppler velocity).</li>
+        <li><strong>Pydantic Strict Validation Gate</strong>: Enforces schema compliance, physiological range boundaries, and standard medical terminology.</li>
+        <li><strong>Self-Correction Loop</strong>: If validation fails, errors are passed back to the model with specific schema violations for immediate correction.</li>
+      </ul>
+
+      <pre><code>class UltrasoundReport(BaseModel):
+    patient_id: str = Field(..., regex=r"^[A-Z0-9_-]{6,16}$")
+    liver_span_cm: float = Field(..., ge=5.0, le=25.0)
+    echogenicity: Literal["Normal", "Increased", "Decreased", "Coarse"]
+    focal_lesions_identified: bool
+    findings_summary: str = Field(..., min_length=20)</code></pre>
+
+      <h3>Impact & Results</h3>
+      <p>The system reduced radiology reporting turnaround time from 45 minutes to under 90 seconds while maintaining physician verification compliance.</p>
+    `
+  },
+  {
+    id: 'codeforces-engineering',
+    title: 'From LeetCode to Top 70 on Codeforces: Algorithmic Systems Engineering',
+    short: 'Codeforces & Algorithms',
+    category: 'Algorithms',
+    date: 'May 2026',
+    readTime: '5 min read',
+    tag: 'COMPETITIVE PROGRAMMING',
+    badge: 'ALGORITHMS',
+    featured: false,
+    image: 'assets/images/projects/analyst.png',
+    summary: 'How competitive programming principles—memory cache locality, branch prediction, and constant-factor optimization—directly elevate production backend engineering.',
+    repo: 'https://codeforces.com/profile/rodrickkkk',
+    stack: ['C++', 'Algorithms', 'Data Structures', 'Performance'],
+    content: `
+      <p class="lead-p">Ranking in the <strong>Top 70 in Pakistan on Codeforces</strong> and maintaining a 100+ day streak taught me more about building scalable backend systems than any textbook.</p>
+
+      <h3>What Competitive Programming Teaches You About Real Systems</h3>
+      <ol>
+        <li><strong>Algorithmic Complexity vs. Constant Factors</strong>: Big-O notation is essential, but in latency-critical systems (like sub-750ms voice pipelines), cache line alignment and memory locality matter just as much as asymptotic bounds.</li>
+        <li><strong>Edge Cases Are Not Exceptions; They Are Requirements</strong>: When an online judge tests your code with 100 hidden test cases including max limits and null topologies, you develop instinctual rigor for defensive coding.</li>
+        <li><strong>Debugging Under Pressure</strong>: Solving Div.2 and Div.1 problems with a 2-hour clock sharpens your mental tracer for finding off-by-one errors and memory leaks in minutes.</li>
+      </ol>
+
+      <pre><code>// Fast I/O and cache-friendly segment tree updates
+struct SegTree {
+    int n;
+    vector&lt;long long&gt; tree;
+    SegTree(int n): n(n), tree(4 * n, 0) {}
+    
+    void update(int node, int start, int end, int idx, long long val) {
+        if (start == end) { tree[node] = val; return; }
+        int mid = (start + end) &gt;&gt; 1;
+        if (idx &lt;= mid) update(node &lt;&lt; 1, start, mid, idx, val);
+        else update((node &lt;&lt; 1) | 1, mid + 1, end, idx, val);
+        tree[node] = tree[node &lt;&lt; 1] + tree[(node &lt;&lt; 1) | 1];
+    }
+};</code></pre>
+
+      <h3>Bridging the Gap to Production</h3>
+      <p>The intuition gained from competitive programming translates directly into writing high-performance FastAPI backends, vector search pruning, and low-latency agent orchestrators.</p>
+    `
+  },
+  {
+    id: 'persistent-memory',
+    title: 'Long-Term Agent Memory: Solving Contradictions with Graph Overrides',
+    short: 'Graph Memory Engine',
+    category: 'Agentic AI',
+    date: 'Apr 2026',
+    readTime: '6 min read',
+    tag: 'GRAPH MEMORY',
+    badge: 'PERSISTENCE',
+    featured: false,
+    image: 'assets/images/projects/memory.png',
+    summary: 'Moving beyond simple vector similarity: building dynamic memory trees that resolve factual contradictions across multi-turn agent sessions using Mem0 and Qdrant.',
+    repo: 'https://github.com/Abdullah-Zafarr/Mem0-Graph-Memory-Engine',
+    stack: ['Mem0', 'Qdrant', 'Python', 'Vector DB'],
+    content: `
+      <p class="lead-p">Traditional RAG fails when a user says <em>"Actually, I moved from Lahore to San Francisco"</em>. A naïve vector search will retrieve both facts with equal similarity, confusing the LLM into generating conflicting statements.</p>
+
+      <h3>Dynamic Graph Overrides</h3>
+      <p>Using Mem0 combined with Qdrant vector storage, we track episodic memory states with temporal validity stamps and contradiction resolution graphs.</p>
+
+      <h3>Core Lifecycle</h3>
+      <ul>
+        <li><strong>Fact Extraction</strong>: Extracting atomic entity-attribute-value triples during conversational dialogue.</li>
+        <li><strong>Contradiction Detection</strong>: Checking candidate triples against existing entity states.</li>
+        <li><strong>Supersede Action</strong>: Invalidating obsolete memory nodes while keeping an auditable history trace.</li>
+      </ul>
+
+      <pre><code># Fact ingestion with contradiction resolution
+def upsert_agent_memory(user_id: str, new_fact: str):
+    conflicts = memory_engine.find_conflicts(user_id=user_id, fact=new_fact)
+    for stale_fact_id in conflicts:
+        memory_engine.deprecate(stale_fact_id, reason="superseded_by_newer_statement")
+        
+    memory_engine.add(user_id=user_id, text=new_fact, timestamp=time.time())</code></pre>
+    `
+  }
+];
+
 const profileConfigs = {
   Recruiter: {
     avatarColor: 'linear-gradient(145deg,#168bd1,#174f8b)',
@@ -196,6 +407,7 @@ const nav = active => {
       <a class="${active==='projects'?'active':''}" href="${routes.projects}">Projects</a>
       <a class="${active==='experience'?'active':''}" href="${routes.experience}">Experience</a>
       <a class="${active==='about'?'active':''}" href="${routes.about}">About</a>
+      <a class="${active==='blog'?'active':''}" href="${routes.blog}">Blog</a>
       <a class="${active==='contact'?'active':''}" href="${routes.contact}">Contact</a>
     </nav>
     <div class="nav-tools">
@@ -244,6 +456,7 @@ const nav = active => {
     <a href="${routes.projects}">Projects</a>
     <a href="${routes.experience}">Experience</a>
     <a href="${routes.about}">About</a>
+    <a href="${routes.blog}">Blog</a>
     <a href="${routes.contact}">Contact</a>
   </aside>`;
 };
@@ -257,6 +470,7 @@ const footer = () => `<footer class="eledra-footer">
           <a href="${routes.projects}">PROJECTS</a>
           <a href="${routes.experience}">EXPERIENCE</a>
           <a href="${routes.about}">ABOUT</a>
+          <a href="${routes.blog}">BLOG</a>
           <a href="${routes.contact}">CONTACT</a>
         </div>
       </div>
@@ -701,7 +915,130 @@ function contactPage(){
   ${footer()}`;
 }
 
-const renderers = { home, projects:projectsPage, experience:experiencePage, about:aboutPage, contact:contactPage };
+function articleCard(a) {
+  return `<article class="article-card reveal" data-category="${a.category}" data-search="${a.title.toLowerCase()} ${a.summary.toLowerCase()} ${a.stack.join(' ').toLowerCase()}">
+    <div class="article-card-thumb" onclick="openArticle('${a.id}')">
+      <img src="${a.image}" alt="${a.title}" loading="lazy">
+      <span class="article-category-badge">${a.tag}</span>
+      <span class="article-read-time"><i data-lucide="clock"></i> ${a.readTime}</span>
+    </div>
+    <div class="article-card-body">
+      <div class="article-meta-line">
+        <span class="article-date">${a.date}</span>
+        <span class="article-dot">·</span>
+        <span class="article-cat-name">${a.category}</span>
+      </div>
+      <h3 class="article-card-title" onclick="openArticle('${a.id}')">${a.title}</h3>
+      <p class="article-card-summary">${a.summary}</p>
+      <div class="article-card-stack">
+        ${a.stack.map(s => `<span>${s}</span>`).join('')}
+      </div>
+      <div class="article-card-actions">
+        <button class="play-btn read-btn" onclick="openArticle('${a.id}')">
+          <i data-lucide="book-open"></i> Read Log
+        </button>
+        ${a.repo ? `<a href="${a.repo}" target="_blank" class="info-btn code-btn" title="View Source Code"><i data-lucide="github"></i> Code</a>` : ''}
+      </div>
+    </div>
+  </article>`;
+}
+
+function featuredArticleCard(a) {
+  return `<section class="featured-editorial-banner reveal" onclick="openArticle('${a.id}')">
+    <div class="featured-banner-bg" style="background-image: url('${a.image}');"></div>
+    <div class="featured-banner-glow"></div>
+    <div class="featured-banner-content">
+      <div class="featured-badge-row">
+        <span class="featured-spotlight-pill"><i data-lucide="sparkles"></i> TOP STORY</span>
+        <span class="featured-tag-pill">${a.tag}</span>
+        <span class="featured-time-pill"><i data-lucide="clock"></i> ${a.readTime}</span>
+      </div>
+      <h2>${a.title}</h2>
+      <p>${a.summary}</p>
+      <div class="featured-banner-actions">
+        <button class="play-btn"><i data-lucide="book-open"></i> Read Featured Story</button>
+        <span class="featured-date-note">${a.date} · By Abdullah Zafar</span>
+      </div>
+    </div>
+  </section>`;
+}
+
+function articleModal() {
+  return `<dialog class="details-modal article-reader-modal" id="article-modal">
+    <button class="modal-close" aria-label="Close reader"><i data-lucide="x"></i></button>
+    <article class="article-reader-container">
+      <header class="reader-header">
+        <div class="reader-meta-pills">
+          <span class="reader-category" id="modal-article-cat"></span>
+          <span class="reader-readtime" id="modal-article-time"></span>
+          <span class="reader-date" id="modal-article-date"></span>
+        </div>
+        <h1 class="reader-title" id="modal-article-title"></h1>
+        <p class="reader-summary-lead" id="modal-article-summary"></p>
+        <div class="reader-author-bar">
+          <img src="${files.portrait}" alt="Abdullah Zafar" class="reader-author-avatar">
+          <div class="reader-author-info">
+            <strong>Abdullah Zafar</strong>
+            <span>AI Systems Engineer · Co-Founder @ Eledra Labs · Top 70 Codeforces</span>
+          </div>
+          <div class="reader-header-actions" id="modal-article-actions"></div>
+        </div>
+      </header>
+      <div class="reader-divider"></div>
+      <div class="reader-content markdown-body" id="modal-article-content"></div>
+      <footer class="reader-footer">
+        <div class="reader-footer-box">
+          <h3>Enjoyed this architectural breakdown?</h3>
+          <p>Let's collaborate on production AI systems, voice agents, or low-latency infrastructure.</p>
+          <div class="reader-footer-ctas">
+            <a href="${routes.contact}" class="play-btn"><i data-lucide="send"></i> Get in Touch</a>
+            <a href="${links.github}" target="_blank" class="info-btn"><i data-lucide="github"></i> GitHub</a>
+            <a href="${links.linkedin}" target="_blank" class="info-btn"><i data-lucide="linkedin"></i> LinkedIn</a>
+          </div>
+        </div>
+      </footer>
+    </article>
+  </dialog>`;
+}
+
+function blogPage() {
+  const featured = articles.find(a => a.featured) || articles[0];
+  const categories = ['All', 'Voice AI', 'RAG Architecture', 'Healthcare AI', 'Algorithms', 'Agentic AI'];
+
+  return `${nav('blog')}
+  <main class="sub-page blog-page">
+    <section class="page-billboard blog-billboard">
+      <div>
+        <p class="original"><span>A</span> EDITORIAL SERIES · ENGINEERING DISPATCH</p>
+        <h1>ENGINEERING LOGS</h1>
+        <p>In-depth architectural breakdowns, latency budgeting, zero-framework retrieval, and high-performance algorithms.</p>
+      </div>
+    </section>
+
+    <div class="blog-container">
+      ${featured ? featuredArticleCard(featured) : ''}
+
+      <section class="blog-feed-section">
+        <div class="blog-filter-bar">
+          <div class="category-pills" id="article-category-filters">
+            ${categories.map((c, i) => `<button class="filter-pill ${i===0?'active':''}" data-category="${c}">${c}</button>`).join('')}
+          </div>
+          <div class="blog-count"><strong id="article-count-display">${articles.length}</strong> Logs Published</div>
+        </div>
+
+        <div class="article-grid" id="articles-grid">
+          ${articles.map(a => articleCard(a)).join('')}
+        </div>
+      </section>
+    </div>
+  </main>
+  ${tvRemoteHint()}
+  ${footer()}
+  ${articleModal()}
+  ${modal()}`;
+}
+
+const renderers = { home, projects:projectsPage, experience:experiencePage, about:aboutPage, blog:blogPage, contact:contactPage };
 if (pageName && renderers[pageName]) $('#site').innerHTML = renderers[pageName]();
 iconify();
 
@@ -814,17 +1151,27 @@ function initTVKeyboardNavigation(){
     if (dialog && dialog.open) {
       return $$('button, a, input, [tabindex="0"]', dialog).filter(el => !el.hidden && el.offsetParent !== null);
     }
-    return $$('.billboard-buttons a, .title-card, .continue-card, .skill-tile, .project-grid .title-card, .episode, .stack-section span, .achievement-row article, .footer-links a, .eledra-links-row a', document)
+    const artDialog = $('#article-modal');
+    if (artDialog && artDialog.open) {
+      return $$('button, a, input, [tabindex="0"]', artDialog).filter(el => !el.hidden && el.offsetParent !== null);
+    }
+    return $$('.billboard-buttons a, .title-card, .continue-card, .skill-tile, .project-grid .title-card, .article-card, .filter-pill, .episode, .stack-section span, .achievement-row article, .footer-links a, .eledra-links-row a', document)
       .filter(el => !el.hidden && el.offsetParent !== null);
   }
 
   window.addEventListener('keydown', e => {
     const dialog = $('#details-modal');
+    const artDialog = $('#article-modal');
     const searchBox = $('.search-box');
 
     if (e.key === 'Escape') {
       if (dialog && dialog.open) {
         dialog.close();
+        e.preventDefault();
+        return;
+      }
+      if (artDialog && artDialog.open) {
+        artDialog.close();
         e.preventDefault();
         return;
       }
@@ -843,7 +1190,7 @@ function initTVKeyboardNavigation(){
     }
 
     if ((e.key === '/' || e.key === 's' || e.key === 'S') && !e.ctrlKey && !e.metaKey) {
-      if (!dialog?.open) {
+      if (!dialog?.open && !artDialog?.open) {
         e.preventDefault();
         searchBox?.classList.add('open');
         $('.search-box input')?.focus();
@@ -852,7 +1199,7 @@ function initTVKeyboardNavigation(){
     }
 
     if (e.key === 'p' || e.key === 'P') {
-      if (!dialog?.open) {
+      if (!dialog?.open && !artDialog?.open) {
         sessionStorage.removeItem('az-profile');
         location.href = 'index.html';
         return;
@@ -938,7 +1285,7 @@ function setup(){
 
   $('.search-box input')?.addEventListener('input', e => {
     const val = e.target.value.toLowerCase().trim();
-    const cards = $$('.title-card, .list-item-card');
+    const cards = $$('.title-card, .list-item-card, .article-card');
     cards.forEach(c => {
       const searchData = c.dataset.search || '';
       c.hidden = val ? !searchData.includes(val) : false;
@@ -1034,6 +1381,34 @@ function setup(){
   $('.modal-close')?.addEventListener('click', () => dialog?.close());
   dialog?.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 
+  const artDialog = $('#article-modal');
+  $('.article-reader-modal .modal-close')?.addEventListener('click', () => artDialog?.close());
+  artDialog?.addEventListener('click', e => { if (e.target === artDialog) artDialog.close(); });
+
+  // Blog Category Filtering
+  $$('.category-pills .filter-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $$('.category-pills .filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.category;
+      const cards = $$('.article-card');
+      let visibleCount = 0;
+      cards.forEach(c => {
+        const match = cat === 'All' || c.dataset.category === cat;
+        c.hidden = !match;
+        if (match) visibleCount++;
+      });
+      const countEl = $('#article-count-display');
+      if (countEl) countEl.textContent = visibleCount;
+    });
+  });
+
+  // Direct Article Param Support
+  const targetArticle = new URLSearchParams(location.search).get('article');
+  if (targetArticle) {
+    setTimeout(() => openArticle(targetArticle), 150);
+  }
+
   $('.tv-hint-close')?.addEventListener('click', () => $('#tv-hint')?.remove());
 
   initIntersectionObserver();
@@ -1079,6 +1454,38 @@ function setup(){
       }, 250);
     });
   }
+}
+
+function openArticle(id){
+  const a = articles.find(x => x.id === id);
+  const d = $('#article-modal');
+  if(!a || !d) return;
+
+  $('#modal-article-cat').textContent = a.tag;
+  $('#modal-article-time').innerHTML = `<i data-lucide="clock"></i> ${a.readTime}`;
+  $('#modal-article-date').textContent = a.date;
+  $('#modal-article-title').textContent = a.title;
+  $('#modal-article-summary').textContent = a.summary;
+  $('#modal-article-content').innerHTML = a.content;
+
+  const actionsEl = $('#modal-article-actions');
+  if (actionsEl) {
+    actionsEl.innerHTML = `
+      ${a.repo ? `<a href="${a.repo}" target="_blank" class="info-btn" title="View Source on GitHub"><i data-lucide="github"></i> Repository</a>` : ''}
+      <button class="round secondary share-btn" id="modal-share-btn" title="Copy Link"><i data-lucide="share-2"></i></button>
+    `;
+    $('#modal-share-btn')?.addEventListener('click', () => {
+      const shareUrl = window.location.origin + window.location.pathname + '?article=' + a.id;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          alert('Article link copied to clipboard: ' + shareUrl);
+        }).catch(() => {});
+      }
+    });
+  }
+
+  iconify();
+  d.showModal();
 }
 
 function openDetails(id){
