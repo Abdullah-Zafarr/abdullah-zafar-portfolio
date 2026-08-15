@@ -17,7 +17,7 @@ const routes = {
   contact:'contact/'
 };
 const files = {
-  logo:'assets/brand/az-mark.svg',
+  logo:'assets/icons/logo.PNG',
   resume:'assets/documents/Abdullah-Zafar-Resume.pdf',
   portrait:'assets/images/profile/abdullah-zafar.jfif'
 };

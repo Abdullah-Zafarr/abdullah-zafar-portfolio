@@ -101,7 +101,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   top: 28px;
   left: 4vw;
 }
-.profiles-logo img { width: 160px; max-width: 45vw; height: auto; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.6)); }
+.profiles-logo img {
+  height: 52px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.7));
+  transition: transform .2s ease;
+}
+.profiles-logo:hover img {
+  transform: scale(1.04);
+}
 .profile-sound-status {
   position: absolute;
   right: 4vw;
@@ -202,7 +212,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   opacity: 0;
   pointer-events: none;
 }
-.profile-transition-logo img { width: 190px; }
+.profile-transition-logo img { width: 140px; height: auto; object-fit: contain; }
 .profile-selecting .profile-transition-logo {
   animation: profileLogo .9s .65s ease-out both;
 }
@@ -249,8 +259,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.nav-logo img { display: block; width: 142px; height: auto; max-height: 42px; transition: transform .2s ease; }
-.nav-logo:hover img { transform: scale(1.03); }
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+.nav-logo img {
+  display: block;
+  height: 36px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  transition: transform .2s ease, filter .2s ease;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+}
+.nav-logo:hover img {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 14px rgba(229,9,20,0.5));
+}
 .netflix-nav nav { display: flex; gap: 24px; }
 .netflix-nav nav a {
   font-size: .84rem;
@@ -457,7 +482,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .mobile-drawer.open { transform: none; }
-.mobile-drawer > img { width: 90px; margin-bottom: 25px; }
+.mobile-drawer > img { height: 42px; width: auto; max-width: 100px; object-fit: contain; margin-bottom: 25px; }
 .drawer-close { position: absolute; right: 25px; top: 25px; background: none; border: 0; color: #fff; }
 .mobile-drawer a { font-size: 1.2rem; border-bottom: 1px solid #222736; padding-bottom: 13px; font-weight: 600; }
 

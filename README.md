@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/brand/az-mark.svg" width="150" alt="AZ logo" />
+  <img src="assets/icons/logo.PNG" width="120" alt="AZ logo" />
 
   # Abdullah Zafar - Netflix-Inspired Portfolio
 
