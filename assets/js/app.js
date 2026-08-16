@@ -1166,23 +1166,7 @@ function bindRailInteractions(){
       setTimeout(updateArrows, 400);
     });
 
-    // Intercept mouse wheel over horizontal rail: scrolls cards horizontally and locks vertical page scrolling
-    let wheelTimer;
-    r.addEventListener('wheel', (e) => {
-      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      if (delta !== 0) {
-        e.preventDefault();
-        r.scrollLeft += delta;
-        r.classList.add('is-scrolling');
-        clearTimeout(wheelTimer);
-        wheelTimer = setTimeout(() => {
-          r.classList.remove('is-scrolling');
-          updateArrows();
-        }, 120);
-      }
-    }, { passive: false });
-
-    // Smooth drag-to-scroll support
+    // Smooth drag-to-scroll support without trapping vertical wheel scroll
     let isDown = false;
     let startX = 0;
     let startScroll = 0;
@@ -1220,15 +1204,6 @@ function bindRailInteractions(){
 
     r?.addEventListener('scroll', updateArrows, { passive: true });
     updateArrows();
-  });
-
-  $$('.skills-row').forEach(row => {
-    row.addEventListener('wheel', e => {
-      if (row.scrollWidth > row.clientWidth && (e.deltaY || e.deltaX)) {
-        e.preventDefault();
-        row.scrollLeft += (e.deltaY || e.deltaX);
-      }
-    }, { passive: false });
   });
 
   $$('[data-info]').forEach(btn => btn.addEventListener('click', e => {

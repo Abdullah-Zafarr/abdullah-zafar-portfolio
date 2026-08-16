@@ -22,7 +22,7 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(229, 9, 20, 0.45) #08090d;
+  scrollbar-color: #262c3a #07080b;
 }
 body {
   margin: 0;
@@ -35,33 +35,30 @@ body {
 }
 
 /* ========================================================
-   Smooth Custom Scrollbars (Global & Modals) - Netflix Red
+   Smooth Custom Scrollbars (Global & Modals) - Minimal Dark
    ======================================================== */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
   background: #06070a;
-  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #e50914 0%, #85070f 100%);
-  border: 1.5px solid #06070a;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
-  transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  background: #252a38;
+  border-radius: 4px;
+  border: 1px solid #06070a;
+  transition: background .2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #ff2a36 0%, #e50914 100%);
-  box-shadow: 0 0 16px var(--red-glow);
+  background: #3c445a;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #ff1925;
+  background: #4f576e;
 }
 
 ::-webkit-scrollbar-corner {
@@ -74,13 +71,13 @@ body {
 .mobile-drawer,
 .notif-dropdown {
   scrollbar-width: thin;
-  scrollbar-color: var(--red) #06070a;
+  scrollbar-color: #2b3244 #090a0f;
   scroll-behavior: smooth;
 }
 
 .details-modal::-webkit-scrollbar,
 .article-reader-modal::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 .details-modal::-webkit-scrollbar-track,
@@ -90,16 +87,14 @@ body {
 
 .details-modal::-webkit-scrollbar-thumb,
 .article-reader-modal::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #e50914 0%, #990000 100%);
-  border-radius: 6px;
+  background: #2b3244;
+  border-radius: 4px;
   border: 1px solid #090a0f;
-  box-shadow: 0 0 8px rgba(229, 9, 20, 0.35);
 }
 
 .details-modal::-webkit-scrollbar-thumb:hover,
 .article-reader-modal::-webkit-scrollbar-thumb:hover {
-  background: #ff2a36;
-  box-shadow: 0 0 14px var(--red-glow);
+  background: #3e4760;
 }
 
 a { color: inherit; text-decoration: none; }
