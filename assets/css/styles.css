@@ -752,16 +752,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .rail-shell {
   position: relative;
   z-index: 5;
+  overflow: visible;
 }
 .title-rail {
   display: flex;
   align-items: center;
   gap: 14px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   scrollbar-width: none;
-  padding: 25px 4% 75px;
-  margin: -25px 0 -55px;
+  padding: 35px 4% 220px;
+  margin: -35px 0 -195px;
   scroll-padding-left: 4%;
   scroll-behavior: smooth;
   cursor: grab;
