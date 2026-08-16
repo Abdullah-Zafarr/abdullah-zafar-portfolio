@@ -489,12 +489,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Browse Page & Billboard */
 .browse-page { min-height: 100vh; }
 .billboard {
-  height: clamp(520px, 58vh, 680px);
-  min-height: 500px;
+  height: min(80vw, 820px);
+  min-height: 670px;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 6% 4% 6%;
+  padding: 8% 4%;
 }
 .billboard-bg {
   position: absolute;
@@ -2613,18 +2613,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media(min-width: 901px) {
   .billboard {
-    height: clamp(540px, 60vh, 720px);
-    max-height: 720px;
-    padding-bottom: 5%;
+    height: max(740px, 94vh);
+    max-height: 920px;
+    padding-bottom: 9%;
   }
-  .browse-rails { margin-top: -30px; }
+  .browse-rails { margin-top: -35px; }
 }
 
 @media(max-width: 900px) {
   .netflix-nav nav { display: none; }
   .mobile-toggle { display: block; }
   .nav-tools > .nav-tool:nth-of-type(2), .profile-menu { display: none; }
-  .billboard { padding: 100px 5% 60px; min-height: 480px; height: auto; }
+  .billboard { padding: 130px 5% 100px; min-height: 700px; }
   .billboard-bg { background-position: 65% center; }
   .billboard-copy { max-width: 480px; }
   .browse-rails { margin-top: -70px; }
