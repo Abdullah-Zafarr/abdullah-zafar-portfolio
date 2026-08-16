@@ -761,8 +761,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
-  padding: 35px 4% 220px;
-  margin: -35px 0 -195px;
+  padding: 30px 4% 95px;
+  margin: -30px 0 -75px;
   scroll-padding-left: 4%;
   scroll-behavior: smooth;
   cursor: grab;
@@ -1092,10 +1092,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .hover-actions svg { width: 14px; height: 14px; }
 .hover-actions > span { flex: 1; }
 .hover-actions .secondary { background: #1a1e2b; color: #fff; border-color: rgba(255,255,255,0.25); }
-.card-hover > strong { font-size: .8rem; color: var(--green); font-weight: 800; display: block; margin-bottom: 2px; }
-.hover-meta { font-size: .68rem; margin: 2px 0 4px; color: #cbd5e1; font-weight: 500; display: flex; align-items: center; gap: 6px; }
-.hover-meta span { border: 1px solid #475569; padding: 1px 4px; border-radius: 2px; font-size: 0.62rem; }
-.card-hover > p { font-size: .68rem; color: #94a3b8; margin: 0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-hover > strong { font-size: .8rem; color: var(--green); font-weight: 800; display: block; margin: 0; }
 
 /* Rail Arrow Paddles */
 .rail-arrow {

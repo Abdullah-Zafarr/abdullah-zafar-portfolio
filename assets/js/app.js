@@ -551,8 +551,6 @@ const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-p
       <a href="${p.repo}" target="_blank" class="round secondary" aria-label="GitHub"><i data-lucide="github"></i></a>
     </div>
     <strong>${p.match} Match</strong>
-    <div class="hover-meta"><span>${p.rating}</span> ${p.year} · ${p.runtime}</div>
-    <p>${p.stack.slice(0,3).join(' · ')}</p>
   </div>
 </article>`;
 
