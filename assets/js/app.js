@@ -1143,8 +1143,9 @@ function bindRailInteractions(){
     const prevBtn = $('.prev', shell);
     const nextBtn = $('.next', shell);
 
+    if(!r) return;
+
     const updateArrows = () => {
-      if(!r) return;
       if(prevBtn) {
         prevBtn.style.opacity = r.scrollLeft > 15 ? '1' : '0.2';
         prevBtn.style.pointerEvents = r.scrollLeft > 15 ? 'auto' : 'none';
@@ -1165,8 +1166,69 @@ function bindRailInteractions(){
       setTimeout(updateArrows, 400);
     });
 
+    // Intercept mouse wheel over horizontal rail: scrolls cards horizontally and locks vertical page scrolling
+    let wheelTimer;
+    r.addEventListener('wheel', (e) => {
+      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (delta !== 0) {
+        e.preventDefault();
+        r.scrollLeft += delta;
+        r.classList.add('is-scrolling');
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => {
+          r.classList.remove('is-scrolling');
+          updateArrows();
+        }, 120);
+      }
+    }, { passive: false });
+
+    // Smooth drag-to-scroll support
+    let isDown = false;
+    let startX = 0;
+    let startScroll = 0;
+
+    r.addEventListener('mousedown', (e) => {
+      if (e.target.closest('a, button')) return;
+      isDown = true;
+      startX = e.pageX - r.offsetLeft;
+      startScroll = r.scrollLeft;
+      r.classList.add('is-dragging');
+    });
+
+    r.addEventListener('mouseleave', () => {
+      if (isDown) {
+        isDown = false;
+        r.classList.remove('is-dragging');
+      }
+    });
+
+    r.addEventListener('mouseup', () => {
+      if (isDown) {
+        isDown = false;
+        r.classList.remove('is-dragging');
+      }
+    });
+
+    r.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - r.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      r.scrollLeft = startScroll - walk;
+      updateArrows();
+    });
+
     r?.addEventListener('scroll', updateArrows, { passive: true });
     updateArrows();
+  });
+
+  $$('.skills-row').forEach(row => {
+    row.addEventListener('wheel', e => {
+      if (row.scrollWidth > row.clientWidth && (e.deltaY || e.deltaX)) {
+        e.preventDefault();
+        row.scrollLeft += (e.deltaY || e.deltaX);
+      }
+    }, { passive: false });
   });
 
   $$('[data-info]').forEach(btn => btn.addEventListener('click', e => {

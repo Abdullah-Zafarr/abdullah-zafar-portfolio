@@ -489,12 +489,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Browse Page & Billboard */
 .browse-page { min-height: 100vh; }
 .billboard {
-  height: min(80vw, 820px);
-  min-height: 670px;
+  height: clamp(520px, 58vh, 680px);
+  min-height: 500px;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8% 4%;
+  padding: 6% 4% 6%;
 }
 .billboard-bg {
   position: absolute;
@@ -688,13 +688,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .title-rail {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   scrollbar-width: none;
-  padding: 30px 4% 85px;
-  margin: -30px 0 -65px;
+  padding: 25px 4% 75px;
+  margin: -25px 0 -55px;
   scroll-padding-left: 4%;
+  scroll-behavior: smooth;
+  cursor: grab;
+  user-select: none;
+}
+.title-rail.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
 }
 .title-rail::-webkit-scrollbar { display: none; }
 
@@ -707,19 +714,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   min-height: 126px;
   background: var(--black-card);
   border-radius: 6px;
-  transition: transform .28s cubic-bezier(.2,.7,.2,1), z-index 0s .14s, box-shadow .28s ease;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), z-index 0s .12s, box-shadow .25s ease;
   transform-origin: center center;
   z-index: 1;
   outline: none;
   box-sizing: border-box;
 }
 .title-card:hover, .title-card.tv-focus {
-  transform: scale(1.24) translateY(-8px);
+  transform: scale(1.15);
   z-index: 35;
-  transition-delay: .22s;
+  transition-delay: .18s;
 }
 .title-card:first-child { transform-origin: left center; }
 .title-card:last-child { transform-origin: right center; }
+
+/* When scrolling or dragging, lock cards completely in place */
+.title-rail.is-scrolling .title-card,
+.title-rail.is-dragging .title-card {
+  pointer-events: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+.title-rail.is-scrolling .card-hover,
+.title-rail.is-dragging .card-hover {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
 
 .card-poster {
   position: absolute;
@@ -1050,7 +1071,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .top-number {
   position: absolute;
   right: calc(100% - 24px);
-  bottom: -4px;
+  bottom: 0;
   font-family: 'Inter', sans-serif;
   font-weight: 900;
   font-size: clamp(6.2rem, 8.5vw, 9.6rem);
@@ -1061,6 +1082,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   z-index: 0;
   pointer-events: none;
   user-select: none;
+  transform: none !important;
 }
 
 /* Continue Watching Rail */
@@ -1082,7 +1104,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .continue-card:hover {
   background: #1c202c;
   border-color: rgba(255,255,255,0.15);
-  transform: scale(1.035);
+  transform: scale(1.03);
 }
 .episode-number { font: bold 2.1rem 'Bebas Neue'; color: #64748b; }
 .continue-card b { font-size: .92rem; color: #fff; }
@@ -1125,7 +1147,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   outline: none;
 }
 .skill-tile:hover {
-  transform: translateY(-4px) scale(1.06);
+  transform: scale(1.05);
   background: linear-gradient(145deg, #222736, #141722);
   border-color: rgba(255,255,255,0.22);
   box-shadow: 0 12px 28px rgba(0,0,0,0.6);
@@ -2578,32 +2600,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Reveal Animations */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .6s cubic-bezier(0.16, 1, 0.3, 1), transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity .4s ease;
 }
 .reveal.revealed {
   opacity: 1;
   transform: none;
 }
 @keyframes heroIn {
-  from { opacity: 0; transform: translateY(25px); }
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: none; }
 }
 
 @media(min-width: 901px) {
   .billboard {
-    height: max(740px, 94vh);
-    max-height: 920px;
-    padding-bottom: 9%;
+    height: clamp(540px, 60vh, 720px);
+    max-height: 720px;
+    padding-bottom: 5%;
   }
-  .browse-rails { margin-top: -35px; }
+  .browse-rails { margin-top: -30px; }
 }
 
 @media(max-width: 900px) {
   .netflix-nav nav { display: none; }
   .mobile-toggle { display: block; }
   .nav-tools > .nav-tool:nth-of-type(2), .profile-menu { display: none; }
-  .billboard { padding: 130px 5% 100px; min-height: 700px; }
+  .billboard { padding: 100px 5% 60px; min-height: 480px; height: auto; }
   .billboard-bg { background-position: 65% center; }
   .billboard-copy { max-width: 480px; }
   .browse-rails { margin-top: -70px; }
