@@ -355,7 +355,7 @@ const profileConfigs = {
     secondaryBtn: { text:'View Career Episodes', icon:'history', href:routes.experience },
     maturity: 'HIRE 2026',
     topPicksTitle: `Today's Top Picks for Recruiters`,
-    pCardOrder: ['voice', 'clinical', 'rag', 'analyst', 'multimodal', 'memory'],
+    pCardOrder: ['voice', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
     railOrder: ['picks', 'continue', 'ranked', 'skills']
   },
   Developer: {
@@ -366,7 +366,7 @@ const profileConfigs = {
     secondaryBtn: { text:'Explore Architecture', icon:'code-xml', href:routes.projects },
     maturity: 'DEV 2026',
     topPicksTitle: `Trending in Open-Source & Architecture`,
-    pCardOrder: ['rag', 'memory', 'voice', 'multimodal', 'analyst', 'clinical'],
+    pCardOrder: ['rag', 'voice', 'clinical', 'memory', 'analyst', 'multimodal'],
     railOrder: ['picks', 'ranked', 'skills', 'continue']
   },
   Client: {
@@ -377,7 +377,7 @@ const profileConfigs = {
     secondaryBtn: { text:'View Live Demos', icon:'external-link', href:routes.projects },
     maturity: 'PROD 2026',
     topPicksTitle: `Ready-to-Deploy Solutions & Demos`,
-    pCardOrder: ['clinical', 'voice', 'analyst', 'rag', 'multimodal', 'memory'],
+    pCardOrder: ['clinical', 'voice', 'rag', 'analyst', 'multimodal', 'memory'],
     railOrder: ['picks', 'ranked', 'continue', 'skills']
   },
   Explorer: {
@@ -388,7 +388,7 @@ const profileConfigs = {
     secondaryBtn: { text:'More Info', icon:'circle-alert', href:routes.about },
     maturity: 'AI 2026',
     topPicksTitle: `Today's Top Picks for Explorer`,
-    pCardOrder: ['voice', 'clinical', 'rag', 'analyst', 'multimodal', 'memory'],
+    pCardOrder: ['voice', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
     railOrder: ['picks', 'ranked', 'continue', 'skills']
   }
 };
