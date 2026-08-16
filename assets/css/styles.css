@@ -1300,8 +1300,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .page-billboard > div { position: relative; z-index: 2; max-width: 620px; }
 .page-billboard h1 { font-size: clamp(4.8rem, 8vw, 7.2rem); line-height: 0.85; margin: 0 0 12px; }
 .page-billboard p:not(.original) { line-height: 1.6; color: #cbd5e1; font-size: 1.05rem; }
-.projects-billboard { background-image: url('../images/projects/analyst-hero.png?v=2'); }
+.projects-billboard { background-image: url('../images/projects/analyst-hero.png?v=3'); }
 .experience-billboard { background-image: url('../images/projects/voice-analytics-hero.png?v=2'); }
+.blog-billboard { background-image: url('../images/projects/blog-hero.png?v=1'); }
 
 .catalog {
   max-width: 1360px;
