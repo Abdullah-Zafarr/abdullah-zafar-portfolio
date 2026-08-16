@@ -718,14 +718,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .rail-section {
   position: relative;
-  margin-bottom: 58px;
+  margin-bottom: 72px;
 }
 .rail-heading {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 0 4%;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   position: relative;
   z-index: 5;
 }
@@ -762,7 +762,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   overflow-y: visible;
   scrollbar-width: none;
   padding: 30px 4% 95px;
-  margin: -30px 0 -75px;
+  margin: -30px 0 -55px;
   scroll-padding-left: 4%;
   scroll-behavior: smooth;
   cursor: grab;
@@ -867,8 +867,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border: 1.5px solid rgba(229, 9, 20, 0.7);
   border-top: 0;
   box-shadow: 0 20px 45px rgba(0,0,0,0.95), 0 0 25px rgba(229, 9, 20, 0.25);
-  padding: 12px 14px 14px;
-  border-radius: 0 0 8px 8px;
+  padding: 12px 14px 16px;
+  border-radius: 0 0 10px 10px;
   opacity: 0;
   pointer-events: none;
   transition: opacity .2s ease;
@@ -1092,7 +1092,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .hover-actions svg { width: 14px; height: 14px; }
 .hover-actions > span { flex: 1; }
 .hover-actions .secondary { background: #1a1e2b; color: #fff; border-color: rgba(255,255,255,0.25); }
-.card-hover > strong { font-size: .8rem; color: var(--green); font-weight: 800; display: block; margin: 0; }
+.card-hover > strong { font-size: .84rem; color: var(--green); font-weight: 800; display: block; margin: 5px 0 0; letter-spacing: 0.02em; }
 
 /* Rail Arrow Paddles */
 .rail-arrow {
