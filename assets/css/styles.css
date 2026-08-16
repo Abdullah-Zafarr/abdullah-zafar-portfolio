@@ -825,7 +825,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center center;
+  image-rendering: -webkit-optimize-contrast;
   transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .title-card:hover .card-poster img { transform: scale(1.04); }
@@ -833,7 +834,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(10,11,14,0.65) 70%, rgba(10,11,14,0.98) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(10,11,14,0.55) 75%, rgba(10,11,14,0.92) 100%);
 }
 .card-title {
   position: absolute;
