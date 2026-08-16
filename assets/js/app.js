@@ -1,6 +1,9 @@
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-const iconify = () => window.lucide?.createIcons({attrs:{'stroke-width':2}});
+const iconify = () => {
+  window.lucide?.createIcons({attrs:{'stroke-width':2}});
+  $$('a[target="_blank"]').forEach(link => link.setAttribute('rel', 'noopener noreferrer'));
+};
 
 const links = {
   github:'https://github.com/Abdullah-Zafarr',
@@ -19,14 +22,9 @@ const routes = {
 const files = {
   logo:'assets/icons/logo.PNG',
   resume:'assets/documents/Abdullah-Zafar-Resume.pdf',
-  portrait:'assets/images/profile/abdullah-zafar.jfif'
-};
-
-const profileMemes = {
-  Recruiter: 'assets/images/profile/recruiter-meme.png',
-  Client: 'assets/images/profile/client-meme.png',
-  Developer: 'assets/images/profile/developer-meme.png',
-  Explorer: 'assets/images/profile/explorer-meme.png'
+  portrait:'assets/images/profile/abdullah-zafar.jfif',
+  heroPortrait:'assets/images/profile/hero-portrait-v2.webp',
+  heroPortraitSmall:'assets/images/profile/hero-portrait-v2-960.webp'
 };
 
 const projects = [
@@ -37,14 +35,11 @@ const projects = [
    image:'assets/images/projects/voice-ui.png?v=5',
    rank:'1',
    year:'2026',
-   match:'98%',
    runtime:'Sub-750ms',
-   rating:'PG',
-   desc:'A full-duplex conversational voice system with Twilio telephony, WebSocket audio, Deepgram STT, and sub-750ms Groq inference.',
-   stack:['TypeScript','Twilio','Deepgram','Groq'],
+   desc:'A low-latency medical voice platform with LiveKit/WebRTC, Gladia STT, Cartesia TTS, OpenAI orchestration, Supabase operations, and a React admin surface.',
+   stack:['Python','LiveKit','Cartesia','Supabase'],
    repo:'https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent',
-   teaserType:'waveform',
-   teaserTag:'LIVE TELEPHONY STREAM · 680MS LATENCY'
+   teaserTag:'LIVEKIT WEBRTC · REAL-TIME VOICE'
  },
  {
    id:'clinical',
@@ -53,15 +48,11 @@ const projects = [
    image:'assets/images/projects/clinical.png?v=5',
    rank:'2',
    year:'2026',
-   match:'96%',
    runtime:'99.4% accuracy',
-   rating:'16+',
-   desc:'An event-driven healthcare platform that converts unstructured medical scans into validated, standardized diagnostic reports.',
-   stack:['TypeScript','LangGraph','Pydantic','Gemini'],
+   desc:'A clinical ultrasound workflow with dynamic worksheets, automated reporting, organization management, HL7 exchange, and voice transcription.',
+   stack:['Next.js','Supabase','Gladia','HL7'],
    repo:'https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter',
-   demo:'https://ultrasound-reporting-service.vercel.app',
-   teaserType:'scanner',
-   teaserTag:'DICOM SCAN PARSER · 99.4% VALIDATED'
+   teaserTag:'ULTRASOUND WORKFLOW · HL7 READY'
  },
  {
    id:'analyst',
@@ -70,13 +61,10 @@ const projects = [
    image:'assets/images/projects/analyst.png?v=5',
    rank:'3',
    year:'2026',
-   match:'95%',
    runtime:'91% self-fix',
-   rating:'PG',
    desc:'A conversational analyst that translates natural language into sandboxed Pandas execution with self-correcting debug loops.',
    stack:['Python','Pandas','Streamlit','Groq'],
    repo:'https://github.com/Abdullah-Zafarr/LLM-Data-Analyst-Groq',
-   teaserType:'terminal',
    teaserTag:'SANDBOXED REPL · SELF-CORRECTING FIX'
  },
  {
@@ -86,13 +74,10 @@ const projects = [
    image:'assets/images/projects/rag.png?v=5',
    rank:'4',
    year:'2026',
-   match:'94%',
    runtime:'Framework-free',
-   rating:'PG',
    desc:'A production RAG engine built from scratch with OCR ingestion, vector-store purging, Groq streaming, and grounding telemetry.',
    stack:['Python','ChromaDB','OCR','Groq'],
    repo:'https://github.com/Abdullah-Zafarr/Native-RAG-Architecture',
-   teaserType:'vectors',
    teaserTag:'ZERO-FRAMEWORK RAG · CHROMADB TELEMETRY'
  },
  {
@@ -102,13 +87,10 @@ const projects = [
    image:'assets/images/projects/multimodal.png?v=5',
    rank:'5',
    year:'2026',
-   match:'92%',
    runtime:'Multi-tool',
-   rating:'PG',
    desc:'An agentic engine combining web search, audio extraction, Gemini Multimodal, cleanup, and dual CLI/Streamlit interfaces.',
    stack:['Python','Gemini','SerpAPI','Streamlit'],
    repo:'https://github.com/Abdullah-Zafarr/Multimodal-Agentic-Workflow',
-   teaserType:'agents',
    teaserTag:'MULTI-AGENT PIPELINE · GEMINI REASONING'
  },
  {
@@ -118,22 +100,12 @@ const projects = [
    image:'assets/images/projects/memory.png?v=5',
    rank:'6',
    year:'2026',
-   match:'91%',
    runtime:'Long-term',
-   rating:'PG',
    desc:'A persistent memory agent with multi-session facts, contradiction overrides, Qdrant storage, and context telemetry.',
    stack:['Python','Mem0','Qdrant','Agents'],
    repo:'https://github.com/Abdullah-Zafarr/Mem0-Graph-Memory-Engine',
-   teaserType:'graph',
    teaserTag:'GRAPH MEMORY OVERRIDES · QDRANT STORE'
  }
-];
-
-const notifications = [
-  { title:'Production Voice Agent v2.0', time:'Today', desc:'Sub-750ms latency full-duplex telephony live on GitHub.', icon:'phone-call' },
-  { title:'Autonomous Clinical Reporter', time:'Yesterday', desc:'Standardized diagnostic ultrasound reporter with 99.4% accuracy.', icon:'activity' },
-  { title:'Codeforces Rank #70', time:'2 days ago', desc:'Ranked 70th in Pakistan with 100+ day daily streak.', icon:'trophy' },
-  { title:'Resume AZ-2026 Updated', time:'This week', desc:'Full resume with production AI metrics available for download.', icon:'file-check' }
 ];
 
 const articles = [
@@ -148,10 +120,11 @@ const articles = [
     badge: 'FEATURED EDITORIAL',
     featured: true,
     image: 'assets/images/projects/voice-ui.png',
-    summary: 'A deep architectural breakdown on budgeting latency across Twilio WebSocket media streams, Deepgram Nova-2 STT, Groq Llama-3-70B streaming inference, and audio chunk pipelines.',
+    summary: 'An architecture retrospective on budgeting latency across the earlier Twilio WebSocket, Deepgram STT, Groq streaming, and audio-chunk pipeline.',
     repo: 'https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent',
     stack: ['Twilio', 'WebSockets', 'Deepgram', 'Groq', 'TypeScript'],
     content: `
+      <aside class="article-note"><strong>Architecture retrospective:</strong> This log covers the earlier Twilio/Groq implementation. The current repository has evolved to LiveKit, Gladia, Cartesia, OpenAI, Supabase, and a React operations dashboard.</aside>
       <p class="lead-p">In conversational voice systems, human turn-taking happens naturally within a <strong>500ms to 750ms window</strong>. Any delay beyond 800ms breaks conversation rhythm, causing unnatural pauses, awkward silence, and accidental interruptions.</p>
       
       <h3>The Anatomy of a Latency Budget</h3>
@@ -239,10 +212,11 @@ def sync_document_collection(collection, doc_id: str, chunks: list[str]):
     badge: 'HEALTHCARE AI',
     featured: false,
     image: 'assets/images/projects/clinical.png',
-    summary: 'Converting unconstrained ultrasound scans into 99.4% validated diagnostic reports using LangGraph deterministic state machines and Pydantic validation.',
+    summary: 'An architecture retrospective on converting unconstrained ultrasound scans into validated reports with deterministic agent state and structured schemas.',
     repo: 'https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter',
     stack: ['LangGraph', 'Gemini', 'Pydantic', 'FastAPI', 'DICOM'],
     content: `
+      <aside class="article-note"><strong>Architecture retrospective:</strong> This log documents the earlier LangGraph/Pydantic reporting architecture. The current Sonolynx repository has evolved into a Next.js and Supabase clinical workflow with Gladia/Deepgram transcription and HL7 integration.</aside>
       <p class="lead-p">Medical diagnostic systems leave zero room for hallucinations. An incorrect measurement or omitted finding can compromise patient care. Here is how we achieved a <strong>99.4% validation rate</strong> converting DICOM ultrasound scans into structured medical reports.</p>
 
       <h3>State Machine Architecture with LangGraph</h3>
@@ -349,60 +323,61 @@ def upsert_agent_memory(user_id: str, new_fact: str):
 const profileConfigs = {
   Recruiter: {
     avatarColor: 'linear-gradient(145deg,#168bd1,#174f8b)',
-    tagline: '<b>Top Candidate</b> · 98% Match for AI & Full-Stack Roles',
-    description: 'Co-founder and AI engineer specializing in latency-critical voice systems, medical diagnostic reporting, and production RAG pipelines built to scale outside the demo.',
+    tagline: '<b>Available</b> for AI engineering roles · Lahore / Remote',
+    description: 'I build latency-critical voice systems, validated clinical workflows, and retrieval infrastructure that is measured, observable, and ready for production.',
     primaryBtn: { text:'Download Resume', icon:'file-down', href:files.resume, external:true },
-    secondaryBtn: { text:'View Career Episodes', icon:'history', href:routes.experience },
+    secondaryBtn: { text:'View Experience', icon:'history', href:routes.experience },
     maturity: 'HIRE 2026',
-    topPicksTitle: `Today's Top Picks for Recruiters`,
+    topPicksTitle: `Selected work for hiring teams`,
     pCardOrder: ['voice', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
-    railOrder: ['picks', 'continue', 'ranked', 'skills']
+    railOrder: ['picks', 'continue', 'skills']
   },
   Developer: {
     avatarColor: 'linear-gradient(145deg,#b94bd0,#522069)',
-    tagline: '<b>Top 70</b> on Codeforces in Pakistan · Framework-Free AI Architect',
-    description: 'Specializing in framework-free RAG with ChromaDB, sub-750ms raw audio telephony pipelines, persistent graph memory, and self-correcting agent execution loops.',
+    tagline: '<b>Top 70</b> on Codeforces in Pakistan · Systems-first AI engineering',
+    description: 'Explore framework-free RAG, low-latency LiveKit voice pipelines, persistent graph memory, and agent loops designed with explicit failure modes and telemetry.',
     primaryBtn: { text:'GitHub Profile', icon:'github', href:links.github, external:true },
     secondaryBtn: { text:'Explore Architecture', icon:'code-xml', href:routes.projects },
     maturity: 'DEV 2026',
-    topPicksTitle: `Trending in Open-Source & Architecture`,
+    topPicksTitle: `Architecture and open-source builds`,
     pCardOrder: ['rag', 'voice', 'clinical', 'memory', 'analyst', 'multimodal'],
-    railOrder: ['picks', 'ranked', 'skills', 'continue']
+    railOrder: ['picks', 'skills', 'continue']
   },
   Client: {
     avatarColor: 'linear-gradient(145deg,#00a98f,#14534d)',
-    tagline: '<b>Commercial AI Systems</b> · High-ROI Deployed Software',
-    description: 'Delivering dependable, commercial-grade AI applications for enterprises and startups — from real-time telephony voice agents to automated clinical reporting.',
+    tagline: '<b>Commercial AI systems</b> · Designed around measurable outcomes',
+    description: 'I turn ambitious AI product ideas into dependable software—from real-time telephony agents to automated reporting and internal knowledge systems.',
     primaryBtn: { text:`Let's Build Together`, icon:'send', href:routes.contact },
-    secondaryBtn: { text:'View Live Demos', icon:'external-link', href:routes.projects },
+    secondaryBtn: { text:'View Product Builds', icon:'layers-3', href:routes.projects },
     maturity: 'PROD 2026',
-    topPicksTitle: `Ready-to-Deploy Solutions & Demos`,
+    topPicksTitle: `Product builds and live systems`,
     pCardOrder: ['clinical', 'voice', 'rag', 'analyst', 'multimodal', 'memory'],
-    railOrder: ['picks', 'ranked', 'continue', 'skills']
+    railOrder: ['picks', 'continue', 'skills']
   },
   Explorer: {
     avatarColor: 'linear-gradient(145deg,#ff8b24,#9b4007)',
-    tagline: '<b>Top 70</b> in Pakistan on Codeforces · AI Systems Engineer',
+    tagline: '<b>Top 70</b> in Pakistan on Codeforces · AI systems engineer',
     description: 'AI engineer and co-founder building production-grade voice agents, retrieval systems, and intelligent workflows that hold up outside the demo.',
     primaryBtn: { text:'Resume', icon:'file-down', href:files.resume, external:true },
     secondaryBtn: { text:'More Info', icon:'circle-alert', href:routes.about },
     maturity: 'AI 2026',
-    topPicksTitle: `Today's Top Picks for Explorer`,
+    topPicksTitle: `A guided tour of the work`,
     pCardOrder: ['voice', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
-    railOrder: ['picks', 'ranked', 'continue', 'skills']
+    railOrder: ['picks', 'continue', 'skills']
   }
 };
 
-let soundEnabled = true;
 const getActiveProfile = () => sessionStorage.getItem('az-profile') || 'Recruiter';
 const pageName = document.body.dataset.page || '';
 
 const nav = active => {
-  const prof = getActiveProfile();
-  const cfg = profileConfigs[prof] || profileConfigs.Recruiter;
-  return `<header class="netflix-nav">
-    <a href="${routes.home}" class="nav-logo" aria-label="Abdullah Zafar home"><img src="${files.logo}" alt="AZ"></a>
-    <nav>
+  return `<a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="netflix-nav">
+    <a href="${routes.home}" class="nav-logo" aria-label="Abdullah Zafar home">
+      <span class="nav-mark" aria-hidden="true">AZ<span>/</span></span>
+      <span class="nav-name">ABDULLAH ZAFAR</span>
+    </a>
+    <nav aria-label="Primary navigation">
       <a class="${active==='home'?'active':''}" href="${routes.home}">Home</a>
       <a class="${active==='projects'?'active':''}" href="${routes.projects}">Projects</a>
       <a class="${active==='experience'?'active':''}" href="${routes.experience}">Experience</a>
@@ -411,61 +386,40 @@ const nav = active => {
       <a class="${active==='contact'?'active':''}" href="${routes.contact}">Contact</a>
     </nav>
     <div class="nav-tools">
-      <button class="nav-tool search-toggle" aria-label="Search"><i data-lucide="search"></i></button>
-      <div class="search-box">
-        <input aria-label="Search projects" placeholder="Titles, skills, projects (e.g. voice, python, rag)">
-        <button aria-label="Close search" class="search-close"><i data-lucide="x"></i></button>
-      </div>
-      <div class="notification-wrapper">
-        <button class="nav-tool notif-toggle" aria-label="Notifications" title="Recent Updates">
-          <i data-lucide="bell"></i><b></b>
-        </button>
-        <div class="notification-dropdown" id="notif-dropdown">
-          <div class="notif-header">
-            <strong>Notifications</strong>
-            <span>4 New</span>
-          </div>
-          <div class="notif-list">
-            ${notifications.map(n => `
-              <div class="notif-item">
-                <div class="notif-icon"><i data-lucide="${n.icon}"></i></div>
-                <div class="notif-content">
-                  <b>${n.title}</b>
-                  <p>${n.desc}</p>
-                  <small>${n.time}</small>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-          <a href="${routes.projects}" class="notif-footer">View Pinned Releases <i data-lucide="chevron-right"></i></a>
-        </div>
-      </div>
-      <button class="profile-menu" title="Switch Profile (Current: ${prof})" aria-label="Change profile">
-        <span class="nav-avatar">
-          <img src="${profileMemes[prof] || profileMemes.Recruiter}" alt="${prof}">
-        </span>
-        <i data-lucide="chevron-down"></i>
-      </button>
-      <button class="mobile-toggle" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <span class="nav-availability"><i aria-hidden="true"></i> Available</span>
+      <a class="nav-contact" href="${routes.contact}">Start a conversation <i data-lucide="arrow-up-right"></i></a>
+      <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer"><i data-lucide="menu"></i></button>
     </div>
   </header>
-  <aside class="mobile-drawer">
-    <button class="drawer-close"><i data-lucide="x"></i></button>
-    <img src="${files.logo}" alt="AZ">
+  <aside class="mobile-drawer" id="mobile-drawer" aria-hidden="true" inert>
+    <button class="drawer-close" aria-label="Close menu"><i data-lucide="x"></i></button>
+    <span class="drawer-brand">AZ<span>/</span></span>
     <a href="${routes.home}">Home</a>
     <a href="${routes.projects}">Projects</a>
     <a href="${routes.experience}">Experience</a>
     <a href="${routes.about}">About</a>
     <a href="${routes.blog}">Blog</a>
     <a href="${routes.contact}">Contact</a>
+    <a class="drawer-resume" href="${files.resume}" target="_blank" rel="noopener noreferrer">Download resume <i data-lucide="arrow-up-right"></i></a>
   </aside>`;
 };
 
 const footer = () => `<footer class="eledra-footer">
   <div class="eledra-container">
+    <div class="footer-cta">
+      <div>
+        <p>HAVE A SERIOUS AI PROBLEM?</p>
+        <h2>Let’s make it dependable.</h2>
+      </div>
+      <a href="${routes.contact}" class="play-btn">Start a conversation <i data-lucide="arrow-up-right"></i></a>
+    </div>
     <div class="eledra-top-nav">
       <div class="eledra-col">
-        <h4 class="eledra-col-title">NAVIGATION</h4>
+        <h3 class="footer-brand">AZ<span>/</span></h3>
+        <p>AI systems engineer building voice, retrieval, agentic, and data products from Lahore.</p>
+      </div>
+      <div class="eledra-col">
+        <h4 class="eledra-col-title">EXPLORE</h4>
         <div class="eledra-links-row">
           <a href="${routes.projects}">PROJECTS</a>
           <a href="${routes.experience}">EXPERIENCE</a>
@@ -485,86 +439,37 @@ const footer = () => `<footer class="eledra-footer">
         </div>
       </div>
     </div>
-
-    <div class="eledra-mega-wordmark-wrap" id="footer-easter-egg" title="Press for next episode">
-      <div class="eledra-ambient-glow"></div>
-      <button class="eledra-next-btn" id="footer-next-btn" type="button" aria-label="Press for next episode">
-        <i data-lucide="play"></i> <span>PRESS FOR NEXT EPISODE</span>
-      </button>
-      <h2 class="eledra-mega-wordmark" id="footer-wordmark">LET’S BUILD SOMETHING.</h2>
+    <div class="footer-base">
+      <span>© ${new Date().getFullYear()} Abdullah Zafar</span>
+      <span>Designed and engineered with care.</span>
     </div>
   </div>
 </footer>`;
 
-const teaserSnippet = p => {
-  if(p.teaserType === 'waveform') {
-    return `<div class="teaser-animation waveform-anim">
-      <div class="wave-bars"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <div class="teaser-meta-badge"><i data-lucide="audio-lines"></i> SUB-750MS STREAM</div>
-    </div>`;
-  }
-  if(p.teaserType === 'scanner') {
-    return `<div class="teaser-animation scanner-anim">
-      <div class="scan-grid"></div>
-      <div class="scan-laser"></div>
-      <div class="teaser-meta-badge"><i data-lucide="scan-eye"></i> 99.4% PARSED</div>
-    </div>`;
-  }
-  if(p.teaserType === 'vectors') {
-    return `<div class="teaser-animation vector-anim">
-      <div class="vector-nodes"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="teaser-meta-badge"><i data-lucide="database"></i> CHROMADB CHUNKS</div>
-    </div>`;
-  }
-  if(p.teaserType === 'terminal') {
-    return `<div class="teaser-animation terminal-anim">
-      <div class="code-line">&gt; df.clean().run()</div>
-      <div class="code-line green">&gt; fix_loop[0]: OK</div>
-      <div class="teaser-meta-badge"><i data-lucide="terminal"></i> SANDBOX REPL</div>
-    </div>`;
-  }
-  if(p.teaserType === 'agents') {
-    return `<div class="teaser-animation agents-anim">
-      <div class="agent-pills"><span>Web</span><em>➔</em><span>Audio</span><em>➔</em><span>Gemini</span></div>
-      <div class="teaser-meta-badge"><i data-lucide="bot"></i> MULTI-AGENT</div>
-    </div>`;
-  }
-  return `<div class="teaser-animation graph-anim">
-    <div class="graph-pulse"></div>
-    <div class="teaser-meta-badge"><i data-lucide="network"></i> MEM0 GRAPH</div>
-  </div>`;
-};
-
-const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()}">
-  ${rank?`<span class="top-number">${p.rank}</span>`:''}
+const card = p => `<article class="title-card" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()}">
   <div class="card-poster">
-    <img src="${p.image}" alt="${p.title} interface" loading="lazy">
-    <span class="card-title">${p.short}</span>
-    <span class="netflix-n">A</span>
+    <span class="screen-chrome" aria-hidden="true"><i></i><i></i><i></i></span>
+    <img src="${p.image}" alt="Screenshot of the ${p.title} interface" width="1280" height="720" loading="lazy" decoding="async">
   </div>
-  <div class="card-hover">
-    <div class="hover-actions">
-      <a href="${p.repo}" target="_blank" aria-label="Open repository" title="View Code on GitHub"><i data-lucide="play"></i></a>
-      <button data-info="${p.id}" aria-label="More information" title="Open Project Details"><i data-lucide="info"></i></button>
-      ${p.demo?`<a href="${p.demo}" target="_blank" class="round secondary" aria-label="Live Demo" title="Launch Demo"><i data-lucide="external-link"></i></a>`:''}
-      <span></span>
-      <a href="${p.repo}" target="_blank" class="round secondary" aria-label="GitHub"><i data-lucide="github"></i></a>
+  <div class="card-summary">
+    <div>
+      <span>${p.runtime}</span>
+      <h3>${p.title}</h3>
     </div>
-    <strong>${p.match} Match</strong>
+    <button data-info="${p.id}" aria-label="Open ${p.title} details"><i data-lucide="arrow-up-right"></i></button>
+    <p>${p.stack.slice(0,3).join(' · ')}</p>
   </div>
 </article>`;
 
 const listCard = p => `<article class="list-item-card" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()}">
-  <div class="list-card-thumb" onclick="openDetails('${p.id}')">
-    <img src="${p.image}" alt="${p.title}" loading="lazy">
-    <span class="netflix-n">A</span>
-  </div>
+  <button type="button" class="list-card-thumb" onclick="openDetails('${p.id}')" aria-label="Open ${p.title} details">
+    <img src="${p.image}" alt="Screenshot of the ${p.title} interface" width="1280" height="720" loading="lazy" decoding="async">
+  </button>
   <div class="list-card-info">
     <div class="list-card-header">
       <h3>${p.title}</h3>
-      <span class="list-match">${p.match} Match</span>
+      <span class="list-match">Production build</span>
       <span class="list-year">${p.year}</span>
-      <span class="list-rating">${p.rating}</span>
     </div>
     <p class="list-desc">${p.desc}</p>
     <div class="list-stack">
@@ -578,27 +483,28 @@ const listCard = p => `<article class="list-item-card" data-project="${p.id}" da
   </div>
 </article>`;
 
-const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-card reveal" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}">
+const projectCatalogCard = p => `<article class="project-catalog-card reveal" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}">
   <div class="pcard-header">
     <div class="pcard-meta-left">
-      <span class="netflix-n-badge">A</span>
-      <span class="pcard-rank-tag">TOP ${p.rank}</span>
+      <span class="netflix-n-badge">AZ/</span>
+      <span class="pcard-rank-tag">BUILD 0${p.rank}</span>
     </div>
     <div class="pcard-meta-right">
-      <span class="pcard-match-tag">${p.match} Match</span>
+      <span class="pcard-match-tag">${p.year}</span>
       <span class="pcard-runtime-tag">${p.runtime}</span>
     </div>
   </div>
 
-  <div class="pcard-preview" onclick="openDetails('${p.id}')">
-    <img src="${p.image}" alt="${p.title}" loading="lazy">
-    <div class="pcard-preview-gradient"></div>
+  <button type="button" class="pcard-preview" onclick="openDetails('${p.id}')" aria-label="Open ${p.title} details">
+    <span class="screen-chrome" aria-hidden="true"><i></i><i></i><i></i></span>
+    <img src="${p.image}" alt="Screenshot of the ${p.title} interface" width="1280" height="720" loading="lazy" decoding="async">
+    <span class="pcard-preview-gradient"></span>
     <span class="pcard-teaser-pill">${p.teaserTag}</span>
-    <button class="pcard-expand-btn" aria-label="Expand details"><i data-lucide="maximize-2"></i></button>
-  </div>
+    <span class="pcard-expand-btn" aria-hidden="true"><i data-lucide="maximize-2"></i></span>
+  </button>
 
   <div class="pcard-body">
-    <h3 class="pcard-title" onclick="openDetails('${p.id}')">${p.title}</h3>
+    <h3 class="pcard-title"><button type="button" onclick="openDetails('${p.id}')">${p.title}</button></h3>
     <p class="pcard-desc">${p.desc}</p>
     <div class="pcard-stack">
       ${p.stack.map(s => `<span>${s}</span>`).join('')}
@@ -627,44 +533,19 @@ const rail = (title, items, klass='') => `<section class="rail-section ${klass} 
   </div>
 </section>`;
 
-function profileGate(){
-  return `<section class="profiles-screen" id="profiles">
-    <a href="${routes.home}" class="profiles-logo"><img src="${files.logo}" alt="AZ"></a>
-    <button class="profile-sound-status" id="sound-toggle" aria-label="Toggle Sound">
-      <i data-lucide="${soundEnabled?'volume-2':'volume-x'}"></i> Sound ${soundEnabled?'on':'off'}
-    </button>
-    <div class="profiles-content">
-      <h1>Who's watching?</h1>
-      <div class="profiles-list">
-        <button class="viewer" data-profile="Recruiter">
-          <span class="viewer-art recruiter">
-            <img src="${profileMemes.Recruiter}" alt="Recruiter" class="viewer-img">
-          </span>
-          <b>Recruiter</b>
-        </button>
-        <button class="viewer" data-profile="Client">
-          <span class="viewer-art client">
-            <img src="${profileMemes.Client}" alt="Client" class="viewer-img">
-          </span>
-          <b>Client</b>
-        </button>
-        <button class="viewer" data-profile="Developer">
-          <span class="viewer-art developer">
-            <img src="${profileMemes.Developer}" alt="Developer" class="viewer-img">
-          </span>
-          <b>Developer</b>
-        </button>
-        <button class="viewer" data-profile="Explorer">
-          <span class="viewer-art explorer">
-            <img src="${profileMemes.Explorer}" alt="Explorer" class="viewer-img">
-          </span>
-          <b>Explorer</b>
-        </button>
-      </div>
-      <button class="manage-profiles">MANAGE PROFILES</button>
+function audiencePicker(activeProfile){
+  const options = [
+    ['Recruiter', 'Hiring'],
+    ['Client', 'Building'],
+    ['Developer', 'Technical'],
+    ['Explorer', 'Exploring']
+  ];
+  return `<div class="audience-picker" id="focus-picker" aria-label="Tailor the portfolio view">
+    <span>Tailor this view</span>
+    <div>
+      ${options.map(([profile, label]) => `<button type="button" data-profile-option="${profile}" aria-pressed="${profile === activeProfile}" class="${profile === activeProfile ? 'active' : ''}">${label}</button>`).join('')}
     </div>
-    <div class="profile-transition-logo"><img src="${files.logo}" alt=""></div>
-  </section>`;
+  </div>`;
 }
 
 function tvRemoteHint(){
@@ -685,20 +566,19 @@ function renderBrowseRails(prof){
 
   const railsMap = {
     picks: rail(cfg.topPicksTitle, orderedProjects.map(p=>card(p))),
-    ranked: rail('Top 6 in Abdullah Zafar Today', projects.map(p=>card(p,true)), 'ranked-rail'),
-    continue: rail(`Continue Watching for ${prof}s`, [
+    continue: rail(`Experience at a glance`, [
       experienceCard('01','Co-Founder & Lead AI Engineer','Eledra Labs','Jun 2026 — Present','76'),
       experienceCard('02','AI Engineering Intern','Bricklix','Mar 2026 — May 2026','100'),
       experienceCard('03','B.S. Computer Science','NASTP Institute of IT','2025 — 2029','30')
     ], 'continue-rail'),
     skills: `<section class="rail-section skill-rail reveal" data-rail-group="skills">
       <div class="rail-heading">
-        <h2>Because you explored AI Engineering</h2>
-        <a href="${routes.experience}">See Skills <i data-lucide="chevron-right"></i></a>
+        <h2>Technical toolkit</h2>
+        <a href="${routes.experience}">See experience <i data-lucide="chevron-right"></i></a>
       </div>
       <div class="skills-marquee-container">
         <div class="skills-marquee-track">
-          ${[...skills, ...skills, ...skills, ...skills].map(([l,n])=>`<a href="${routes.experience}" tabindex="0" class="skill-tile"><img src="assets/icons/${l}.svg" alt="${n} logo"><span>${n}</span></a>`).join('')}
+          ${[...skills, ...skills, ...skills, ...skills].map(([l,n])=>`<a href="${routes.experience}" class="skill-tile"><img src="assets/icons/${l}.svg" alt="" aria-hidden="true"><span>${n}</span></a>`).join('')}
         </div>
       </div>
     </section>`
@@ -711,28 +591,35 @@ function home(){
   const prof = getActiveProfile();
   const cfg = profileConfigs[prof] || profileConfigs.Recruiter;
 
-  return `${profileGate()}
-  ${nav('home')}
-  <main class="browse-page">
+  return `${nav('home')}
+  <main class="browse-page" id="main-content">
     <section class="billboard" id="hero-billboard">
-      <div class="billboard-bg"></div>
+      <picture class="billboard-media">
+        <source media="(max-width: 760px)" srcset="${files.heroPortraitSmall}">
+        <img src="${files.heroPortrait}" alt="Abdullah Zafar, AI systems engineer" width="1636" height="909" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="billboard-bg" aria-hidden="true"></div>
       <div class="billboard-copy">
-        <p class="original"><span>A</span> SERIES · PROFILE: <em id="profile-pill">${prof.toUpperCase()}</em></p>
-        <h1>ABDULLAH<br><em>ZAFAR</em></h1>
+        <p class="original"><span>AZ/</span> AI SYSTEMS ENGINEER · <em id="profile-pill">${prof.toUpperCase()} VIEW</em></p>
+        <h1>AI systems that<br><em>work outside the demo.</em></h1>
+        <p class="hero-name">Abdullah Zafar · Lahore, Pakistan → Global</p>
         <p class="billboard-ranking" id="billboard-ranking-text">${cfg.tagline}</p>
         <p class="billboard-description" id="billboard-desc-text">${cfg.description}</p>
         <div class="billboard-buttons" id="billboard-buttons-container">
-          <a href="${cfg.primaryBtn.href}" ${cfg.primaryBtn.external?'target="_blank"':''} class="play-btn" tabindex="0">
+          <a href="${cfg.primaryBtn.href}" ${cfg.primaryBtn.external?'target="_blank" rel="noopener noreferrer"':''} class="play-btn" tabindex="0">
             <i data-lucide="${cfg.primaryBtn.icon}"></i> ${cfg.primaryBtn.text}
           </a>
           <a href="${cfg.secondaryBtn.href}" class="info-btn" tabindex="0">
             <i data-lucide="${cfg.secondaryBtn.icon}"></i> ${cfg.secondaryBtn.text}
           </a>
         </div>
+        ${audiencePicker(prof)}
       </div>
-      <div class="maturity" id="maturity-badge">
-        <i data-lucide="volume-2"></i>
-        <span>${cfg.maturity}</span>
+      <div class="hero-proof-grid" aria-label="Selected outcomes">
+        <div><strong>6</strong><span>production builds</span></div>
+        <div><strong>&lt;750ms</strong><span>voice latency</span></div>
+        <div><strong>99.4%</strong><span>validated output</span></div>
+        <div><strong>Top 70</strong><span>Codeforces Pakistan</span></div>
       </div>
     </section>
     <div class="browse-rails" id="browse-rails-container">
@@ -757,13 +644,13 @@ function experienceCard(n,title,company,date,progress){
 }
 
 function modal(){
-  return `<dialog class="details-modal" id="details-modal">
+  return `<dialog class="details-modal" id="details-modal" aria-labelledby="project-modal-title">
     <button class="modal-close" aria-label="Close"><i data-lucide="x"></i></button>
     <div class="modal-hero">
-      <img alt="Project screenshot">
+      <img alt="Project screenshot" width="1280" height="720" decoding="async">
       <div>
         <p class="original"><span>A</span> ORIGINAL PROJECT</p>
-        <h2></h2>
+        <h2 id="project-modal-title"></h2>
         <div class="modal-actions"></div>
       </div>
     </div>
@@ -784,19 +671,19 @@ function modal(){
 function projectsPage(){
   const isListView = localStorage.getItem('az-projects-view') === 'list';
   return `${nav('projects')}
-  <main class="sub-page">
+  <main class="sub-page" id="main-content">
     <section class="page-billboard projects-billboard">
       <div>
-        <p class="original"><span>A</span> COLLECTION · PRODUCTION BUILDS</p>
-        <h1>MY LIST</h1>
-        <p>Six production-grade AI systems and architectures. Every project opens directly to its source code and live interface.</p>
+        <p class="original"><span>AZ/</span> SELECTED SYSTEMS · 2026</p>
+        <h1>WORK WITH<br>RECEIPTS.</h1>
+        <p>Six production-grade AI systems with real interfaces, architecture decisions, measurable outcomes, and implementation details.</p>
       </div>
     </section>
     <section class="catalog">
       <div class="catalog-head">
         <div class="catalog-title-group">
-          <h2>Abdullah's Pinned Projects</h2>
-          <span class="catalog-count-badge">6 Production AI Repositories</span>
+          <h2>Selected projects</h2>
+          <span class="catalog-count-badge">6 production repositories</span>
         </div>
         <div class="catalog-actions-right">
           <a href="${links.github}?tab=repositories" target="_blank" class="github-catalog-btn" title="View all repositories on GitHub">
@@ -822,19 +709,19 @@ function projectsPage(){
 
 function experiencePage(){
   return `${nav('experience')}
-  <main class="sub-page">
+  <main class="sub-page" id="main-content">
     <section class="page-billboard experience-billboard">
       <div>
-        <p class="original"><span>A</span> CAREER SERIES</p>
-        <h1>EXPERIENCE</h1>
-        <p>Three episodes. One trajectory: building dependable AI systems from Lahore for teams around the world.</p>
+        <p class="original"><span>AZ/</span> CAREER · 2025—NOW</p>
+        <h1>ENGINEERING<br>TRAJECTORY.</h1>
+        <p>Roles, education, and the practice of turning ambitious AI ideas into dependable systems.</p>
         <a href="${files.resume}" target="_blank" class="play-btn"><i data-lucide="file-down"></i> Download Resume</a>
       </div>
     </section>
     <section class="episodes">
       <div class="episodes-head">
-        <h2>Episodes</h2>
-        <span>Season 1</span>
+        <h2>Roles & education</h2>
+        <span>Selected chapters</span>
       </div>
       ${episode('1','Co-Founder & Lead AI Engineer','Eledra Labs · Jun 2026 — Present','Co-founded a development agency and lead technical architecture for commercial multi-agent systems. Designed scalable backends, optimized processing loops, and owned the route from idea to production.','bot')}
       ${episode('2','AI Engineering Intern','Bricklix · Mar 2026 — May 2026','Built autonomous phone voice assistants using raw-audio processing and telephony APIs. Created LLM transformation paths and ran endpoint latency analysis to improve real-time response.','audio-lines')}
@@ -846,7 +733,7 @@ function experiencePage(){
 }
 
 function episode(n,title,meta,desc,icon){
-  return `<article class="episode reveal" tabindex="0">
+  return `<article class="episode reveal">
     <span class="episode-index">${n}</span>
     <div class="episode-thumb"><i data-lucide="${icon}"></i><span>${n}</span></div>
     <div>
@@ -854,29 +741,29 @@ function episode(n,title,meta,desc,icon){
       <b>${meta}</b>
       <p>${desc}</p>
     </div>
-    <button aria-label="Play episode"><i data-lucide="play"></i></button>
+    <span class="episode-arrow" aria-hidden="true"><i data-lucide="arrow-up-right"></i></span>
   </article>`;
 }
 
 function stackSection(){
   let skills=[['python','Python'],['langchain','LangGraph'],['fastapi','FastAPI'],['docker','Docker'],['postgresql','PostgreSQL'],['qdrant','Qdrant'],['pandas','Pandas'],['linux','Linux'],['github','GitHub'],['javascript','JavaScript']];
   return `<section class="stack-section reveal">
-    <h2>Cast & Technology</h2>
+    <h2>Technical toolkit</h2>
     <div>
-      ${skills.map(([l,n])=>`<span tabindex="0"><img src="assets/icons/${l}.svg" alt="${n}">${n}</span>`).join('')}
+      ${skills.map(([l,n])=>`<span><img src="assets/icons/${l}.svg" alt="" aria-hidden="true">${n}</span>`).join('')}
     </div>
   </section>`;
 }
 
 function aboutPage(){
   return `${nav('about')}
-  <main class="sub-page">
+  <main class="sub-page" id="main-content">
     <section class="about-hero">
-      <div class="about-photo"><img src="${files.portrait}" alt="Abdullah Zafar"></div>
+      <div class="about-photo"><img src="${files.heroPortrait}" alt="Abdullah Zafar" width="1636" height="909" fetchpriority="high" decoding="async"></div>
       <div>
-        <p class="original"><span>A</span> BIOGRAPHY</p>
+        <p class="original"><span>AZ/</span> ABOUT · LAHORE, PAKISTAN</p>
         <h1>ABDULLAH<br>ZAFAR</h1>
-        <p class="about-meta"><b>98% Match</b> 2026 · Lahore, Pakistan · AI Engineer</p>
+        <p class="about-meta"><b>AI systems engineer</b> · Co-founder · Competitive programmer</p>
         <p>I work where AI demos become reliable software: latency gets measured, outputs get validated, tools receive guardrails, and the system still has to work tomorrow.</p>
         <p>My focus spans real-time voice, retrieval, memory, healthcare workflows, and conversational data systems. The goal is consistent across all of them—make AI genuinely useful.</p>
         <div class="billboard-buttons">
@@ -886,17 +773,17 @@ function aboutPage(){
       </div>
     </section>
     <section class="achievement-row">
-      <article tabindex="0">
+      <article>
         <span>01</span>
         <h2>National Rank #70</h2>
         <p>Ranked 70th in Pakistan among thousands of Codeforces competitors.</p>
       </article>
-      <article tabindex="0">
+      <article>
         <span>02</span>
         <h2>100+ Day Streak</h2>
         <p>Maintained a daily competitive-programming challenge streak.</p>
       </article>
-      <article tabindex="0">
+      <article>
         <span>03</span>
         <h2>6 Pinned Builds</h2>
         <p>A portfolio spanning voice, RAG, multimodal agents, memory, health, and data.</p>
@@ -908,11 +795,11 @@ function aboutPage(){
 
 function contactPage(){
   return `${nav('contact')}
-  <main class="sub-page contact-page">
+  <main class="sub-page contact-page" id="main-content">
     <section class="contact-title">
-      <p class="original"><span>A</span> DIRECT LINE</p>
-      <h1>LET'S MAKE<br>SOMETHING <em>WORTH WATCHING.</em></h1>
-      <p>Hiring for an AI role or building a serious AI product? Send the brief.</p>
+      <p class="original"><span>AZ/</span> DIRECT LINE · OPEN FOR SELECTED WORK</p>
+      <h1>LET'S BUILD<br>SOMETHING <em>DEPENDABLE.</em></h1>
+      <p>Hiring for an AI role or building a serious AI product? Send the context, constraints, and desired outcome.</p>
     </section>
     <section class="contact-layout">
       <form id="contact-form">
@@ -932,7 +819,7 @@ function contactPage(){
           <textarea required name="message" placeholder="Tell me what you're building..."></textarea>
         </label>
         <button class="play-btn" type="submit"><i data-lucide="send"></i> Send Message</button>
-        <small>Opens your email app with the message prefilled. Nothing is stored.</small>
+        <small>Your message is sent securely through Web3Forms and used only to reply.</small>
       </form>
       <aside>
         <h2>More ways to connect</h2>
@@ -960,18 +847,18 @@ function contactPage(){
 
 function articleCard(a) {
   return `<article class="article-card reveal" data-category="${a.category}" data-search="${a.title.toLowerCase()} ${a.summary.toLowerCase()} ${a.stack.join(' ').toLowerCase()}">
-    <div class="article-card-thumb" onclick="openArticle('${a.id}')">
-      <img src="${a.image}" alt="${a.title}" loading="lazy">
+    <a class="article-card-thumb" href="${routes.blog}?article=${a.id}" onclick="openArticle('${a.id}'); return false;" aria-label="Read ${a.title}">
+      <img src="${a.image}" alt="Project interface related to ${a.title}" width="1280" height="720" loading="lazy" decoding="async">
       <span class="article-category-badge">${a.tag}</span>
       <span class="article-read-time"><i data-lucide="clock"></i> ${a.readTime}</span>
-    </div>
+    </a>
     <div class="article-card-body">
       <div class="article-meta-line">
         <span class="article-date">${a.date}</span>
         <span class="article-dot">·</span>
         <span class="article-cat-name">${a.category}</span>
       </div>
-      <h3 class="article-card-title" onclick="openArticle('${a.id}')">${a.title}</h3>
+      <h3 class="article-card-title"><a href="${routes.blog}?article=${a.id}" onclick="openArticle('${a.id}'); return false;">${a.title}</a></h3>
       <p class="article-card-summary">${a.summary}</p>
       <div class="article-card-stack">
         ${a.stack.map(s => `<span>${s}</span>`).join('')}
@@ -987,7 +874,7 @@ function articleCard(a) {
 }
 
 function featuredArticleCard(a) {
-  return `<section class="featured-editorial-banner reveal" onclick="openArticle('${a.id}')">
+  return `<a class="featured-editorial-banner reveal" href="${routes.blog}?article=${a.id}" onclick="openArticle('${a.id}'); return false;">
     <div class="featured-banner-bg" style="background-image: url('${a.image}');"></div>
     <div class="featured-banner-glow"></div>
     <div class="featured-banner-content">
@@ -999,15 +886,15 @@ function featuredArticleCard(a) {
       <h2>${a.title}</h2>
       <p>${a.summary}</p>
       <div class="featured-banner-actions">
-        <button class="play-btn"><i data-lucide="book-open"></i> Read Featured Story</button>
+        <span class="play-btn"><i data-lucide="book-open"></i> Read featured story</span>
         <span class="featured-date-note">${a.date} · By Abdullah Zafar</span>
       </div>
     </div>
-  </section>`;
+  </a>`;
 }
 
 function articleModal() {
-  return `<dialog class="details-modal article-reader-modal" id="article-modal">
+  return `<dialog class="details-modal article-reader-modal" id="article-modal" aria-labelledby="modal-article-title">
     <div class="article-progress-container">
       <div class="article-progress-fill" id="article-progress-fill"></div>
     </div>
@@ -1022,7 +909,7 @@ function articleModal() {
         <h1 class="reader-title" id="modal-article-title"></h1>
         <p class="reader-summary-lead" id="modal-article-summary"></p>
         <div class="reader-author-bar">
-          <img src="${files.portrait}" alt="Abdullah Zafar" class="reader-author-avatar">
+          <img src="${files.portrait}" alt="Abdullah Zafar" class="reader-author-avatar" width="400" height="400" loading="lazy" decoding="async">
           <div class="reader-author-info">
             <strong>Abdullah Zafar</strong>
             <span>AI Systems Engineer · Co-Founder @ Eledra Labs · Top 70 Codeforces</span>
@@ -1052,12 +939,12 @@ function blogPage() {
   const categories = ['All', 'Voice AI', 'RAG Architecture', 'Healthcare AI', 'Algorithms', 'Agentic AI'];
 
   return `${nav('blog')}
-  <main class="sub-page blog-page">
+  <main class="sub-page blog-page" id="main-content">
     <section class="page-billboard blog-billboard">
       <div>
-        <p class="original"><span>A</span> EDITORIAL SERIES · ENGINEERING DISPATCH</p>
-        <h1>ENGINEERING LOGS</h1>
-        <p>In-depth architectural breakdowns, latency budgeting, zero-framework retrieval, and high-performance algorithms.</p>
+        <p class="original"><span>AZ/</span> FIELD NOTES · ENGINEERING DISPATCH</p>
+        <h1>ENGINEERING<br>NOTES.</h1>
+        <p>Practical breakdowns of latency budgets, retrieval architecture, clinical validation, agent memory, and high-performance systems.</p>
       </div>
     </section>
 
@@ -1093,7 +980,7 @@ function applyProfileUI(profileName) {
   const cfg = profileConfigs[profileName] || profileConfigs.Recruiter;
 
   const pill = $('#profile-pill');
-  if (pill) pill.textContent = profileName.toUpperCase();
+  if (pill) pill.textContent = `${profileName.toUpperCase()} VIEW`;
 
   const rankText = $('#billboard-ranking-text');
   if (rankText) rankText.innerHTML = cfg.tagline;
@@ -1104,7 +991,7 @@ function applyProfileUI(profileName) {
   const btns = $('#billboard-buttons-container');
   if (btns) {
     btns.innerHTML = `
-      <a href="${cfg.primaryBtn.href}" ${cfg.primaryBtn.external?'target="_blank"':''} class="play-btn" tabindex="0">
+      <a href="${cfg.primaryBtn.href}" ${cfg.primaryBtn.external?'target="_blank" rel="noopener noreferrer"':''} class="play-btn" tabindex="0">
         <i data-lucide="${cfg.primaryBtn.icon}"></i> ${cfg.primaryBtn.text}
       </a>
       <a href="${cfg.secondaryBtn.href}" class="info-btn" tabindex="0">
@@ -1113,19 +1000,11 @@ function applyProfileUI(profileName) {
     `;
   }
 
-  const mat = $('#maturity-badge span');
-  if (mat) mat.textContent = cfg.maturity;
-
-  const navAvatar = $('.nav-avatar');
-  if (navAvatar) {
-    const memeSrc = profileMemes[profileName] || profileMemes.Recruiter;
-    navAvatar.style.background = 'transparent';
-    navAvatar.innerHTML = `<img src="${memeSrc}" alt="${profileName}">`;
-  }
-  const profileBtn = $('.profile-menu');
-  if (profileBtn) {
-    profileBtn.title = `Switch Profile (Current: ${profileName})`;
-  }
+  $$('[data-profile-option]').forEach(button => {
+    const isActive = button.dataset.profileOption === profileName;
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
 
   const railsContainer = $('#browse-rails-container');
   if (railsContainer) {
@@ -1238,14 +1117,13 @@ function initTVKeyboardNavigation(){
     if (artDialog && artDialog.open) {
       return $$('button, a, input, [tabindex="0"]', artDialog).filter(el => !el.hidden && el.offsetParent !== null);
     }
-    return $$('.billboard-buttons a, .title-card, .continue-card, .skill-tile, .project-grid .title-card, .project-catalog-card, .article-card, .filter-pill, .episode, .stack-section span, .achievement-row article, .footer-links a, .eledra-links-row a', document)
+    return $$('.billboard-buttons a, .title-card [data-info], .continue-card, .skill-tile, .article-card a, .filter-pill, .eledra-links-row a, .footer-cta a', document)
       .filter(el => !el.hidden && el.offsetParent !== null);
   }
 
   window.addEventListener('keydown', e => {
     const dialog = $('#details-modal');
     const artDialog = $('#article-modal');
-    const searchBox = $('.search-box');
 
     if (e.key === 'Escape') {
       if (dialog && dialog.open) {
@@ -1258,35 +1136,19 @@ function initTVKeyboardNavigation(){
         e.preventDefault();
         return;
       }
-      if (searchBox?.classList.contains('open')) {
-        searchBox.classList.remove('open');
-        e.preventDefault();
-        return;
+      const drawer = $('.mobile-drawer');
+      if (drawer?.classList.contains('open')) {
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden', 'true');
+        drawer.setAttribute('inert', '');
+        $('.mobile-toggle')?.setAttribute('aria-expanded', 'false');
+        $('.mobile-toggle')?.focus();
       }
-      $('#notif-dropdown')?.classList.remove('open');
-      $('.mobile-drawer')?.classList.remove('open');
       return;
     }
 
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
       return;
-    }
-
-    if ((e.key === '/' || e.key === 's' || e.key === 'S') && !e.ctrlKey && !e.metaKey) {
-      if (!dialog?.open && !artDialog?.open) {
-        e.preventDefault();
-        searchBox?.classList.add('open');
-        $('.search-box input')?.focus();
-        return;
-      }
-    }
-
-    if (e.key === 'p' || e.key === 'P') {
-      if (!dialog?.open && !artDialog?.open) {
-        sessionStorage.removeItem('az-profile');
-        location.href = 'index.html';
-        return;
-      }
     }
 
     if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
@@ -1337,14 +1199,10 @@ function initTVKeyboardNavigation(){
       }
     }
 
-    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement?.classList.contains('title-card')) {
-      e.preventDefault();
-      openDetails(document.activeElement.dataset.project);
-    }
   });
 
   document.addEventListener('focusin', e => {
-    if (e.target.classList?.contains('title-card') || e.target.classList?.contains('continue-card')) {
+    if (e.target.matches?.('.title-card [data-info], .continue-card')) {
       $$('.tv-focus').forEach(el => el.classList.remove('tv-focus'));
       e.target.classList.add('tv-focus');
       activeFocusEl = e.target;
@@ -1356,35 +1214,19 @@ function setup(){
   const navEl = $('.netflix-nav');
   window.addEventListener('scroll', () => navEl?.classList.toggle('scrolled', scrollY > 40));
 
-  $('.mobile-toggle')?.addEventListener('click', () => $('.mobile-drawer')?.classList.add('open'));
-  $('.drawer-close')?.addEventListener('click', () => $('.mobile-drawer')?.classList.remove('open'));
-
-  // Search
-  $('.search-toggle')?.addEventListener('click', () => {
-    $('.search-box')?.classList.add('open');
-    $('.search-box input')?.focus();
-  });
-  $('.search-close')?.addEventListener('click', () => $('.search-box')?.classList.remove('open'));
-
-  $('.search-box input')?.addEventListener('input', e => {
-    const val = e.target.value.toLowerCase().trim();
-    const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card');
-    cards.forEach(c => {
-      const searchData = c.dataset.search || '';
-      c.hidden = val ? !searchData.includes(val) : false;
-    });
-  });
-
-  // Notifications toggle
-  $('.notif-toggle')?.addEventListener('click', e => {
-    e.stopPropagation();
-    $('#notif-dropdown')?.classList.toggle('open');
-  });
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.notification-wrapper')) {
-      $('#notif-dropdown')?.classList.remove('open');
-    }
-  });
+  const drawer = $('.mobile-drawer');
+  const menuToggle = $('.mobile-toggle');
+  const setDrawerOpen = isOpen => {
+    drawer?.classList.toggle('open', isOpen);
+    drawer?.setAttribute('aria-hidden', String(!isOpen));
+    drawer?.toggleAttribute('inert', !isOpen);
+    menuToggle?.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) $('.drawer-close', drawer)?.focus();
+    else if (drawer?.contains(document.activeElement)) menuToggle?.focus();
+  };
+  menuToggle?.addEventListener('click', () => setDrawerOpen(true));
+  $('.drawer-close')?.addEventListener('click', () => setDrawerOpen(false));
+  $$('.mobile-drawer a').forEach(link => link.addEventListener('click', () => setDrawerOpen(false)));
 
   // Projects View Toggle (Grid / List)
   const gridBtn = $('#view-grid-btn');
@@ -1411,57 +1253,14 @@ function setup(){
     iconify();
   });
 
-  // Sound Toggle on Profile Screen
-  $('#sound-toggle')?.addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    const btn = $('#sound-toggle');
-    if (btn) btn.innerHTML = `<i data-lucide="${soundEnabled?'volume-2':'volume-x'}"></i> Sound ${soundEnabled?'on':'off'}`;
-    iconify();
-  });
-
   bindRailInteractions();
 
-  const gate = $('#profiles');
-  if (gate) {
-    const forcedProfile = new URLSearchParams(location.search).get('profile');
-    const isLanding = location.pathname.endsWith('/') || location.pathname.endsWith('/index.html');
-    if (forcedProfile) sessionStorage.setItem('az-profile', forcedProfile);
-
-    $$('.viewer', gate).forEach(v => v.addEventListener('click', () => {
-      const selected = v.dataset.profile;
-      sessionStorage.setItem('az-profile', selected);
-      v.classList.add('chosen');
-      $$('.viewer', gate).filter(x => x !== v).forEach(x => x.classList.add('not-chosen'));
-      gate.classList.add('profile-selecting');
-
-      if (soundEnabled) {
-        const sound = new Audio('assets/audio/netflix-sound.mp3');
-        sound.volume = 0.72;
-        sound.play().catch(() => {});
-      }
-
-      setTimeout(() => {
-        gate.classList.add('profile-exit');
-        applyProfileUI(selected);
-      }, 1250);
-
-      setTimeout(() => gate.remove(), 1900);
-    }));
-
-    const savedProfile = sessionStorage.getItem('az-profile');
-    if (savedProfile && (!isLanding || forcedProfile)) {
-      gate.remove();
-      applyProfileUI(savedProfile);
-    }
-  }
-
-  $('.profile-menu')?.addEventListener('click', () => {
-    sessionStorage.removeItem('az-profile');
-    location.href = routes.home;
-  });
+  $$('[data-profile-option]').forEach(button => button.addEventListener('click', () => {
+    applyProfileUI(button.dataset.profileOption);
+  }));
 
   const dialog = $('#details-modal');
-  $('.modal-close')?.addEventListener('click', () => dialog?.close());
+  if (dialog) $('.modal-close', dialog)?.addEventListener('click', () => dialog.close());
   dialog?.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 
   const artDialog = $('#article-modal');
@@ -1511,11 +1310,11 @@ function setup(){
     e.preventDefault();
     const form = e.currentTarget;
     const submitBtn = form.querySelector('button[type="submit"]');
-    const origHtml = submitBtn ? submitBtn.innerHTML : 'Send Transmission';
+    const origHtml = submitBtn ? submitBtn.innerHTML : 'Send Message';
     const d = new FormData(form);
 
     if (submitBtn) {
-      submitBtn.innerHTML = `<i data-lucide="loader-2" class="spin"></i> Transmitting...`;
+      submitBtn.innerHTML = `<i data-lucide="loader-2" class="spin"></i> Sending...`;
       submitBtn.disabled = true;
       iconify();
     }
@@ -1534,12 +1333,12 @@ function setup(){
       });
       if (res.ok) {
         form.reset();
-        showToast('Transmission Received · Thanks for reaching out!');
+        showToast('Message received. Thanks for reaching out!');
       } else {
         throw new Error('Fallback required');
       }
     } catch {
-      showToast('Opening Mail Client · Transmitting message...');
+      showToast('Opening your email app...');
       setTimeout(() => {
         location.href = `mailto:abdullahzafar.codes@gmail.com?subject=${encodeURIComponent(`${d.get('type')} — ${d.get('name')}`)}&body=${encodeURIComponent(`Name: ${d.get('name')}\nEmail: ${d.get('email')}\n\n${d.get('message')}`)}`;
       }, 400);
@@ -1553,40 +1352,6 @@ function setup(){
   });
 
   initTVKeyboardNavigation();
-
-  // Footer Fun Interactive Cycler
-  const funPhrases = [
-    'LET’S BUILD SOMETHING.',
-    'ARE YOU STILL WATCHING?',
-    'WORKS ON MY MACHINE.',
-    '0 ERRORS, 42 WARNINGS.',
-    'SUB-750MS LATENCY.',
-    'SHIP IT TO PROD.',
-    'TA-DUM!'
-  ];
-  let phraseIdx = 0;
-  const wordmarkWrap = $('#footer-easter-egg');
-  const wordmarkEl = $('#footer-wordmark');
-  
-  if (wordmarkWrap && wordmarkEl) {
-    wordmarkWrap.addEventListener('click', () => {
-      phraseIdx = (phraseIdx + 1) % funPhrases.length;
-      wordmarkEl.classList.add('wordmark-glitch');
-      
-      const newPhrase = funPhrases[phraseIdx];
-      wordmarkEl.textContent = newPhrase;
-
-      if (newPhrase === 'TA-DUM!') {
-        const sound = new Audio('assets/audio/netflix-sound.mp3');
-        sound.volume = 0.65;
-        sound.play().catch(() => {});
-      }
-
-      setTimeout(() => {
-        wordmarkEl.classList.remove('wordmark-glitch');
-      }, 250);
-    });
-  }
 }
 
 function showToast(msg) {
@@ -1656,7 +1421,7 @@ function openArticle(id){
   if (actionsEl) {
     actionsEl.innerHTML = `
       ${a.repo ? `<a href="${a.repo}" target="_blank" class="info-btn" title="View Source on GitHub"><i data-lucide="github"></i> Repository</a>` : ''}
-      <button class="round secondary share-btn" id="modal-share-btn" title="Copy Link"><i data-lucide="share-2"></i></button>
+      <button class="round secondary share-btn" id="modal-share-btn" type="button" aria-label="Copy article link" title="Copy link"><i data-lucide="share-2"></i></button>
     `;
     $('#modal-share-btn')?.addEventListener('click', () => {
       const shareUrl = window.location.origin + window.location.pathname + '?article=' + a.id;
@@ -1677,9 +1442,11 @@ function openDetails(id){
   const d = $('#details-modal');
   if(!p || !d) return;
 
-  $('.modal-hero>img', d).src = p.image;
+  const modalImage = $('.modal-hero>img', d);
+  modalImage.src = p.image;
+  modalImage.alt = `Screenshot of the ${p.title} interface`;
   $('.modal-hero h2', d).textContent = p.title;
-  $('.modal-match', d).textContent = `${p.match} Match · ${p.year} · ${p.runtime}`;
+  $('.modal-match', d).textContent = `${p.year} · ${p.runtime}`;
   $('.modal-desc', d).textContent = p.desc;
   $('.modal-stack', d).textContent = p.stack.join(', ');
   $('.modal-actions', d).innerHTML = `

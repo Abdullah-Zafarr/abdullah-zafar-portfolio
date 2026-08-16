@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/icons/logo.PNG" width="120" alt="AZ logo" />
 
-  # Abdullah Zafar - Netflix-Inspired Portfolio
+  # Abdullah Zafar — AI Systems Engineer
 
   **A high-performance cinematic portfolio for an AI engineer building production-grade systems.**
 
@@ -14,33 +14,29 @@
 
 ---
 
-## 🍿 The Experience
+## The experience
 
-This is not a conventional developer portfolio. It translates the design language and interaction patterns of Netflix into a dynamic, streaming-style portfolio engineered for recruiters, clients, and technical teams.
+This is a cinematic, evidence-led portfolio for recruiters, clients, developers, and curious technical teams. The interface puts Abdullah's identity, measurable outcomes, real product screenshots, source code, and long-form engineering notes ahead of visual gimmicks.
 
-Visitors choose a viewing profile, hear the signature cinematic intro sound, browse ranked engineering rails, inspect structured project cards with real architectural metrics, read in-depth engineering logs, and switch views seamlessly.
-
-<p align="center">
-  <img src="assets/readme/profiles-preview.png" width="49%" alt="Who is watching profile selector" />
-  <img src="assets/readme/browse-preview.png" width="49%" alt="Netflix-inspired portfolio browse screen" />
-</p>
+Visitors can optionally tailor the home-page emphasis to hiring, product-building, technical, or exploratory contexts without passing through a blocking intro. Every important action remains available without hover and every public route works without a framework or build step.
 
 ## ✨ What Makes It Different
 
-- **Netflix Profile Selection & Memes**: Interactive "Who's Watching?" gate with sound effects, dynamic meme avatar reflections, and profile switcher.
-- **Structured Netflix Project Cards**: High-definition obsidian card containers with crisp outlines, live teaser overlays, visible architectural summaries, tech stack chips, and instant modal / code actions.
-- **Blog & Technical Engineering Logs**: Deep-dive technical articles covering Voice AI latency, Native RAG, LangGraph Clinical Agents, and Algorithmic engineering with category filters and interactive modal reading.
+- **Evidence-first project cards**: Authentic product screenshots, visible metrics, stack context, detail dialogs, repository links, and live demos.
+- **Optional audience tailoring**: Instant recruiter, client, developer, and explorer views without delaying access to the portfolio.
+- **Editorial engineering notes**: Deep dives covering Voice AI latency, Native RAG, LangGraph clinical agents, memory systems, and algorithms.
 - **Clean, Extensionless URLs**: Built with directory-based routing and universal hosting support (`/projects`, `/experience`, `/about`, `/blog`, `/contact`) without `.html` extensions.
 - **Authentic Engineering Work**: Every featured title is backed by real production code, benchmark metrics, live demos, and verifiable GitHub repositories.
-- **Instant Search & TV Remote / Keyboard Navigation**: Full keyboard directional navigation (`Arrow Keys`, `Enter`, `Escape`) and real-time project filtering.
+- **Accessible interaction**: Skip navigation, semantic controls, keyboard navigation, native dialogs, focus-managed mobile navigation, and reduced-motion support.
+- **Responsive image system**: A custom editorial portrait, mobile-specific WebP source, lazy project images, and stable image dimensions.
 - **Universal Static Architecture**: Pure vanilla HTML5, CSS3, and JavaScript — zero heavy framework dependencies or build overhead.
 
 ## 🚀 Featured AI Projects
 
 | Project | What it does | Metrics / Benchmark | Core Stack | Links |
 | --- | --- | --- | --- | --- |
-| **Production-Grade Voice Agent** | Full-duplex conversational voice system with Twilio telephony, WebSocket streaming audio, and Deepgram STT. | **Sub-750ms Latency** | TypeScript, Twilio, Deepgram, Groq | [Code](https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent) |
-| **Autonomous Clinical Reporter** | Event-driven healthcare platform converting ultrasound medical scans into validated diagnostic reports. | **99.4% Validated** | TypeScript, LangGraph, Pydantic, Gemini | [Code](https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter) · [Live Demo](https://ultrasound-reporting-service.vercel.app) |
+| **Production-Grade Voice Agent** | Low-latency medical voice platform with WebRTC calling, RAG, scheduling, and an operations dashboard. | **Sub-750ms target** | Python, LiveKit, Cartesia, Gladia, Supabase | [Code](https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent) |
+| **Autonomous Clinical Reporter** | Clinical ultrasound workflow with dynamic worksheets, reporting, organization management, transcription, and HL7 exchange. | **99.4% structural validation** | Next.js, Supabase, Gladia, HL7 | [Code](https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter) |
 | **Native RAG Architecture** | Framework-free production RAG engine with OCR ingestion, vector-store purging, and grounding telemetry. | **Framework-free** | Python, ChromaDB, OCR, Groq | [Code](https://github.com/Abdullah-Zafarr/Native-RAG-Architecture) |
 | **LLM Data Analyst** | Conversational analyst executing sandboxed Pandas code with self-correcting debug loops. | **91% Self-Fix Rate** | Python, Pandas, Streamlit, Groq | [Code](https://github.com/Abdullah-Zafarr/LLM-Data-Analyst-Groq) |
 | **Multimodal Agentic Workflow** | Multi-agent reasoning pipeline combining web search, audio extraction, and Gemini Multimodal. | **Multi-Tool Pipeline** | Python, Gemini, SerpAPI, Streamlit | [Code](https://github.com/Abdullah-Zafarr/Multimodal-Agentic-Workflow) |
@@ -69,7 +65,7 @@ The portfolio features full-length technical breakdowns on modern AI engineering
 
 ```text
 .
-├── index.html                         # Who's Watching? entry gate
+├── index.html                         # Home and audience-tailored portfolio view
 ├── projects/
 │   └── index.html                     # Clean URL: /projects
 ├── experience/
@@ -81,12 +77,12 @@ The portfolio features full-length technical breakdowns on modern AI engineering
 ├── contact/
 │   └── index.html                     # Clean URL: /contact
 ├── assets/
-│   ├── audio/                         # Ta-dum intro audio
-│   ├── css/                           # Global styles & Netflix design system
+│   ├── audio/                         # Legacy cinematic sound asset
+│   ├── css/                           # Global styles and 2026 interface refresh
 │   ├── documents/                     # PDF Resume
 │   ├── icons/                         # Brand AZ emblem & tech icons
 │   ├── images/
-│   │   ├── profile/                   # Portrait & meme avatars
+│   │   ├── profile/                   # Original and editorial portrait assets
 │   │   └── projects/                  # Production UI screenshots
 │   ├── js/                            # Routing, state, articles, & interactions
 │   └── vendor/                        # Vendored dependencies (Lucide icons)
