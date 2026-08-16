@@ -1280,11 +1280,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Sub Pages */
 .sub-page { min-height: 100vh; padding-top: 70px; }
 .page-billboard {
-  height: 460px;
-  padding: 0 4%;
+  min-height: 580px;
+  height: min(65vw, 640px);
+  padding: 4% 4% 6%;
   display: flex;
   align-items: center;
-  background-position: center;
+  background-position: right 0% top 14%;
   background-size: cover;
   position: relative;
 }
@@ -1292,13 +1293,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #0a0b0e 10%, rgba(10,11,14,0.7), transparent), linear-gradient(0deg, #0a0b0e, transparent 45%);
+  background:
+    linear-gradient(90deg, #0a0b0e 0%, rgba(10,11,14,0.96) 22%, rgba(10,11,14,0.45) 58%, transparent 84%),
+    linear-gradient(0deg, #0a0b0e 0%, transparent 16%);
 }
 .page-billboard > div { position: relative; z-index: 2; max-width: 620px; }
-.page-billboard h1 { font-size: 6.6rem; }
+.page-billboard h1 { font-size: clamp(4.8rem, 8vw, 7.2rem); line-height: 0.85; margin: 0 0 12px; }
 .page-billboard p:not(.original) { line-height: 1.6; color: #cbd5e1; font-size: 1.05rem; }
-.projects-billboard { background-image: url('../images/projects/analyst.png'); }
-.experience-billboard { background-image: url('../images/projects/voice-analytics.webp'); }
+.projects-billboard { background-image: url('../images/projects/analyst-hero.png?v=2'); }
+.experience-billboard { background-image: url('../images/projects/voice-analytics-hero.png?v=2'); }
 
 .catalog {
   max-width: 1360px;
