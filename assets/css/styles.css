@@ -1243,11 +1243,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-sizing: border-box;
 }
 
-.skill-tile:hover {
+.skill-tile:hover, .skill-tile:focus-visible {
   transform: scale(1.08);
   background: linear-gradient(145deg, #1e2230 0%, #11141e 100%);
-  border-color: rgba(229, 9, 20, 0.65);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(229, 9, 20, 0.25);
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.22);
   z-index: 10;
 }
 
@@ -2572,7 +2572,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   width: 100%;
   position: relative;
   background: radial-gradient(ellipse 130% 95% at 50% 100%, rgba(229, 9, 20, 0.42) 0%, rgba(229, 9, 20, 0.2) 35%, rgba(229, 9, 20, 0.06) 65%, rgba(6, 7, 10, 0) 100%), #06070a;
-  border-top: 1px solid rgba(229, 9, 20, 0.25);
+  border-top: none;
   padding: 75px 4% 65px;
   overflow: hidden;
   box-sizing: border-box;
