@@ -1825,8 +1825,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .achievement-row p { font-size: .86rem; color: #94a3b8; line-height: 1.6; margin: 0; }
 
 /* Contact Page */
-.contact-page { background: radial-gradient(circle at 75% 20%, rgba(229,9,20,0.14), transparent 40%); }
-.contact-title { padding: 95px 7% 45px; }
+.contact-page {
+  background-image:
+    linear-gradient(90deg, #0a0b0e 0%, rgba(10,11,14,0.96) 24%, rgba(10,11,14,0.5) 60%, transparent 88%),
+    linear-gradient(0deg, #0a0b0e 0%, transparent 20%),
+    url('../images/projects/contact-hero.png?v=1');
+  background-size: cover;
+  background-position: right 0% top 10%;
+  background-attachment: fixed;
+}
+.contact-title { padding: 95px 7% 45px; position: relative; z-index: 2; }
 .contact-title h1 {
   font: clamp(3.8rem, 7vw, 7rem)/.84 'Bebas Neue';
   margin: 0;
@@ -1839,8 +1847,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   display: grid;
   grid-template-columns: 1.2fr .8fr;
   gap: 7vw;
+  position: relative;
+  z-index: 2;
 }
-.contact-layout form { background: var(--black-card); padding: 35px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); }
+.contact-layout form {
+  background: rgba(17, 20, 29, 0.88);
+  backdrop-filter: blur(12px);
+  padding: 35px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
 .contact-layout label { display: block; font-size: .8rem; font-weight: 600; margin-bottom: 20px; color: #e2e8f0; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .contact-layout input, .contact-layout textarea, .contact-layout select {
@@ -1976,7 +1992,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Blog & Engineering Logs Page */
 .blog-billboard {
-  background: radial-gradient(circle at 60% 40%, rgba(229, 9, 20, 0.16), transparent 50%), linear-gradient(180deg, #0a0b0e 0%, #10131a 100%);
+  background-image: url('../images/projects/blog-hero.png?v=2');
 }
 .blog-container {
   max-width: 1280px;
