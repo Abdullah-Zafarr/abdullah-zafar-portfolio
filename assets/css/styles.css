@@ -1195,33 +1195,93 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .episode-play svg { width: 15px; height: 15px; }
 
-/* Skills Row */
+/* Moving Skills Strip (Infinite Marquee) */
+.skills-marquee-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 8px 0 20px;
+  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+
+.skills-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+  animation: skillsStripScroll 28s linear infinite;
+  will-change: transform;
+}
+
+.skills-marquee-container:hover .skills-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes skillsStripScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.skill-tile {
+  flex: 0 0 clamp(135px, 11vw, 165px);
+  width: clamp(135px, 11vw, 165px);
+  height: clamp(88px, 6.8vw, 105px);
+  background: linear-gradient(145deg, #151822 0%, #0d0f16 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform .22s cubic-bezier(0.16, 1, 0.3, 1), background .22s ease, border-color .22s ease, box-shadow .22s ease;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.skill-tile:hover {
+  transform: scale(1.08);
+  background: linear-gradient(145deg, #1e2230 0%, #11141e 100%);
+  border-color: rgba(229, 9, 20, 0.65);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(229, 9, 20, 0.25);
+  z-index: 10;
+}
+
+.skill-tile img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  transition: transform .22s ease;
+}
+
+.skill-tile:hover img {
+  transform: scale(1.1);
+}
+
+.skill-tile span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.03em;
+}
+
+/* Fallback for static skills-row */
 .skills-row {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: .65vw;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
   padding: 0 4%;
 }
-.skill-tile {
-  aspect-ratio: 1.45;
-  background: linear-gradient(145deg, #181b26, #0e1017);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 6px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 12px;
-  transition: transform .25s, background .25s, border-color .25s, box-shadow .25s;
-  outline: none;
-}
-.skill-tile:hover {
-  transform: scale(1.05);
-  background: linear-gradient(145deg, #222736, #141722);
-  border-color: rgba(255,255,255,0.22);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
-}
-.skill-tile img { width: 34px; height: 34px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
-.skill-tile span { font-size: .74rem; font-weight: 600; color: #e2e8f0; }
 
 /* Sub Pages */
 .sub-page { min-height: 100vh; padding-top: 70px; }

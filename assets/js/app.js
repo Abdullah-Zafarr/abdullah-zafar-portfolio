@@ -698,8 +698,10 @@ function renderBrowseRails(prof){
         <h2>Because you explored AI Engineering</h2>
         <a href="${routes.experience}">See Skills <i data-lucide="chevron-right"></i></a>
       </div>
-      <div class="skills-row">
-        ${skills.map(([l,n])=>`<a href="${routes.experience}" tabindex="0" class="skill-tile"><img src="assets/icons/${l}.svg" alt="${n} logo"><span>${n}</span></a>`).join('')}
+      <div class="skills-marquee-container">
+        <div class="skills-marquee-track">
+          ${[...skills, ...skills, ...skills, ...skills].map(([l,n])=>`<a href="${routes.experience}" tabindex="0" class="skill-tile"><img src="assets/icons/${l}.svg" alt="${n} logo"><span>${n}</span></a>`).join('')}
+        </div>
       </div>
     </section>`
   };
