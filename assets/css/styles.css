@@ -1214,10 +1214,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   will-change: transform;
 }
 
-.skills-marquee-container:hover .skills-marquee-track {
-  animation-play-state: paused;
-}
-
 @keyframes skillsStripScroll {
   from {
     transform: translateX(0);
@@ -2575,9 +2571,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .eledra-footer {
   width: 100%;
   position: relative;
-  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(229, 9, 20, 0.22) 0%, rgba(229, 9, 20, 0.07) 45%, rgba(6, 7, 10, 0) 80%), #06070a;
-  border-top: 1px solid rgba(229, 9, 20, 0.18);
-  padding: 60px 4% 55px;
+  background: radial-gradient(ellipse 130% 95% at 50% 100%, rgba(229, 9, 20, 0.42) 0%, rgba(229, 9, 20, 0.2) 35%, rgba(229, 9, 20, 0.06) 65%, rgba(6, 7, 10, 0) 100%), #06070a;
+  border-top: 1px solid rgba(229, 9, 20, 0.25);
+  padding: 75px 4% 65px;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -2679,13 +2675,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .eledra-ambient-glow {
   position: absolute;
-  width: 90%;
-  height: 160%;
+  width: 140%;
+  height: 260%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(229, 9, 20, 0.25) 0%, rgba(229, 9, 20, 0.06) 50%, transparent 80%);
-  filter: blur(40px);
+  background: radial-gradient(ellipse 85% 75% at 50% 50%, rgba(229, 9, 20, 0.48) 0%, rgba(229, 9, 20, 0.22) 35%, rgba(229, 9, 20, 0.06) 68%, transparent 88%);
+  filter: blur(65px);
   pointer-events: none;
   z-index: 0;
 }
