@@ -53,7 +53,7 @@ The portfolio features full-length technical breakdowns on modern AI engineering
 2. **Native RAG from Scratch**: Ingesting messy PDF/OCR documents, semantic chunking, and grounding telemetry.
 3. **Clinical AI with LangGraph**: Multi-agent state machines, structured validation, and HIPAA considerations.
 4. **Competitive Programming & Systems**: How 100+ daily streaks and Top 70 Codeforces rank inform production AI architecture.
-5. **Persistent Graph Memory**: Overriding contradictory facts across multi-turn sessions with Mem0 & Qdrant.
+5. **Persistent Graph Memory**: Overriding contradictory facts across multi-turn sessions with Mem0 & Qdrant
 
 ## 🛠️ Technology Stack
 
