@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
 
 :root {
   --black: #0a0b0e;
@@ -28,7 +28,8 @@ body {
   margin: 0;
   background: var(--black);
   color: #fff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -.01em;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -211,9 +212,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   transition: opacity .35s, transform .5s;
 }
 .profiles-content h1 {
+  font-family: 'Outfit', 'Inter', sans-serif;
   font-size: clamp(2.6rem, 4.5vw, 4.2rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
   margin: 0 0 45px;
   text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
@@ -228,8 +230,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   color: #94a3b8;
   display: grid;
   gap: 15px;
+  font-family: 'Outfit', 'Inter', sans-serif;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   transition: opacity .3s, transform .35s, filter .3s;
 }
 .viewer-art {
@@ -581,58 +585,72 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   animation: heroIn .9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .original {
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: .28em;
-  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
   color: #cbd5e1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(.6rem, .8vw, .72rem);
+  font-weight: 600;
+  letter-spacing: .13em;
+  line-height: 1.5;
+  margin: 0 0 12px;
 }
 .original span {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.1rem;
+  margin: 0 6px 0 0;
   color: var(--red);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -.05em;
   vertical-align: middle;
-  letter-spacing: 0;
-  margin-right: 6px;
 }
 .original em {
-  color: var(--red);
+  color: #eeeae5;
   font-style: normal;
   font-weight: 800;
 }
-.billboard h1, .page-billboard h1, .about-hero h1 {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(4.8rem, 8.5vw, 8.8rem);
-  letter-spacing: .01em;
-  line-height: .76;
+.billboard h1, .page-billboard h1, .about-hero h1, .contact-title h1 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -.065em;
+  line-height: .93;
   margin: 0;
   color: #fff;
-  text-shadow: 0 4px 18px rgba(0,0,0,0.85);
+  text-transform: none;
+  text-shadow: none;
+}
+.billboard h1 {
+  font-size: clamp(3.45rem, 6.7vw, 7rem);
+  margin: 0 0 10px;
 }
 .billboard h1 em {
   font-style: normal;
-  color: #fff;
+  color: #aaa6a1;
+}
+.hero-name {
+  color: #e8e4df;
+  font-size: .88rem;
+  font-weight: 700;
 }
 .billboard-ranking {
   font-weight: 700;
-  font-size: 1.08rem;
-  margin: 25px 0 10px;
-  color: #f1f5f9;
+  font-size: .88rem;
+  margin: 20px 0 10px;
+  color: #cbc8c3;
 }
 .billboard-ranking b {
-  color: #fff;
-  background: var(--red);
-  padding: 3px 8px;
-  border-radius: 3px;
-  margin-right: 8px;
+  color: var(--green);
   font-weight: 800;
+  background: none;
+  padding: 0;
 }
 .billboard-description {
-  font-size: 1.08rem;
-  line-height: 1.6;
-  color: #cbd5e1;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-  max-width: 560px;
+  font-size: clamp(.94rem, 1.2vw, 1.05rem);
+  line-height: 1.72;
+  color: #aaa7a2;
+  text-shadow: none;
+  max-width: 610px;
 }
 .billboard-buttons {
   display: flex;
@@ -730,10 +748,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   z-index: 5;
 }
 .rail-heading h2 {
-  font-size: clamp(1.25rem, 1.7vw, 1.65rem);
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
   margin: 0;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  letter-spacing: -.035em;
 }
 .rail-heading h2 span { font-weight: 400; }
 .rail-heading a {
@@ -841,9 +860,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   z-index: 2;
   left: 12px;
   bottom: 10px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: .04em;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
   color: #fff;
   text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
@@ -853,8 +873,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   top: 9px;
   left: 10px;
   color: var(--red);
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -.04em;
   text-shadow: 0 0 8px var(--red-glow);
 }
 
@@ -1173,7 +1195,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-color: rgba(255,255,255,0.15);
   transform: scale(1.03);
 }
-.episode-number { font: bold 2.1rem 'Bebas Neue'; color: #64748b; }
+.episode-number {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  color: #64748b;
+}
 .continue-card b { font-size: .92rem; color: #fff; }
 .continue-card p { font-size: .72rem; color: #94a3b8; margin: 7px 0 16px; }
 .continue-card div > i { height: 4px; background: #334155; border-radius: 2px; display: block; overflow: hidden; }
@@ -1323,13 +1351,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   gap: 4px;
 }
 .catalog-title-group h2 {
-  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: 800;
   margin: 0;
   color: #fff;
-  letter-spacing: -0.01em;
+  letter-spacing: -.04em;
 }
 .catalog-count-badge {
+  font-family: 'JetBrains Mono', monospace;
   color: var(--red);
   font-size: 0.82rem;
   font-weight: 700;
@@ -1419,9 +1449,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .netflix-n-badge {
   color: var(--red);
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 1.3rem;
-  font-weight: bold;
+  font-weight: 900;
+  letter-spacing: -.04em;
   text-shadow: 0 0 10px var(--red-glow);
   line-height: 1;
 }
@@ -1701,7 +1732,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-bottom: 1px solid #334155;
   padding-bottom: 18px;
 }
-.episodes-head h2 { font-size: 1.85rem; font-weight: 700; }
+.episodes-head h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
 .episodes-head span { border: 1px solid #64748b; padding: 8px 14px; border-radius: 3px; font-weight: 600; font-size: .85rem; }
 .episode {
   display: grid;
@@ -1715,7 +1751,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 4px;
 }
 .episode:hover { background: rgba(255,255,255,0.04); }
-.episode-index { font-size: 1.6rem; color: #64748b; text-align: center; font-weight: 700; }
+.episode-index {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1.6rem;
+  color: #64748b;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -.04em;
+}
 .episode-thumb {
   height: 105px;
   border-radius: 6px;
@@ -1736,7 +1779,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 2px;
   padding: 2px 6px;
 }
-.episode h3 { margin: 0 0 6px; font-size: 1.15rem; font-weight: 700; }
+.episode h3 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
 .episode b { font-size: .75rem; color: #94a3b8; font-weight: 600; }
 .episode p { font-size: .82rem; line-height: 1.6; color: #cbd5e1; margin: 9px 0 0; }
 .episode > button {
@@ -1759,7 +1808,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .episode > button svg { width: 16px; height: 16px; }
 
 .stack-section { padding: 60px 4%; background: #0c0d12; border-top: 1px solid rgba(255,255,255,0.06); }
-.stack-section h2 { font-size: 1.75rem; margin-bottom: 24px; }
+.stack-section h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  margin-bottom: 24px;
+}
 .stack-section > div {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1797,7 +1852,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .about-photo { aspect-ratio: .82; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.9); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
 .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%; }
-.about-hero h1 { font-size: 6.4rem; }
+.about-hero h1 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(4.2rem, 7vw, 7rem);
+  line-height: .85;
+  letter-spacing: -.065em;
+  font-weight: 800;
+  text-transform: none;
+}
 .about-meta { font-size: .85rem; font-weight: 600; }
 .about-meta b { color: var(--green); font-weight: 800; }
 .about-hero > div:last-child > p:not(.original):not(.about-meta) { color: #cbd5e1; line-height: 1.75; font-size: 1.02rem; }
@@ -1820,8 +1882,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   transform: translateY(-4px);
   border-color: rgba(255,255,255,0.18);
 }
-.achievement-row article > span { color: var(--red); font: bold 2.4rem 'Bebas Neue'; text-shadow: 0 0 12px var(--red-glow); }
-.achievement-row h2 { font-size: 1.25rem; font-weight: 700; margin: 8px 0; }
+.achievement-row article > span {
+  color: var(--red);
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  text-shadow: 0 0 12px var(--red-glow);
+}
+.achievement-row h2 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -.025em;
+  margin: 8px 0;
+}
 .achievement-row p { font-size: .86rem; color: #94a3b8; line-height: 1.6; margin: 0; }
 
 /* Contact Page */
@@ -1830,9 +1905,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .contact-title { padding: 95px 7% 45px; }
 .contact-title h1 {
-  font: clamp(3.8rem, 7vw, 7rem)/.84 'Bebas Neue';
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(3.8rem, 7vw, 7.5rem);
+  line-height: .9;
+  letter-spacing: -.065em;
+  font-weight: 800;
   margin: 0;
   max-width: 930px;
+  text-transform: none;
 }
 .contact-title h1 em { font-style: normal; color: var(--red); }
 .contact-title > p:last-child { color: #94a3b8; font-size: 1.05rem; }
@@ -1862,7 +1942,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .contact-layout textarea { height: 140px; resize: vertical; }
 .contact-layout form small { display: block; color: #64748b; margin-top: 16px; }
-.contact-layout aside h2 { margin-top: 0; font-size: 1.4rem; }
+.contact-layout aside h2 {
+  font-family: 'Outfit', sans-serif;
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
 .contact-layout aside > a {
   display: grid;
   grid-template-columns: 36px 1fr 25px;
@@ -1960,7 +2046,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .modal-hero > div { position: relative; z-index: 2; }
 .modal-hero h2 {
-  font: 3.8rem/.9 'Bebas Neue';
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.05em;
   margin: 0 0 20px;
   text-shadow: 0 4px 15px rgba(0,0,0,0.9);
 }
@@ -1978,10 +2068,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Blog & Engineering Logs Page */
 .blog-billboard {
+  height: min(65vw, 680px);
+  min-height: 520px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8% 4%;
   background: radial-gradient(circle at 60% 40%, rgba(229, 9, 20, 0.16), transparent 50%), linear-gradient(180deg, #0a0b0e 0%, #10131a 100%);
 }
 .blog-container {
-  max-width: 1280px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 0 4% 90px;
 }
@@ -1989,23 +2085,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Featured Editorial Spotlight Banner */
 .featured-editorial-banner {
   position: relative;
-  min-height: 360px;
+  min-height: 340px;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  margin-top: -60px;
-  margin-bottom: 50px;
-  cursor: pointer;
   display: flex;
   align-items: flex-end;
-  padding: 44px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
-  transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  padding: 38px;
+  margin-bottom: 45px;
+  background-size: cover;
+  background-position: center 30%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  transition: transform .3s ease, border-color .3s ease;
+  cursor: pointer;
 }
 .featured-editorial-banner:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 25px 70px rgba(229, 9, 20, 0.2);
+  transform: translateY(-3px);
+  border-color: rgba(229, 9, 20, 0.5);
 }
 .featured-banner-bg {
   position: absolute;
@@ -2021,20 +2117,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .featured-banner-glow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, #0d0f15 15%, rgba(13, 15, 21, 0.8) 55%, rgba(13, 15, 21, 0.2) 100%),
-              radial-gradient(circle at 20% 80%, rgba(229, 9, 20, 0.35), transparent 60%);
+  background: linear-gradient(0deg, #090a0f 0%, rgba(9, 10, 15, 0.75) 50%, rgba(9, 10, 15, 0.2) 100%);
 }
 .featured-banner-content {
   position: relative;
   z-index: 2;
   max-width: 820px;
 }
-.featured-badge-row {
+.featured-banner-tags {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 .featured-spotlight-pill {
   background: var(--red);
@@ -2043,14 +2137,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 800;
   letter-spacing: 0.08em;
   padding: 4px 10px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  border-radius: 4px;
   box-shadow: 0 0 12px var(--red-glow);
 }
-.featured-spotlight-pill svg { width: 12px; height: 12px; }
-.featured-tag-pill {
+.featured-category-pill {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -2071,9 +2161,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .featured-time-pill svg { width: 13px; height: 13px; }
 .featured-banner-content h2 {
+  font-family: 'Outfit', sans-serif;
   font-size: clamp(1.8rem, 3.2vw, 2.7rem);
   font-weight: 800;
   line-height: 1.15;
+  letter-spacing: -.04em;
   margin: 0 0 14px;
   text-shadow: 0 3px 15px rgba(0, 0, 0, 0.9);
 }
@@ -2329,9 +2421,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .reader-readtime svg { width: 13px; height: 13px; }
 .reader-title {
+  font-family: 'Outfit', sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   font-weight: 800;
   line-height: 1.2;
+  letter-spacing: -.04em;
   margin: 0 0 16px;
   color: #fff;
 }
@@ -2393,8 +2487,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   margin-bottom: 24px;
 }
 .reader-content h3 {
+  font-family: 'Outfit', sans-serif;
   font-size: 1.35rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -.03em;
   color: #fff;
   margin: 32px 0 14px;
   border-left: 3px solid var(--red);
@@ -2825,7 +2921,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     inset: 0;
     background: linear-gradient(0deg, #0a0b0e 10%, rgba(10,11,14,0.4) 70%);
   }
-  .billboard h1 { font-size: 4.9rem; }
+  .billboard h1 { font-size: clamp(2.8rem, 13vw, 4.2rem); }
   .billboard-description {
     font-size: .88rem;
     display: -webkit-box;
@@ -2854,7 +2950,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     overflow: hidden;
   }
   .page-billboard > div { max-width: 100%; }
-  .page-billboard h1 { font-size: 5rem; }
+  .page-billboard h1 { font-size: clamp(3.2rem, 15vw, 5rem); }
   .page-billboard p:not(.original) { max-width: 340px; overflow-wrap: anywhere; }
   .catalog { padding: 25px 20px 70px; }
   .catalog-head { flex-direction: column; align-items: flex-start; gap: 14px; }
@@ -2868,14 +2964,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .stack-section > div { grid-template-columns: repeat(2, 1fr); }
   .about-hero { grid-template-columns: 1fr; padding: 95px 20px 55px; }
   .about-photo { max-height: 430px; }
-  .about-hero h1 { font-size: 5rem; }
+  .about-hero h1 { font-size: clamp(3.2rem, 15vw, 5rem); }
   .achievement-row { grid-template-columns: 1fr; padding: 0 20px 50px; }
   .contact-title { padding: 90px 20px 35px; }
   .contact-layout { grid-template-columns: 1fr; padding: 0 20px 60px; }
   .contact-layout form { padding: 23px; }
   .field-row { grid-template-columns: 1fr; }
   .modal-hero { height: 320px; padding: 25px; }
-  .modal-hero h2 { font-size: 2.6rem; }
+  .modal-hero h2 { font-size: clamp(2.2rem, 5vw, 3rem); }
   .modal-body { grid-template-columns: 1fr; padding: 0 25px 25px; }
   .modal-body aside { display: none; }
   .modal-actions { flex-wrap: wrap; }
