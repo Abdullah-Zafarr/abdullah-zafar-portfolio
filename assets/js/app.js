@@ -951,7 +951,6 @@ function contactPage(){
           <span><b>Email</b>abdullahzafar.codes@gmail.com</span>
           <i data-lucide="arrow-up-right"></i>
         </a>
-        <p><i></i> Available for selected roles and client work</p>
       </aside>
     </section>
   </main>
