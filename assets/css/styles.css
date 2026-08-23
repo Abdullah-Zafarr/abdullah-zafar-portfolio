@@ -1302,7 +1302,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .page-billboard h1 { font-size: clamp(4.8rem, 8vw, 7.2rem); line-height: 0.85; margin: 0 0 12px; }
 .page-billboard p:not(.original) { line-height: 1.6; color: #cbd5e1; font-size: 1.05rem; }
 .projects-billboard { background-image: url('../images/projects/background%20image%20for%20projects.png'); }
-.experience-billboard { background-image: url('../images/projects/voice-analytics-hero.png?v=2'); }
+.experience-billboard { background-image: url('../images/projects/background%20image%20for%20experience.png?v=2'); }
 
 .catalog {
   max-width: 1360px;
