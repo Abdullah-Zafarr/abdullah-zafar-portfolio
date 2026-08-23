@@ -1301,7 +1301,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .page-billboard > div { position: relative; z-index: 2; max-width: 620px; }
 .page-billboard h1 { font-size: clamp(4.8rem, 8vw, 7.2rem); line-height: 0.85; margin: 0 0 12px; }
 .page-billboard p:not(.original) { line-height: 1.6; color: #cbd5e1; font-size: 1.05rem; }
-.projects-billboard { background-image: url('../images/projects/analyst-hero.png?v=3'); }
+.projects-billboard { background-image: url('../images/projects/background%20image%20for%20projects.png'); }
 .experience-billboard { background-image: url('../images/projects/voice-analytics-hero.png?v=2'); }
 
 .catalog {
@@ -1977,9 +1977,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .modal-body aside b { color: #64748b; }
 
 /* Blog & Engineering Logs Page */
-.blog-billboard {
-  background: radial-gradient(circle at 60% 40%, rgba(229, 9, 20, 0.16), transparent 50%), linear-gradient(180deg, #0a0b0e 0%, #10131a 100%);
-}
 .blog-container {
   max-width: 1280px;
   margin: 0 auto;
