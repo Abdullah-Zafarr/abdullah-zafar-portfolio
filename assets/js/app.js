@@ -1061,8 +1061,6 @@ function blogPage() {
     </section>
 
     <div class="blog-container">
-      ${featured ? featuredArticleCard(featured) : ''}
-
       <section class="blog-feed-section">
         <div class="blog-filter-bar">
           <div class="category-pills" id="article-category-filters">
