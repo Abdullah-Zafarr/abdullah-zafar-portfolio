@@ -1281,12 +1281,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Sub Pages */
 .sub-page { min-height: 100vh; padding-top: 70px; }
 .page-billboard {
-  min-height: 580px;
-  height: min(65vw, 640px);
+  min-height: calc(100vh - 70px);
+  height: calc(100vh - 70px);
   padding: 4% 4% 6%;
   display: flex;
   align-items: center;
-  background-position: right 0% top 14%;
+  background-position: right center;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #0a0b0e;
