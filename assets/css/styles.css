@@ -1288,6 +1288,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   align-items: center;
   background-position: right 0% top 14%;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #0a0b0e;
   position: relative;
 }
 .page-billboard:after {
