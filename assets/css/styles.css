@@ -1303,7 +1303,31 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .page-billboard > div { position: relative; z-index: 2; max-width: 620px; }
 .page-billboard h1 { font-size: clamp(4.8rem, 8vw, 7.2rem); line-height: 0.85; margin: 0 0 12px; }
 .page-billboard p:not(.original) { line-height: 1.6; color: #cbd5e1; font-size: 1.05rem; }
-.projects-billboard { background-image: url('../images/projects/background%20image%20for%20projects.png'); }
+.projects-billboard { background-image: none; }
+.projects-billboard:before {
+  content: 'x';
+  display: block;
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  inset: 0 0 0 36%;
+  background: url('../images/projects/background-image-for-projects.png') right center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.45) 7%, #000 14%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.45) 7%, #000 14%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  z-index: 0;
+}
+.projects-billboard:after {
+  background:
+    linear-gradient(180deg, #0a0b0e 0, rgba(10,11,14,0.82) 16px, rgba(10,11,14,0.35) 56px, transparent 110px),
+    linear-gradient(0deg, #0a0b0e 0, transparent 48px);
+}
+.projects-billboard > div { max-width: 520px; }
+@media (min-width: 901px) and (max-width: 1400px) {
+  .projects-billboard:before { left: 40%; }
+  .projects-billboard > div { max-width: 440px; }
+}
 .experience-billboard { background-image: url('../images/projects/background%20image%20for%20experience.png?v=2'); }
 .blog-billboard {
   background-image: url('../images/projects/background%20image%20for%20blogs.png');
