@@ -486,10 +486,10 @@ const footer = () => `<footer class="eledra-footer">
       </div>
     </div>
 
-    <div class="eledra-mega-wordmark-wrap" id="footer-easter-egg" title="Press for next episode">
+    <div class="eledra-mega-wordmark-wrap" id="footer-easter-egg" title="Play next episode">
       <div class="eledra-ambient-glow"></div>
-      <button class="eledra-next-btn" id="footer-next-btn" type="button" aria-label="Press for next episode">
-        <i data-lucide="play"></i> <span>PRESS FOR NEXT EPISODE</span>
+      <button class="eledra-next-btn" id="footer-next-btn" type="button" aria-label="Play next episode" title="Play next episode">
+        <i data-lucide="play"></i>
       </button>
       <h2 class="eledra-mega-wordmark" id="footer-wordmark">LET’S BUILD SOMETHING.</h2>
     </div>

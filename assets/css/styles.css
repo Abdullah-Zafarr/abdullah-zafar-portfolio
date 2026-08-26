@@ -2671,38 +2671,71 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   cursor: pointer;
 }
 .eledra-next-btn {
-  background: rgba(229, 9, 20, 0.12);
-  border: 1px solid rgba(229, 9, 20, 0.4);
-  border-radius: 999px;
-  padding: 6px 18px;
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 0;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0;
   font-weight: 700;
-  color: #ff4d5a;
-  letter-spacing: 0.14em;
+  color: var(--red);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   cursor: pointer;
   outline: none;
-  backdrop-filter: blur(8px);
-  transition: all .25s ease;
+  overflow: hidden;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3), 0 0 18px rgba(255, 255, 255, 0.2);
+  transition: transform .25s ease, color .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
   margin-bottom: 8px;
   z-index: 3;
 }
+.eledra-next-btn::before {
+  display: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 25%, rgba(255, 255, 255, 0.12) 50%, transparent 75%);
+  transform: translateX(-115%);
+  transition: transform .55s ease;
+  pointer-events: none;
+}
+.eledra-next-btn > * { position: relative; z-index: 1; }
 .eledra-next-btn svg {
-  width: 11px;
-  height: 11px;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--red);
   fill: currentColor;
+  box-shadow: none;
+  transform: translateX(1px);
 }
 .eledra-next-btn:hover,
 .eledra-mega-wordmark-wrap:hover .eledra-next-btn {
-  background: rgba(229, 9, 20, 0.28);
-  border-color: rgba(229, 9, 20, 0.9);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 0 24px rgba(229, 9, 20, 0.6);
+  background: var(--red);
+  border-color: rgba(255, 255, 255, 0.62);
+  color: #fff;
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42), 0 0 24px rgba(229, 9, 20, 0.52);
+}
+.eledra-next-btn:hover::before,
+.eledra-mega-wordmark-wrap:hover .eledra-next-btn::before {
+  transform: translateX(115%);
+}
+.eledra-next-btn:hover svg,
+.eledra-mega-wordmark-wrap:hover .eledra-next-btn svg {
+  background: transparent;
+  color: #fff;
+  box-shadow: none;
 }
 .eledra-ambient-glow {
   position: absolute;
