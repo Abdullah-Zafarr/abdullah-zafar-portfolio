@@ -579,38 +579,31 @@ const listCard = p => `<article class="list-item-card" data-project="${p.id}" da
 </article>`;
 
 const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-card reveal" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}">
-  <div class="pcard-header">
-    <div class="pcard-meta-left">
-      <span class="netflix-n-badge">A</span>
-      <span class="pcard-rank-tag">TOP ${p.rank}</span>
-    </div>
-    <div class="pcard-meta-right">
-      <span class="pcard-match-tag">${p.match} Match</span>
-      <span class="pcard-runtime-tag">${p.runtime}</span>
-    </div>
-  </div>
-
   <div class="pcard-preview" onclick="openDetails('${p.id}')">
     <img src="${p.image}" alt="${p.title}" loading="lazy">
     <div class="pcard-preview-gradient"></div>
-    <span class="pcard-teaser-pill">${p.teaserTag}</span>
-    <button class="pcard-expand-btn" aria-label="Expand details"><i data-lucide="maximize-2"></i></button>
+    <span class="pcard-teaser-pill">${p.runtime}</span>
   </div>
 
   <div class="pcard-body">
+    <div class="pcard-kicker">
+      <span class="pcard-index">${String(p.rank).padStart(2,'0')}</span>
+      <span>${p.short}</span>
+      <span>${p.year}</span>
+    </div>
     <h3 class="pcard-title" onclick="openDetails('${p.id}')">${p.title}</h3>
     <p class="pcard-desc">${p.desc}</p>
     <div class="pcard-stack">
       ${p.stack.map(s => `<span>${s}</span>`).join('')}
     </div>
     <div class="pcard-actions">
-      <button class="play-btn pcard-btn" onclick="openDetails('${p.id}')">
-        <i data-lucide="info"></i> Details
+      <button class="pcard-link pcard-link-primary" onclick="openDetails('${p.id}')">
+        View details <i data-lucide="arrow-right"></i>
       </button>
-      <a href="${p.repo}" target="_blank" class="info-btn pcard-btn" title="View Source Code on GitHub">
-        <i data-lucide="github"></i> Code
+      <a href="${p.repo}" target="_blank" class="pcard-link" title="View source on GitHub">
+        GitHub <i data-lucide="arrow-up-right"></i>
       </a>
-      ${p.demo ? `<a href="${p.demo}" target="_blank" class="demo-btn pcard-btn" title="Launch Live Demo"><i data-lucide="external-link"></i> Demo</a>` : ''}
+      ${p.demo ? `<a href="${p.demo}" target="_blank" class="pcard-link" title="Open live demo">Live demo <i data-lucide="arrow-up-right"></i></a>` : ''}
     </div>
   </div>
 </article>`;
