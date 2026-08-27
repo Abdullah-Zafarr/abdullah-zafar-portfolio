@@ -1,122 +1,206 @@
 <div align="center">
-  <img src="assets/icons/logo.PNG" width="120" alt="AZ logo" />
+  <a href="https://abdullahzafar.tech">
+    <img src="assets/icons/logo.PNG" width="120" alt="Abdullah Zafar Logo" />
+  </a>
 
-  # Abdullah Zafar - Netflix-Inspired Portfolio
+  # Abdullah Zafar — Netflix-Inspired AI Engineering Portfolio
+  
+  **A cinematic, ultra-responsive portfolio engineered for production AI systems, low-latency telephony agents, and algorithmic rigor.**
 
-  **A high-performance cinematic portfolio for an AI engineer building production-grade systems.**
+  <p>
+    <a href="https://abdullahzafar.tech"><img src="https://img.shields.io/badge/Live_Site-abdullahzafar.tech-E50914?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Live Site" /></a>
+    <a href="assets/documents/Abdullah-Zafar-Resume.pdf"><img src="https://img.shields.io/badge/Resume-Download_PDF-FFFFFF?style=for-the-badge&logo=adobeacrobatreader&logoColor=111111" alt="Resume" /></a>
+    <a href="https://www.linkedin.com/in/abdullahz-dev/"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn" /></a>
+    <a href="https://github.com/Abdullah-Zafarr"><img src="https://img.shields.io/badge/GitHub-Abdullah--Zafarr-181717?style=for-the-badge&logo=github" alt="GitHub" /></a>
+    <a href="https://codeforces.com/profile/rodrickkkk"><img src="https://img.shields.io/badge/Codeforces-Rank_70_(PK)-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces" /></a>
+  </p>
 
-  [![Domain](https://img.shields.io/badge/Domain-abdullahzafar.tech-E50914?style=for-the-badge&logo=googlechrome&logoColor=white)](https://abdullahzafar.tech)
-  [![Resume](https://img.shields.io/badge/Resume-Download_PDF-FFFFFF?style=for-the-badge&logo=adobeacrobatreader&logoColor=111111)](./assets/documents/Abdullah-Zafar-Resume.pdf)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/abdullahz-dev/)
-  [![GitHub](https://img.shields.io/badge/GitHub-Abdullah--Zafarr-181717?style=for-the-badge&logo=github)](https://github.com/Abdullah-Zafarr)
-  [![Codeforces](https://img.shields.io/badge/Codeforces-Rank_70_(PK)-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white)](https://codeforces.com/profile/rodrickkkk)
+  ### 📺 Visual Showcase
+  
+  <p align="center">
+    <img src="assets/readme/profiles-preview.png" width="32.5%" alt="Who is watching profile selection" />
+    <img src="assets/readme/browse-preview.png" width="32.5%" alt="Netflix-inspired portfolio browse screen" />
+    <img src="assets/readme/projects-preview.png" width="32.5%" alt="Minimalist Dual-View Project Catalog" />
+  </p>
 </div>
 
 ---
 
 ## 🍿 The Experience
 
-This is not a conventional developer portfolio. It translates the design language and interaction patterns of Netflix into a dynamic, streaming-style portfolio engineered for recruiters, clients, and technical teams.
+This portfolio translates the design system, soundscapes, and interaction mechanics of **Netflix** into a dynamic showcase for production AI engineering. 
 
-Visitors choose a viewing profile, hear the signature cinematic intro sound, browse ranked engineering rails, inspect structured project cards with real architectural metrics, read in-depth engineering logs, and switch views seamlessly.
+Rather than a static one-page CV, visitors enter through a **"Who's Watching?" profile gate**, experience personalized billboard heroes and project rankings, inspect live teaser micro-animations, browse engineering deep dives with in-modal code readers, and navigate the entire UI via spatial TV remote / keyboard shortcuts.
 
-<p align="center">
-  <img src="assets/readme/profiles-preview.png" width="49%" alt="Who is watching profile selector" />
-  <img src="assets/readme/browse-preview.png" width="49%" alt="Netflix-inspired portfolio browse screen" />
-</p>
+---
 
-## ✨ What Makes It Different
+## 🎭 Interactive Viewer Personas
 
-- **Netflix Profile Selection & Memes**: Interactive "Who's Watching?" gate with sound effects, dynamic meme avatar reflections, and profile switcher.
-- **Structured Netflix Project Cards**: High-definition obsidian card containers with crisp outlines, live teaser overlays, visible architectural summaries, tech stack chips, and instant modal / code actions.
-- **Blog & Technical Engineering Logs**: Deep-dive technical articles covering Voice AI latency, Native RAG, LangGraph Clinical Agents, and Algorithmic engineering with category filters and interactive modal reading.
-- **Clean, Extensionless URLs**: Built with directory-based routing and universal hosting support (`/projects`, `/experience`, `/about`, `/blog`, `/contact`) without `.html` extensions.
-- **Authentic Engineering Work**: Every featured title is backed by real production code, benchmark metrics, live demos, and verifiable GitHub repositories.
-- **Instant Search & TV Remote / Keyboard Navigation**: Full keyboard directional navigation (`Arrow Keys`, `Enter`, `Escape`) and real-time project filtering.
-- **Universal Static Architecture**: Pure vanilla HTML5, CSS3, and JavaScript — zero heavy framework dependencies or build overhead.
+Every visitor receives a personalized experience based on their role:
 
-## 🚀 Featured AI Projects
+| <img src="assets/images/profile/recruiter-meme.png" width="130" alt="Recruiter Meme" /><br>**Recruiter** | <img src="assets/images/profile/developer-meme.png" width="130" alt="Developer Meme" /><br>**Developer** | <img src="assets/images/profile/client-meme.png" width="130" alt="Client Meme" /><br>**Client** | <img src="assets/images/profile/explorer-meme.png" width="130" alt="Explorer Meme" /><br>**Explorer** |
+| :---: | :---: | :---: | :---: |
+| **Top Candidate Match** | **Architecture & Systems** | **Commercial Deployed AI** | **General Exploration** |
+| One-click **Resume Download**, career episodes, and recruiter top picks. | **Codebases & Schemas**, Codeforces rank, and framework-free RAG. | **Live Production Demos**, business ROI, and direct consultation CTA. | Complete overview, biography, milestones, and tech stack chips. |
 
-| Project | What it does | Metrics / Benchmark | Core Stack | Links |
-| --- | --- | --- | --- | --- |
-| **Production-Grade Voice Agent** | Full-duplex conversational voice system with Twilio telephony, WebSocket streaming audio, and Deepgram STT. | **Sub-750ms Latency** | TypeScript, Twilio, Deepgram, Groq | [Code](https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent) |
-| **Autonomous Clinical Reporter** | Event-driven healthcare platform converting ultrasound medical scans into validated diagnostic reports. | **99.4% Validated** | TypeScript, LangGraph, Pydantic, Gemini | [Code](https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter) · [Live Demo](https://ultrasound-reporting-service.vercel.app) |
-| **Native RAG Architecture** | Framework-free production RAG engine with OCR ingestion, vector-store purging, and grounding telemetry. | **Framework-free** | Python, ChromaDB, OCR, Groq | [Code](https://github.com/Abdullah-Zafarr/Native-RAG-Architecture) |
-| **LLM Data Analyst** | Conversational analyst executing sandboxed Pandas code with self-correcting debug loops. | **91% Self-Fix Rate** | Python, Pandas, Streamlit, Groq | [Code](https://github.com/Abdullah-Zafarr/LLM-Data-Analyst-Groq) |
-| **Multimodal Agentic Workflow** | Multi-agent reasoning pipeline combining web search, audio extraction, and Gemini Multimodal. | **Multi-Tool Pipeline** | Python, Gemini, SerpAPI, Streamlit | [Code](https://github.com/Abdullah-Zafarr/Multimodal-Agentic-Workflow) |
-| **Mem0 Graph Memory Engine** | Persistent memory engine with multi-session user facts, contradiction handling, and Qdrant storage. | **Long-term Graph** | Python, Mem0, Qdrant, Agents | [Code](https://github.com/Abdullah-Zafarr/Mem0-Graph-Memory-Engine) |
+---
+
+## 🚀 Featured AI Production Builds
+
+<div align="center">
+
+| <a href="https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent"><img src="assets/images/projects/voice-ui.png" width="100%" alt="Production-Grade Voice Agent" /></a> | <a href="https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter"><img src="assets/images/projects/clinical.png" width="100%" alt="Autonomous Clinical Reporter" /></a> |
+| :--- | :--- |
+| **🎙️ Production-Grade Voice Agent**<br>• **Latency Benchmark:** `Sub-750ms Latency`<br>• **Stack:** `TypeScript` `Twilio WebSockets` `Deepgram Nova-2` `Groq`<br>• **Links:** [Source Code](https://github.com/Abdullah-Zafarr/Production_Grade_Voice_Agent) · [Deep Dive Article](https://abdullahzafar.tech/blog/?article=voice-latency) | **🩺 Autonomous Clinical Reporter**<br>• **Accuracy Benchmark:** `99.4% Validated`<br>• **Stack:** `LangGraph` `Gemini` `Pydantic Strict` `FastAPI`<br>• **Links:** [Source Code](https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter) · [Live Demo](https://ultrasound-reporting-service.vercel.app) |
+| <a href="https://github.com/Abdullah-Zafarr/Native-RAG-Architecture"><img src="assets/images/projects/rag.png" width="100%" alt="Native RAG Architecture" /></a> | <a href="https://github.com/Abdullah-Zafarr/LLM-Data-Analyst-Groq"><img src="assets/images/projects/analyst.png" width="100%" alt="LLM Data Analyst" /></a> |
+| **🧬 Native RAG Architecture**<br>• **Architecture:** `Zero-Framework Native Python`<br>• **Stack:** `Python` `ChromaDB` `Tesseract OCR` `Groq`<br>• **Links:** [Source Code](https://github.com/Abdullah-Zafarr/Native-RAG-Architecture) · [Deep Dive Article](https://abdullahzafar.tech/blog/?article=native-rag) | **📊 LLM Data Analyst**<br>• **Fix Rate Benchmark:** `91% Self-Correcting REPL`<br>• **Stack:** `Python` `Pandas` `Streamlit` `Groq Llama-3`<br>• **Links:** [Source Code](https://github.com/Abdullah-Zafarr/LLM-Data-Analyst-Groq) |
+| <a href="https://github.com/Abdullah-Zafarr/Multimodal-Agentic-Workflow"><img src="assets/images/projects/multimodal.png" width="100%" alt="Multimodal Agentic Workflow" /></a> | <a href="https://github.com/Abdullah-Zafarr/Mem0-Graph-Memory-Engine"><img src="assets/images/projects/memory.png" width="100%" alt="Mem0 Graph Memory Engine" /></a> |
+| **🤖 Multimodal Agentic Workflow**<br>• **Pipeline:** `Multi-Agent Search & Media Reasoning`<br>• **Stack:** `Python` `Gemini 1.5` `SerpAPI` `Streamlit`<br>• **Links:** [Source Code](https://github.com/Abdullah-Zafarr/Multimodal-Agentic-Workflow) | **🧠 Mem0 Graph Memory Engine**<br>• **Persistence:** `Contradiction Graph Overrides`<br>• **Stack:** `Python` `Mem0` `Qdrant Vector DB` `Agents`<br>• **Links:** [Source Code](https://github.com/Abdullah-Zafarr/Mem0-Graph-Memory-Engine) · [Deep Dive Article](https://abdullahzafar.tech/blog/?article=persistent-memory) |
+
+</div>
+
+---
+
+## ✨ Key Features & Architectural Capabilities
+
+### 🎬 1. Cinematic Hero Billboards & Ultra-Wide Scaling
+- **100vh Thematic Backdrops:** Custom artwork for sub-pages (*Orbital Telemetry* on Experience, *AI Systems Architecture* on Projects, *Engineering Workspace* on Blog).
+- **Responsive 4K Layouts:** Multi-stop vignette gradients and typography optimized for mobile up to 3840px ultrawide displays.
+
+### 📦 2. Dual-View Minimalist Project Catalog & Live Teasers
+- **Grid / List Mode Toggle:** Switch seamlessly between a visual 3x3 poster grid and a detailed engineering list with persistent `localStorage` state.
+- **Live Teaser Micro-Animations:**
+  - 🎙️ **Sub-750ms Waveform:** Animated audio stream bars for telephony pipelines.
+  - 🩺 **DICOM Laser Scanner:** Grid scan laser animation for clinical parser.
+  - 💻 **Sandboxed Terminal:** Live execution step simulation for data analysis.
+  - 🧬 **Vector Nodes:** Interactive graph node pulse animations for RAG & Mem0.
+
+### 📝 3. Engineering Logs & Interactive Article Reader
+- **In-Modal Reading Experience:**
+  - 📊 Real-time **scroll reading progress bar**.
+  - 📋 **One-click Copy Code** headers on all syntax-highlighted snippets.
+  - 🔗 **Direct URL parameter deep-linking** (`?article=voice-latency`) with clipboard share buttons.
+  - 🏷️ Real-time category filtering (`Voice AI`, `RAG Architecture`, `Healthcare AI`, `Algorithms`, `Agentic AI`).
+
+### 🎮 4. Spatial TV Remote & Keyboard Navigation
+Full spatial 2D keyboard navigation across billboard actions, title cards, continue rails, skill chips, and footer links:
+- <kbd>Arrow Keys</kbd> — Spatial 2D focus traversal
+- <kbd>Enter</kbd> / <kbd>Space</kbd> — Open focused project or article modal
+- <kbd>/</kbd> or <kbd>S</kbd> — Focus universal instant search
+- <kbd>P</kbd> — Return to "Who's Watching?" profile gate
+- <kbd>Esc</kbd> — Close active modal, mobile drawer, or search bar
+
+### ⚡ 5. Interactive Glitch Footer Easter Egg & Transmissions
+- **"Next Episode" Wordmark Cycler:** Interactive mega-wordmark (`#footer-easter-egg`) cycling famous engineering quotes with glitch effects and audio feedback.
+- **Async Contact Form:** Direct transmission via Web3Forms API with loading spinners, toast notifications, and automatic mailto fallback.
+
+---
 
 ## 📝 Engineering Logs & Technical Deep Dives
 
-The portfolio features full-length technical breakdowns on modern AI engineering:
-1. **Sub-750ms Voice AI**: Full-duplex voice pipelines, Twilio WebSockets, Deepgram Nova-2, and Groq streaming.
-2. **Native RAG from Scratch**: Ingesting messy PDF/OCR documents, semantic chunking, and grounding telemetry.
-3. **Clinical AI with LangGraph**: Multi-agent state machines, structured validation, and HIPAA considerations.
-4. **Competitive Programming & Systems**: How 100+ daily streaks and Top 70 Codeforces rank inform production AI architecture.
-5. **Persistent Graph Memory**: Overriding contradictory facts across multi-turn sessions with Mem0 & Qdrant
+1. **[Architecting a Sub-750ms Conversational Voice Agent](https://abdullahzafar.tech/blog/?article=voice-latency)** — Budgeting millisecond latency across Twilio WebSockets, Deepgram Nova-2, and Groq Llama-3-70B.
+2. **[Zero-Framework RAG with ChromaDB & Python](https://abdullahzafar.tech/blog/?article=native-rag)** — Why replacing heavy framework wrappers reduced retrieval overhead by 45%.
+3. **[Autonomous Ultrasound & DICOM Parsing with Guardrails](https://abdullahzafar.tech/blog/?article=clinical-agent)** — Achieving 99.4% validation with LangGraph deterministic state machines and Pydantic.
+4. **[From LeetCode to Top 70 on Codeforces](https://abdullahzafar.tech/blog/?article=codeforces-engineering)** — How cache locality, branch prediction, and constant-factor optimization elevate backend AI systems.
+5. **[Long-Term Agent Memory & Graph Overrides](https://abdullahzafar.tech/blog/?article=persistent-memory)** — Resolving factual contradictions across multi-turn agent sessions with Mem0 and Qdrant.
 
-## 🛠️ Technology Stack
+---
 
-<p>
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
-  <img src="https://img.shields.io/badge/JavaScript_ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=111111" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/Lucide_Icons-F56565?style=flat-square" alt="Lucide icons" />
-  <img src="https://img.shields.io/badge/Vercel_/_GitHub_Pages-Ready-000000?style=flat-square&logo=vercel&logoColor=white" alt="Deployment" />
-</p>
+## 🛠️ Technology Stack & Architecture
+
+- **Core Engine:** Vanilla HTML5, CSS3, ES6+ JavaScript (Zero heavy framework overhead, 100/100 Lighthouse performance)
+- **Icons & Visuals:** Lucide Icons, Custom SVG Brand Marks, Figma Artwork
+- **Audio & Media:** HTML5 Web Audio API & Media Elements
+- **Routing & Deployment:** Clean extensionless directory routing (`/projects`, `/experience`, `/about`, `/blog`, `/contact`) with Vercel & GitHub Pages support (`.nojekyll`, `vercel.json`)
+- **Metadata & SEO:** Open Graph Protocol, Twitter Cards, Schema.org JSON-LD Structured Data, Web App Manifest (`manifest.json`)
+
+---
 
 ## 📂 Repository Structure
 
 ```text
 .
-├── index.html                         # Who's Watching? entry gate
+├── index.html                         # "Who's Watching?" Profile Entry Gate & Home
 ├── projects/
-│   └── index.html                     # Clean URL: /projects
+│   └── index.html                     # Clean URL: /projects (Grid / List Catalog)
 ├── experience/
-│   └── index.html                     # Clean URL: /experience
+│   └── index.html                     # Clean URL: /experience (Career Episodes & Stack)
 ├── about/
-│   └── index.html                     # Clean URL: /about
+│   └── index.html                     # Clean URL: /about (Biography & Milestones)
 ├── blog/
-│   └── index.html                     # Clean URL: /blog
+│   └── index.html                     # Clean URL: /blog (Engineering Logs & Reader)
 ├── contact/
-│   └── index.html                     # Clean URL: /contact
+│   └── index.html                     # Clean URL: /contact (Direct Transmission Form)
+├── pages/                             # Modular page templates
+│   ├── home.html
+│   ├── projects.html
+│   ├── experience.html
+│   ├── about.html
+│   ├── blog.html
+│   └── contact.html
 ├── assets/
-│   ├── audio/                         # Ta-dum intro audio
-│   ├── css/                           # Global styles & Netflix design system
-│   ├── documents/                     # PDF Resume
-│   ├── icons/                         # Brand AZ emblem & tech icons
+│   ├── audio/                         # Ta-dum intro sound asset
+│   ├── brand/                         # AZ vector emblem and brand marks
+│   ├── css/
+│   │   └── styles.css                 # Netflix design system, 4K scaling & theme variables
+│   ├── documents/
+│   │   └── Abdullah-Zafar-Resume.pdf  # Downloadable PDF resume
+│   ├── icons/                         # Technology SVGs & site emblems
 │   ├── images/
-│   │   ├── profile/                   # Portrait & meme avatars
-│   │   └── projects/                  # Production UI screenshots
-│   ├── js/                            # Routing, state, articles, & interactions
+│   │   ├── profile/                   # Portrait & meme profile avatars
+│   │   └── projects/                  # High-res project posters & backdrops
+│   ├── js/
+│   │   └── app.js                     # State, routing, modals, audio, search & keyboard engine
+│   ├── readme/                        # Visual previews for GitHub repository
 │   └── vendor/                        # Vendored dependencies (Lucide icons)
-├── vercel.json                        # Clean URL routing configuration
+├── manifest.json                      # PWA Web Application Manifest
+├── vercel.json                        # Clean URL rewrite rules
 ├── .nojekyll                          # GitHub Pages static asset bypass
-└── README.md
+└── README.md                          # Project documentation
 ```
 
-## 💻 Run Locally
+---
 
-Clone the repository and start a local HTTP server:
+## 💻 Running Locally
+
+This project requires **zero build dependencies** or package installations. You can run it with any local static HTTP server:
 
 ```bash
+# Clone the repository
 git clone https://github.com/Abdullah-Zafarr/abdullah-zafar-portfolio.git
 cd abdullah-zafar-portfolio
+
+# Start a local HTTP server
 python -m http.server 8000
 ```
 
-Open [http://localhost:8000](http://localhost:8000) in your browser.
+Then open [http://localhost:8000](http://localhost:8000) in your browser.
 
-## 📬 Contact & Connect
+---
 
-- **Website:** [abdullahzafar.tech](https://abdullahzafar.tech)
-- **Email:** [abdullahzafar.codes@gmail.com](mailto:abdullahzafar.codes@gmail.com)
-- **LinkedIn:** [linkedin.com/in/abdullahz-dev](https://www.linkedin.com/in/abdullahz-dev/)
-- **GitHub:** [github.com/Abdullah-Zafarr](https://github.com/Abdullah-Zafarr)
-- **Codeforces:** [codeforces.com/profile/rodrickkkk](https://codeforces.com/profile/rodrickkkk)
+## 👤 About the Author
+
+<table>
+  <tr>
+    <td width="140" align="center">
+      <img src="assets/images/profile/abdullah-zafar.jfif" width="120" style="border-radius:50%;" alt="Abdullah Zafar" />
+    </td>
+    <td>
+      <h3>Abdullah Zafar</h3>
+      <p><b>AI Systems Engineer · Co-Founder @ Eledra Labs · Top 70 Codeforces (PK)</b></p>
+      <p>Building production-grade voice agents, retrieval systems, and autonomous healthcare agents that operate reliably outside the demo environment.</p>
+      <p>
+        <a href="https://abdullahzafar.tech">Website</a> · 
+        <a href="https://www.linkedin.com/in/abdullahz-dev/">LinkedIn</a> · 
+        <a href="https://github.com/Abdullah-Zafarr">GitHub</a> · 
+        <a href="mailto:abdullahzafar.codes@gmail.com">Email</a>
+      </p>
+    </td>
+  </tr>
+</table>
 
 ---
 
 <div align="center">
-  <strong>Designed & Engineered by Abdullah Zafar</strong>
+  <sub>Designed & Engineered by <b>Abdullah Zafar</b> · Built with pure HTML, CSS, and JavaScript.</sub>
 </div>
