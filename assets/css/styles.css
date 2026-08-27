@@ -555,7 +555,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .mobile-drawer a { font-size: 1.2rem; border-bottom: 1px solid #222736; padding-bottom: 13px; font-weight: 600; }
 
 /* Browse Page & Billboard */
-.browse-page { min-height: 100vh; }
+.browse-page { min-height: auto; }
 .billboard {
   height: min(80vw, 820px);
   min-height: 670px;
@@ -3095,4 +3095,80 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .reader-title { font-size: 1.6rem; }
   .reader-author-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
   .reader-header-actions { margin-left: 0; width: 100%; justify-content: flex-start; }
+}
+
+/*
+ * Ultra-wide desktop layout
+ *
+ * Browser zoom-out increases the CSS viewport (25% zoom turns a 1920px-wide
+ * window into a viewport close to 7680px). The regular desktop rules cap many
+ * components in pixels, so cards and copy stop scaling while percentage-based
+ * areas keep growing. Keeping the large-viewport layout proportional prevents
+ * the rails, catalog grids and footer from collapsing into tiny islands.
+ */
+@media (min-width: 4000px) {
+  html { font-size: 0.833333vw; }
+
+  .profiles-logo img { height: 2.7083vw; max-width: 7.2917vw; }
+  .viewer-art { width: 9.1146vw; }
+
+  .netflix-nav {
+    height: 3.6458vw;
+    gap: 1.875vw;
+  }
+  .nav-logo img { height: 1.875vw; max-width: 6.25vw; }
+  .netflix-nav nav { gap: 1.25vw; }
+  .nav-tools { gap: 0.8333vw; }
+  .nav-tool svg { width: 1.0417vw; height: 1.0417vw; }
+  .nav-avatar { width: 1.6667vw; height: 1.6667vw; }
+
+  .billboard {
+    height: 94vh;
+    min-height: 0;
+    max-height: none;
+  }
+  .billboard-copy { max-width: 32.8125vw; }
+  .billboard-description { max-width: 29.1667vw; }
+
+  .browse-rails { margin-top: -1.8229vw; }
+  .rail-section { margin-bottom: 3.75vw; }
+  .title-rail { gap: 0.7292vw; }
+  .title-card {
+    flex-basis: 17.5vw;
+    width: 17.5vw;
+    height: 9.8vw;
+    min-width: 0;
+    min-height: 0;
+  }
+  .continue-card {
+    min-width: 17.7083vw;
+    min-height: 6.6667vw;
+  }
+  .skill-tile {
+    flex-basis: 8.5938vw;
+    width: 8.5938vw;
+    height: 5.4688vw;
+    min-width: 0;
+  }
+  .skill-tile img { width: 1.875vw; height: 1.875vw; }
+
+  .sub-page { padding-top: 3.6458vw; }
+  .page-billboard {
+    min-height: calc(100vh - 3.6458vw);
+    height: calc(100vh - 3.6458vw);
+  }
+  .page-billboard > div { max-width: 32.2917vw; }
+  .projects-billboard > div { max-width: 27.0833vw; }
+
+  .catalog,
+  .blog-container { max-width: 70.8333vw; }
+  .project-grid,
+  .article-grid {
+    grid-template-columns: repeat(auto-fill, minmax(18.75vw, 1fr));
+  }
+  .episodes { max-width: 59.8958vw; }
+
+  .eledra-container { max-width: 66.6667vw; }
+  .eledra-top-nav { max-width: 44.7917vw; }
+  .netflix-footer { max-width: 51.0417vw; }
 }
