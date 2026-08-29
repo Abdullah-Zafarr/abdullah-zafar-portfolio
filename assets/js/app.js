@@ -540,7 +540,6 @@ const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-p
   <div class="card-poster">
     <img src="${p.image}" alt="${p.title} interface" loading="lazy">
     <span class="card-title">${p.short}</span>
-    <span class="netflix-n">A</span>
   </div>
   <div class="card-hover">
     <div class="hover-actions">
@@ -557,7 +556,6 @@ const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-p
 const listCard = p => `<article class="list-item-card" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()}">
   <div class="list-card-thumb" onclick="openDetails('${p.id}')">
     <img src="${p.image}" alt="${p.title}" loading="lazy">
-    <span class="netflix-n">A</span>
   </div>
   <div class="list-card-info">
     <div class="list-card-header">
