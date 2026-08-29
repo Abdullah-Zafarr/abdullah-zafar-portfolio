@@ -847,17 +847,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   color: #fff;
   text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
-.netflix-n {
-  position: absolute;
-  z-index: 2;
-  top: 9px;
-  left: 10px;
-  color: var(--red);
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.15rem;
-  text-shadow: 0 0 8px var(--red-glow);
-}
-
 /* Card Hover overlay */
 .card-hover {
   position: absolute;
