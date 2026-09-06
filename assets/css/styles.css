@@ -2930,6 +2930,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .eledra-mega-wordmark-wrap {
     margin: 10px 0 10px;
   }
+  .eledra-mega-wordmark {
+    /* Keep the single-line wordmark proportional once the global clamp's
+       2rem floor would otherwise make it wider than a phone viewport. */
+    font-size: 7vw;
+  }
 }
 
 /* Legacy Footer compatibility */
