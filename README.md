@@ -112,7 +112,7 @@ Full spatial 2D keyboard navigation across billboard actions, title cards, conti
 - **Icons & Visuals:** Lucide Icons, Custom SVG Brand Marks, Figma Artwork
 - **Audio & Media:** HTML5 Web Audio API & Media Elements
 - **Routing & Deployment:** Clean extensionless directory routing (`/projects`, `/experience`, `/about`, `/blog`, `/contact`) with Vercel & GitHub Pages support (`.nojekyll`, `vercel.json`)
-- **Metadata & SEO:** Open Graph Protocol, Twitter Cards, Schema.org JSON-LD Structured Data, Web App Manifest (`manifest.json`)
+- **Metadata & SEO:** Open Graph Protocol, Twitter Cards, Schema.org JSON-LD Structured Data, XML Sitemap (`sitemap.xml`), Crawl Directives (`robots.txt`), Web App Manifest (`manifest.json`)
 
 ---
 
@@ -121,6 +121,7 @@ Full spatial 2D keyboard navigation across billboard actions, title cards, conti
 ```text
 .
 ├── index.html                         # "Who's Watching?" Profile Entry Gate & Home
+├── 404.html                           # Branded Netflix-inspired 404 error page
 ├── projects/
 │   └── index.html                     # Clean URL: /projects (Grid / List Catalog)
 ├── experience/
@@ -154,6 +155,8 @@ Full spatial 2D keyboard navigation across billboard actions, title cards, conti
 │   ├── readme/                        # Visual previews for GitHub repository
 │   └── vendor/                        # Vendored dependencies (Lucide icons)
 ├── manifest.json                      # PWA Web Application Manifest
+├── sitemap.xml                        # Search engine sitemap
+├── robots.txt                         # Web crawler indexing directives
 ├── vercel.json                        # Clean URL rewrite rules
 ├── .nojekyll                          # GitHub Pages static asset bypass
 └── README.md                          # Project documentation
