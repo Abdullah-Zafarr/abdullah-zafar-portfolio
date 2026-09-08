@@ -1248,6 +1248,11 @@ function initTVKeyboardNavigation(){
       }
       if (searchBox?.classList.contains('open')) {
         searchBox.classList.remove('open');
+        const input = $('.search-box input');
+        if (input) input.value = '';
+        $$('.title-card, .list-item-card, .article-card, .project-catalog-card').forEach(c => {
+          c.hidden = false;
+        });
         e.preventDefault();
         return;
       }
@@ -1348,11 +1353,22 @@ function setup(){
   $('.drawer-close')?.addEventListener('click', () => $('.mobile-drawer')?.classList.remove('open'));
 
   // Search
+  const resetSearch = () => {
+    const input = $('.search-box input');
+    if (input) input.value = '';
+    $$('.title-card, .list-item-card, .article-card, .project-catalog-card').forEach(c => {
+      c.hidden = false;
+    });
+  };
+
   $('.search-toggle')?.addEventListener('click', () => {
     $('.search-box')?.classList.add('open');
     $('.search-box input')?.focus();
   });
-  $('.search-close')?.addEventListener('click', () => $('.search-box')?.classList.remove('open'));
+  $('.search-close')?.addEventListener('click', () => {
+    $('.search-box')?.classList.remove('open');
+    resetSearch();
+  });
 
   $('.search-box input')?.addEventListener('input', e => {
     const val = e.target.value.toLowerCase().trim();
@@ -1441,6 +1457,10 @@ function setup(){
       gate.remove();
       applyProfileUI(savedProfile);
     }
+
+    $('.manage-profiles', gate)?.addEventListener('click', () => {
+      showToast('Select any persona above to customize the billboard focus, project ordering, and tone.');
+    });
   }
 
   $('.profile-menu')?.addEventListener('click', () => {
