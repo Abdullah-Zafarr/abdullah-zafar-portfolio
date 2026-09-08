@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e50914">
+  <meta name="description" content="Page not found — Abdullah Zafar Portfolio.">
+  <title>Lost your way? — Abdullah Zafar</title>
+  <link rel="icon" href="assets/icons/logo.PNG">
+  <link rel="apple-touch-icon" href="assets/icons/logo.PNG">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="assets/css/styles.css?v=7">
+  <style>
+    .error-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background: radial-gradient(circle at 50% 30%, rgba(229, 9, 20, 0.18) 0%, rgba(10, 11, 14, 0.95) 60%, #06070a 100%), #06070a;
+      overflow-x: hidden;
+    }
+    .error-hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 60px;
+      z-index: 2;
+    }
+    .error-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .error-kicker span {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      box-shadow: 0 0 12px rgba(229, 9, 20, 0.6);
+    }
+    .error-hero h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin: 0 0 20px;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+    }
+    .error-desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #94a3b8;
+      max-width: 580px;
+      line-height: 1.6;
+      margin: 0 auto 36px;
+    }
+    .error-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .error-code-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #64748b;
+      letter-spacing: 0.08em;
+    }
+    .error-code-badge strong {
+      color: #e2e8f0;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body class="error-page-body">
+  <div class="error-page-wrapper">
+    <header class="netflix-nav" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10;">
+      <a href="./" class="nav-logo" aria-label="Abdullah Zafar home"><img src="assets/icons/logo.PNG" alt="AZ"></a>
+      <nav>
+        <a href="./">Home</a>
+        <a href="projects/">Projects</a>
+        <a href="experience/">Experience</a>
+        <a href="about/">About</a>
+        <a href="blog/">Blog</a>
+        <a href="contact/">Contact</a>
+      </nav>
+    </header>
+
+    <main class="error-hero">
+      <p class="error-kicker"><span>A</span> ERROR 404</p>
+      <h1>Lost your way?</h1>
+      <p class="error-desc">
+        Sorry, we can't find that page. You'll find lots of production AI systems, low-latency telephony agents, and engineering logs on the home page.
+      </p>
+      <div class="error-actions">
+        <a href="./" class="play-btn"><i data-lucide="play"></i> Abdullah Zafar Home</a>
+        <a href="projects/" class="info-btn"><i data-lucide="layers"></i> Browse Projects</a>
+      </div>
+      <div class="error-code-badge">
+        <span>Error Code</span>
+        <strong>NSES-404-LOST</strong>
+      </div>
+    </main>
+
+    <footer class="eledra-footer" style="padding: 40px 4% 35px;">
+      <div class="eledra-container">
+        <div class="eledra-top-nav" style="margin-bottom: 20px;">
+          <div class="eledra-col">
+            <h4 class="eledra-col-title">NAVIGATION</h4>
+            <div class="eledra-links-row">
+              <a href="projects/">PROJECTS</a>
+              <a href="experience/">EXPERIENCE</a>
+              <a href="about/">ABOUT</a>
+              <a href="blog/">BLOG</a>
+              <a href="contact/">CONTACT</a>
+            </div>
+          </div>
+          <div class="eledra-col">
+            <h4 class="eledra-col-title">CONNECT</h4>
+            <div class="eledra-links-row">
+              <a href="assets/documents/Abdullah-Zafar-Resume.pdf" target="_blank" rel="noopener noreferrer">RESUME</a>
+              <a href="https://github.com/Abdullah-Zafarr" target="_blank" rel="noopener noreferrer">GITHUB</a>
+              <a href="https://www.linkedin.com/in/abdullahz-dev/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="assets/vendor/lucide.min.js"></script>
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons({ attrs: { 'stroke-width': 2 } });
+    }
+  </script>
+</body>
+</html>
