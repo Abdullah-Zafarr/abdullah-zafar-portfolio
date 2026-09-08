@@ -1,12 +1,20 @@
 {
+  "id": "/",
   "name": "Abdullah Zafar - AI Engineer",
   "short_name": "Abdullah Zafar",
   "description": "Cinematic engineering portfolio of Abdullah Zafar, featuring production-grade Voice AI, RAG architectures, and autonomous clinical agents.",
   "start_url": "./",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0a0b0e",
   "theme_color": "#e50914",
   "orientation": "portrait-primary",
+  "categories": [
+    "portfolio",
+    "engineering",
+    "technology",
+    "artificial-intelligence"
+  ],
   "icons": [
     {
       "src": "assets/icons/logo.PNG",
