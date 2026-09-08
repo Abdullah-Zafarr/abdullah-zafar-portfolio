@@ -923,7 +923,7 @@ function contactPage(){
           <textarea required name="message" placeholder="Tell me what you're building..."></textarea>
         </label>
         <button class="play-btn" type="submit"><i data-lucide="send"></i> Send Message</button>
-        <small>Opens your email app with the message prefilled. Nothing is stored.</small>
+        <small>Transmits directly to Abdullah's inbox with instant confirmation.</small>
       </form>
       <aside>
         <h2>More ways to connect</h2>
@@ -1513,6 +1513,15 @@ function setup(){
   $('.tv-hint-close')?.addEventListener('click', () => $('#tv-hint')?.remove());
 
   initIntersectionObserver();
+
+  // Experience Episode Interactive Feedback
+  $$('.episode').forEach(ep => {
+    ep.addEventListener('click', () => {
+      const title = ep.querySelector('h3')?.textContent || 'Career Episode';
+      const meta = ep.querySelector('b')?.textContent || '';
+      showToast(`${title} · ${meta}`);
+    });
+  });
 
   // Contact Form with async submission & toast feedback
   $('#contact-form')?.addEventListener('submit', async e => {

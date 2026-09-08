@@ -1880,6 +1880,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   transition: background .2s;
   outline: none;
   border-radius: 4px;
+  cursor: pointer;
 }
 .episode:hover { background: rgba(255,255,255,0.04); }
 .episode-index { font-size: 1.6rem; color: #64748b; text-align: center; font-weight: 700; }
