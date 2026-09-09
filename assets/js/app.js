@@ -1381,6 +1381,7 @@ function setup(){
     $$('.title-card, .list-item-card, .article-card, .project-catalog-card').forEach(c => {
       c.hidden = false;
     });
+    $('#search-empty-state')?.remove();
   };
 
   $('.search-toggle')?.addEventListener('click', () => {
@@ -1395,10 +1396,39 @@ function setup(){
   $('.search-box input')?.addEventListener('input', e => {
     const val = e.target.value.toLowerCase().trim();
     const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card');
+    let visibleCount = 0;
     cards.forEach(c => {
       const searchData = c.dataset.search || '';
-      c.hidden = val ? !searchData.includes(val) : false;
+      const match = val ? searchData.includes(val) : true;
+      c.hidden = !match;
+      if (match) visibleCount++;
     });
+
+    let emptyState = $('#search-empty-state');
+    if (val && visibleCount === 0) {
+      if (!emptyState) {
+        emptyState = document.createElement('div');
+        emptyState.id = 'search-empty-state';
+        emptyState.className = 'search-empty-state';
+        const targetContainer = $('#catalog-container') || $('#articles-grid') || $('#browse-rails-container') || $('main');
+        targetContainer?.insertAdjacentElement('afterbegin', emptyState);
+      }
+      emptyState.innerHTML = `
+        <div class="empty-state-content">
+          <i data-lucide="search-x" class="empty-search-icon"></i>
+          <h3>No titles found for "${val}"</h3>
+          <p>We couldn't find any matches. Try searching for <code>Voice AI</code>, <code>RAG</code>, <code>LangGraph</code>, or <code>Python</code>.</p>
+          <button class="play-btn clear-search-btn" id="empty-clear-search-btn"><i data-lucide="rotate-ccw"></i> Clear Search</button>
+        </div>
+      `;
+      iconify();
+      $('#empty-clear-search-btn')?.addEventListener('click', () => {
+        resetSearch();
+        $('.search-box input')?.focus();
+      });
+    } else {
+      emptyState?.remove();
+    }
   });
 
   // Notifications toggle
