@@ -22,6 +22,14 @@ const files = {
   portrait:'assets/images/profile/abdullah-zafar.jfif'
 };
 
+const clearParam = key => {
+  const url = new URL(window.location);
+  if (url.searchParams.has(key)) {
+    url.searchParams.delete(key);
+    history.replaceState(null, '', url);
+  }
+};
+
 const profileMemes = {
   Recruiter: 'assets/images/profile/recruiter-meme.png',
   Client: 'assets/images/profile/client-meme.png',
@@ -1238,11 +1246,13 @@ function initTVKeyboardNavigation(){
     if (e.key === 'Escape') {
       if (dialog && dialog.open) {
         dialog.close();
+        clearParam('project');
         e.preventDefault();
         return;
       }
       if (artDialog && artDialog.open) {
         artDialog.close();
+        clearParam('article');
         e.preventDefault();
         return;
       }
@@ -1481,12 +1491,28 @@ function setup(){
   });
 
   const dialog = $('#details-modal');
-  $('.modal-close')?.addEventListener('click', () => dialog?.close());
-  dialog?.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+  $('.modal-close')?.addEventListener('click', () => {
+    dialog?.close();
+    clearParam('project');
+  });
+  dialog?.addEventListener('click', e => {
+    if (e.target === dialog) {
+      dialog.close();
+      clearParam('project');
+    }
+  });
 
   const artDialog = $('#article-modal');
-  $('.article-reader-modal .modal-close')?.addEventListener('click', () => artDialog?.close());
-  artDialog?.addEventListener('click', e => { if (e.target === artDialog) artDialog.close(); });
+  $('.article-reader-modal .modal-close')?.addEventListener('click', () => {
+    artDialog?.close();
+    clearParam('article');
+  });
+  artDialog?.addEventListener('click', e => {
+    if (e.target === artDialog) {
+      artDialog.close();
+      clearParam('article');
+    }
+  });
 
   // Blog Category Filtering
   $$('.category-pills .filter-pill').forEach(btn => {
@@ -1505,6 +1531,12 @@ function setup(){
       if (countEl) countEl.textContent = visibleCount;
     });
   });
+
+  // Direct Project Param Support
+  const targetProject = new URLSearchParams(location.search).get('project');
+  if (targetProject) {
+    setTimeout(() => openDetails(targetProject), 150);
+  }
 
   // Direct Article Param Support
   const targetArticle = new URLSearchParams(location.search).get('article');
@@ -1637,6 +1669,10 @@ function openArticle(id){
   const d = $('#article-modal');
   if(!a || !d) return;
 
+  const url = new URL(window.location);
+  url.searchParams.set('article', a.id);
+  history.replaceState(null, '', url);
+
   d.scrollTop = 0;
   const fill = $('#article-progress-fill');
   if (fill) fill.style.width = '0%';
@@ -1706,6 +1742,10 @@ function openDetails(id){
   const d = $('#details-modal');
   if(!p || !d) return;
 
+  const url = new URL(window.location);
+  url.searchParams.set('project', p.id);
+  history.replaceState(null, '', url);
+
   $('.modal-hero>img', d).src = p.image;
   $('.modal-hero h2', d).textContent = p.title;
   $('.modal-match', d).textContent = `${p.match} Match · ${p.year} · ${p.runtime}`;
@@ -1714,7 +1754,17 @@ function openDetails(id){
   $('.modal-actions', d).innerHTML = `
     <a class="play-btn" target="_blank" href="${p.repo}"><i data-lucide="github"></i> View Repository</a>
     ${p.demo ? `<a class="info-btn" target="_blank" href="${p.demo}"><i data-lucide="external-link"></i> Live Demo</a>` : ''}
+    <button class="round secondary share-btn" id="modal-project-share-btn" title="Copy Project Link"><i data-lucide="share-2"></i></button>
   `;
+
+  $('#modal-project-share-btn')?.addEventListener('click', () => {
+    const shareUrl = window.location.origin + window.location.pathname + '?project=' + p.id;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        showToast('Project link copied to clipboard!');
+      }).catch(() => {});
+    }
+  });
 
   iconify();
   d.showModal();
