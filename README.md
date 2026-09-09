@@ -69,6 +69,8 @@ Every visitor receives a personalized experience based on their role:
 
 ### 📦 2. Dual-View Minimalist Project Catalog & Live Teasers
 - **Grid / List Mode Toggle:** Switch seamlessly between a visual 3x3 poster grid and a detailed engineering list with persistent `localStorage` state.
+- **Deep-Linking & Sharing:** Direct URL parameter linking (`?project=voice`) and 1-click clipboard sharing with interactive toast feedback.
+- **Universal Search & Empty States:** Live client-side search across titles, stacks, and summaries with a dedicated empty state and quick suggestion tags (`Voice AI`, `RAG`, `LangGraph`, `Python`).
 - **Live Teaser Micro-Animations:**
   - 🎙️ **Sub-750ms Waveform:** Animated audio stream bars for telephony pipelines.
   - 🩺 **DICOM Laser Scanner:** Grid scan laser animation for clinical parser.
@@ -82,17 +84,20 @@ Every visitor receives a personalized experience based on their role:
   - 🔗 **Direct URL parameter deep-linking** (`?article=voice-latency`) with clipboard share buttons.
   - 🏷️ Real-time category filtering (`Voice AI`, `RAG Architecture`, `Healthcare AI`, `Algorithms`, `Agentic AI`).
 
-### 🎮 4. Spatial TV Remote & Keyboard Navigation
-Full spatial 2D keyboard navigation across billboard actions, title cards, continue rails, skill chips, and footer links:
+### 🎮 4. Spatial TV Remote & Accessible Navigation
+Full spatial 2D keyboard navigation and WCAG 2.1 AA accessibility:
 - <kbd>Arrow Keys</kbd> — Spatial 2D focus traversal
-- <kbd>Enter</kbd> / <kbd>Space</kbd> — Open focused project or article modal
+- <kbd>Enter</kbd> / <kbd>Space</kbd> — Open focused project, catalog card, article, or career episode
 - <kbd>/</kbd> or <kbd>S</kbd> — Focus universal instant search
 - <kbd>P</kbd> — Return to "Who's Watching?" profile gate
 - <kbd>Esc</kbd> — Close active modal, mobile drawer, or search bar
+- **Accessibility:** High-contrast `:focus-visible` outline rings and `@media (prefers-reduced-motion: reduce)` compliance.
 
-### ⚡ 5. Interactive Glitch Footer Easter Egg & Transmissions
+### ⚡ 5. Interactive Glitch Footer, Transmissions & PWA
 - **"Next Episode" Wordmark Cycler:** Interactive mega-wordmark (`#footer-easter-egg`) cycling famous engineering quotes with glitch effects and audio feedback.
-- **Async Contact Form:** Direct transmission via Web3Forms API with loading spinners, toast notifications, and automatic mailto fallback.
+- **Async Contact Form:** Direct transmission via Web3Forms API with loading spinners, toast notifications, 1-click email copy action, and automatic mailto fallback.
+- **PWA & Offline Resilience:** Registered Service Worker (`sw.js`) precaching critical runtime assets for reliable offline performance.
+- **Print Optimization:** High-contrast `@media print` stylesheet for clean physical printing and PDF export of career episodes and technical logs.
 
 ---
 
@@ -109,10 +114,11 @@ Full spatial 2D keyboard navigation across billboard actions, title cards, conti
 ## 🛠️ Technology Stack & Architecture
 
 - **Core Engine:** Vanilla HTML5, CSS3, ES6+ JavaScript (Zero heavy framework overhead, 100/100 Lighthouse performance)
+- **Service Worker & PWA:** Custom `sw.js` offline cache engine with Web App Manifest (`manifest.json`)
 - **Icons & Visuals:** Lucide Icons, Custom SVG Brand Marks, Figma Artwork
 - **Audio & Media:** HTML5 Web Audio API & Media Elements
 - **Routing & Deployment:** Clean extensionless directory routing (`/projects`, `/experience`, `/about`, `/blog`, `/contact`) with Vercel & GitHub Pages support (`.nojekyll`, `vercel.json`)
-- **Metadata & SEO:** Open Graph Protocol, Twitter Cards, Schema.org JSON-LD Structured Data, XML Sitemap (`sitemap.xml`), Crawl Directives (`robots.txt`), Web App Manifest (`manifest.json`)
+- **Metadata & SEO:** Open Graph Protocol, Twitter Cards, Schema.org JSON-LD Structured Data Graph, XML Sitemap (`sitemap.xml`), Crawl Directives (`robots.txt`)
 
 ---
 

@@ -3273,3 +3273,77 @@ textarea:focus-visible {
 .clear-search-btn {
   margin-top: 10px;
 }
+
+/* ==========================================================================
+   Print Stylesheet
+   ========================================================================== */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  .netflix-nav,
+  .mobile-drawer,
+  .profiles-screen,
+  .billboard-buttons,
+  .maturity,
+  .rail-arrow,
+  .eledra-mega-wordmark-wrap,
+  .search-box,
+  .notification-wrapper,
+  .article-reader-modal,
+  .details-modal,
+  #netflix-toast,
+  .catalog-controls,
+  .category-pills,
+  .pcard-link,
+  .episode button {
+    display: none !important;
+  }
+
+  .browse-page,
+  .sub-page {
+    padding: 0 !important;
+  }
+
+  .page-billboard,
+  .billboard {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 20px 0 !important;
+    page-break-after: avoid;
+  }
+
+  .page-billboard h1,
+  .billboard h1,
+  .about-hero h1 {
+    font-size: 24pt !important;
+    color: #000 !important;
+  }
+
+  .episode {
+    border-bottom: 1px solid #ddd !important;
+    padding: 12px 0 !important;
+    page-break-inside: avoid;
+  }
+
+  .pcard-body,
+  .article-card-body {
+    border: 1px solid #ccc !important;
+    padding: 12px !important;
+    margin-bottom: 16px !important;
+    page-break-inside: avoid;
+  }
+}
