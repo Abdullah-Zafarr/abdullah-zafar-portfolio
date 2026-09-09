@@ -1818,3 +1818,10 @@ function openDetails(id){
 }
 
 setup();
+
+// Register Service Worker for PWA Offline Caching
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
