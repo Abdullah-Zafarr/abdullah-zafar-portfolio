@@ -3167,3 +3167,42 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .eledra-top-nav { max-width: 44.7917vw; }
   .netflix-footer { max-width: 51.0417vw; }
 }
+
+/* ==========================================================================
+   Accessibility & Motion Preferences
+   ========================================================================== */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skills-marquee-track {
+    animation: none !important;
+  }
+  .teaser-animation,
+  .scan-laser,
+  .wave-bars span,
+  .vector-nodes i,
+  .graph-pulse {
+    animation: none !important;
+  }
+}

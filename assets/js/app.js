@@ -949,7 +949,7 @@ function contactPage(){
 }
 
 function articleCard(a) {
-  return `<article class="article-card reveal" data-category="${a.category}" data-search="${a.title.toLowerCase()} ${a.summary.toLowerCase()} ${a.stack.join(' ').toLowerCase()}">
+  return `<article class="article-card reveal" tabindex="0" data-article-id="${a.id}" data-category="${a.category}" data-search="${a.title.toLowerCase()} ${a.summary.toLowerCase()} ${a.stack.join(' ').toLowerCase()}">
     <div class="article-card-thumb" onclick="openArticle('${a.id}')">
       <img src="${a.image}" alt="${a.title}" loading="lazy">
       <span class="article-category-badge">${a.tag}</span>
@@ -1277,7 +1277,7 @@ function initTVKeyboardNavigation(){
     if (e.key === 'p' || e.key === 'P') {
       if (!dialog?.open && !artDialog?.open) {
         sessionStorage.removeItem('az-profile');
-        location.href = 'index.html';
+        location.href = routes.home;
         return;
       }
     }
@@ -1330,9 +1330,21 @@ function initTVKeyboardNavigation(){
       }
     }
 
-    if ((e.key === 'Enter' || e.key === ' ') && document.activeElement?.classList.contains('title-card')) {
-      e.preventDefault();
-      openDetails(document.activeElement.dataset.project);
+    if ((e.key === 'Enter' || e.key === ' ') && !['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(document.activeElement?.tagName)) {
+      const active = document.activeElement;
+      if (active?.classList.contains('title-card') || active?.classList.contains('project-catalog-card')) {
+        e.preventDefault();
+        openDetails(active.dataset.project);
+      } else if (active?.classList.contains('article-card')) {
+        e.preventDefault();
+        const artId = active.dataset.articleId;
+        if (artId) openArticle(artId);
+      } else if (active?.classList.contains('episode')) {
+        e.preventDefault();
+        const title = active.querySelector('h3')?.textContent || 'Career Episode';
+        const meta = active.querySelector('b')?.textContent || '';
+        showToast(`${title} · ${meta}`);
+      }
     }
   });
 
