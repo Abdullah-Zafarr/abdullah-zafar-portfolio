@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -32,25 +32,42 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Abdullah Zafar",
-    "url": "https://abdullahzafar.tech",
-    "jobTitle": "AI Engineer",
-    "description": "AI Engineer specializing in low-latency voice systems, native RAG architectures, and agentic workflows.",
-    "sameAs": [
-      "https://github.com/Abdullah-Zafarr",
-      "https://www.linkedin.com/in/abdullahz-dev/",
-      "https://codeforces.com/profile/rodrickkkk"
-    ],
-    "knowsAbout": [
-      "Voice AI",
-      "Retrieval-Augmented Generation",
-      "LangGraph",
-      "Python",
-      "TypeScript",
-      "Groq",
-      "FastAPI",
-      "ChromaDB"
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://abdullahzafar.tech/#person",
+        "name": "Abdullah Zafar",
+        "url": "https://abdullahzafar.tech",
+        "image": "https://abdullahzafar.tech/assets/images/profile/abdullah-zafar.jfif",
+        "jobTitle": "AI Engineer",
+        "description": "AI Engineer specializing in low-latency voice systems, native RAG architectures, and agentic workflows.",
+        "sameAs": [
+          "https://github.com/Abdullah-Zafarr",
+          "https://www.linkedin.com/in/abdullahz-dev/",
+          "https://codeforces.com/profile/rodrickkkk"
+        ],
+        "knowsAbout": [
+          "Voice AI",
+          "Retrieval-Augmented Generation",
+          "LangGraph",
+          "Python",
+          "TypeScript",
+          "Groq",
+          "FastAPI",
+          "ChromaDB",
+          "Qdrant"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://abdullahzafar.tech/#website",
+        "url": "https://abdullahzafar.tech/",
+        "name": "Abdullah Zafar — AI Engineer Portfolio",
+        "description": "Production-Grade Voice AI, Native RAG Architectures, and Autonomous Clinical Agents.",
+        "publisher": {
+          "@id": "https://abdullahzafar.tech/#person"
+        }
+      }
     ]
   }
   </script>
