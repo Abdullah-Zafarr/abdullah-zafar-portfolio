@@ -2031,7 +2031,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .contact-layout textarea { height: 140px; resize: vertical; }
 .contact-layout form small { display: block; color: #64748b; margin-top: 16px; }
 .contact-layout aside h2 { margin-top: 0; font-size: 1.4rem; }
-.contact-layout aside > a {
+.contact-layout aside > a,
+.contact-layout aside > .contact-email-card {
   display: grid;
   grid-template-columns: 36px 1fr 25px;
   align-items: center;
@@ -2039,11 +2040,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-bottom: 1px solid rgba(255,255,255,0.08);
   padding: 18px 0;
   transition: transform .2s;
+  cursor: pointer;
 }
-.contact-layout aside > a:hover { transform: translateX(4px); }
-.contact-layout aside > a > svg { width: 22px; color: var(--cyan); }
-.contact-layout aside > a span { font-size: .75rem; color: #94a3b8; }
-.contact-layout aside > a b { display: block; color: #fff; font-size: .92rem; margin-bottom: 3px; font-weight: 700; }
+.contact-layout aside > a:hover,
+.contact-layout aside > .contact-email-card:hover { transform: translateX(4px); }
+.contact-layout aside > a > svg,
+.contact-layout aside > .contact-email-card > svg { width: 22px; color: var(--cyan); }
+.contact-layout aside > a span,
+.contact-layout aside > .contact-email-card span { font-size: .75rem; color: #94a3b8; }
+.contact-layout aside > a b,
+.contact-layout aside > .contact-email-card b { display: block; color: #fff; font-size: .92rem; margin-bottom: 3px; font-weight: 700; }
+.contact-copy-icon { width: 18px; color: #94a3b8; transition: color .2s; }
+.contact-email-card:hover .contact-copy-icon { color: #fff; }
 .contact-layout aside > p {
   font-size: .78rem;
   color: #94a3b8;

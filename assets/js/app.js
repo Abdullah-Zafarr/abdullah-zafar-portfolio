@@ -401,7 +401,7 @@ const profileConfigs = {
   }
 };
 
-let soundEnabled = true;
+let soundEnabled = localStorage.getItem('az-sound') !== 'false';
 const getActiveProfile = () => sessionStorage.getItem('az-profile') || 'Recruiter';
 const pageName = document.body.dataset.page || '';
 
@@ -916,8 +916,8 @@ function contactPage(){
     <section class="contact-layout">
       <form id="contact-form">
         <div class="field-row">
-          <label>Name<input required name="name" placeholder="Your name"></label>
-          <label>Email<input required type="email" name="email" placeholder="you@company.com"></label>
+          <label>Name<input required name="name" autocomplete="name" placeholder="Your name"></label>
+          <label>Email<input required type="email" name="email" autocomplete="email" placeholder="you@company.com"></label>
         </div>
         <label>I'm reaching out about
           <select name="type">
@@ -945,11 +945,11 @@ function contactPage(){
           <span><b>GitHub</b>Abdullah-Zafarr</span>
           <i data-lucide="arrow-up-right"></i>
         </a>
-        <a href="${links.email}">
+        <div class="contact-email-card" id="copy-email-btn" title="Click to copy email address" role="button" tabindex="0">
           <i data-lucide="mail"></i>
-          <span><b>Email</b>abdullahzafar.codes@gmail.com</span>
-          <i data-lucide="arrow-up-right"></i>
-        </a>
+          <span><b>Email (Click to Copy)</b>abdullahzafar.codes@gmail.com</span>
+          <i data-lucide="copy" class="contact-copy-icon"></i>
+        </div>
       </aside>
     </section>
   </main>
@@ -1470,9 +1470,26 @@ function setup(){
   // Sound Toggle on Profile Screen
   $('#sound-toggle')?.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
+    localStorage.setItem('az-sound', soundEnabled ? 'true' : 'false');
     const btn = $('#sound-toggle');
     if (btn) btn.innerHTML = `<i data-lucide="${soundEnabled?'volume-2':'volume-x'}"></i> Sound ${soundEnabled?'on':'off'}`;
     iconify();
+  });
+
+  // 1-Click Copy Email on Contact Page
+  const copyEmailHandler = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText('abdullahzafar.codes@gmail.com').then(() => {
+        showToast('Email address copied to clipboard!');
+      }).catch(() => {});
+    }
+  };
+  $('#copy-email-btn')?.addEventListener('click', copyEmailHandler);
+  $('#copy-email-btn')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      copyEmailHandler();
+    }
   });
 
   bindRailInteractions();
