@@ -88,7 +88,8 @@ const projects = [
    stack:['Python','Pandas','Streamlit','Groq'],
    repo:'https://github.com/Abdullah-Zafarr/LLM-Data-Analyst-Groq',
    teaserType:'terminal',
-   teaserTag:'SANDBOXED REPL · SELF-CORRECTING FIX'
+   teaserTag:'SANDBOXED REPL · SELF-CORRECTING FIX',
+    titlePos:'right'
  },
  {
    id:'collabboard',
@@ -105,7 +106,8 @@ const projects = [
    repo:'https://github.com/Abdullah-Zafarr/collabboard-nextjs',
    demo:'https://collabboard-nextjs.vercel.app',
    teaserType:'kanban',
-   teaserTag:'REALTIME SYNC · SUPABASE WS'
+   teaserTag:'REALTIME SYNC · SUPABASE WS',
+    titlePos:'right'
  },
  {
    id:'rag',
@@ -574,7 +576,7 @@ const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-p
   ${rank?`<span class="top-number">${p.rank}</span>`:''}
   <div class="card-poster">
     <img src="${p.image}" alt="${p.title} interface" loading="lazy">
-    <span class="card-title">${p.short}</span>
+    <span class="card-title ${p.titlePos==='right'?'title-right':''}">${p.short}</span>
   </div>
   <div class="card-hover">
     <div class="hover-actions">
