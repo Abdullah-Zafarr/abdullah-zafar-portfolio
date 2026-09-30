@@ -1,4 +1,4 @@
-const CACHE_NAME = 'az-portfolio-v1';
+const CACHE_NAME = 'az-portfolio-v4';
 const PRECACHE_URLS = [
   './',
   'index.html',
@@ -8,7 +8,8 @@ const PRECACHE_URLS = [
   'assets/vendor/lucide.min.js',
   'assets/icons/logo.PNG',
   'assets/brand/az-mark.svg',
-  'assets/audio/netflix-sound.mp3'
+  'assets/audio/netflix-sound.mp3',
+  'assets/images/certificates/spiral-lab-cert.png'
 ];
 
 self.addEventListener('install', event => {
