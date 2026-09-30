@@ -1054,6 +1054,35 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   100% { transform: scale(1.3); opacity: 1; }
 }
 
+/* 7. Realtime Kanban Teaser */
+.kanban-anim {
+  background: radial-gradient(circle at center, #0f2723, #071310);
+}
+.kanban-pills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.54rem;
+  font-weight: 800;
+}
+.kanban-pills span {
+  background: #112822;
+  border: 1px solid #059669;
+  border-radius: 3px;
+  padding: 2px 5px;
+  color: #34d399;
+  animation: kanbanGlow 1.8s infinite alternate;
+}
+.kanban-pills em {
+  font-style: normal;
+  color: #10b981;
+  font-size: 0.65rem;
+}
+@keyframes kanbanGlow {
+  0% { border-color: #059669; }
+  100% { border-color: #34d399; box-shadow: 0 0 8px rgba(52, 211, 153, 0.4); }
+}
+
 .hover-actions {
   display: flex;
   align-items: center;

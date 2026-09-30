@@ -1,4 +1,4 @@
-const CACHE_NAME = 'az-portfolio-v6';
+const CACHE_NAME = 'az-portfolio-v7';
 const PRECACHE_URLS = [
   './',
   'index.html',
@@ -11,7 +11,8 @@ const PRECACHE_URLS = [
   'assets/audio/netflix-sound.mp3',
   'assets/images/certificates/spiral-lab-cert.png',
   'assets/images/certificates/bricklix-cert.jpg',
-  'assets/images/certificates/niit-letter.png'
+  'assets/images/certificates/niit-letter.png',
+  'assets/images/projects/collabboard.png'
 ];
 
 self.addEventListener('install', event => {

@@ -91,11 +91,28 @@ const projects = [
    teaserTag:'SANDBOXED REPL · SELF-CORRECTING FIX'
  },
  {
+   id:'collabboard',
+   title:'CollabBoard — Real-Time Kanban Workspace',
+   short:'CollabBoard',
+   image:'assets/images/projects/collabboard.png?v=1',
+   rank:'4',
+   year:'2026',
+   match:'97%',
+   runtime:'Live sync',
+   rating:'PG',
+   desc:'A realtime collaborative Kanban workspace built with Next.js and Supabase, featuring shared workspaces, drag-and-drop tasks, and instant multi-user synchronization.',
+   stack:['Next.js','Supabase','TypeScript','TailwindCSS'],
+   repo:'https://github.com/Abdullah-Zafarr/collabboard-nextjs',
+   demo:'https://collabboard-nextjs.vercel.app',
+   teaserType:'kanban',
+   teaserTag:'REALTIME SYNC · SUPABASE WS'
+ },
+ {
    id:'rag',
    title:'Native RAG Architecture',
    short:'Native RAG',
    image:'assets/images/projects/rag.png?v=5',
-   rank:'4',
+   rank:'5',
    year:'2026',
    match:'94%',
    runtime:'Framework-free',
@@ -111,7 +128,7 @@ const projects = [
    title:'Multimodal Agentic Workflow',
    short:'Agent Workflow',
    image:'assets/images/projects/multimodal.png?v=5',
-   rank:'5',
+   rank:'6',
    year:'2026',
    match:'92%',
    runtime:'Multi-tool',
@@ -127,7 +144,7 @@ const projects = [
    title:'Mem0 Graph Memory Engine',
    short:'Memory Engine',
    image:'assets/images/projects/memory.png?v=5',
-   rank:'6',
+   rank:'7',
    year:'2026',
    match:'91%',
    runtime:'Long-term',
@@ -367,7 +384,7 @@ const profileConfigs = {
     secondaryBtn: { text:'View Career Episodes', icon:'history', href:routes.experience },
     maturity: 'HIRE 2026',
     topPicksTitle: `Today's Top Picks for Recruiters`,
-    pCardOrder: ['voice', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
+    pCardOrder: ['voice', 'clinical', 'collabboard', 'analyst', 'rag', 'multimodal', 'memory'],
     railOrder: ['picks', 'continue', 'ranked', 'skills']
   },
   Developer: {
@@ -378,7 +395,7 @@ const profileConfigs = {
     secondaryBtn: { text:'Explore Architecture', icon:'code-xml', href:routes.projects },
     maturity: 'DEV 2026',
     topPicksTitle: `Trending in Open-Source & Architecture`,
-    pCardOrder: ['rag', 'voice', 'clinical', 'memory', 'analyst', 'multimodal'],
+    pCardOrder: ['rag', 'voice', 'collabboard', 'clinical', 'memory', 'analyst', 'multimodal'],
     railOrder: ['picks', 'ranked', 'skills', 'continue']
   },
   Client: {
@@ -389,7 +406,7 @@ const profileConfigs = {
     secondaryBtn: { text:'View Live Demos', icon:'external-link', href:routes.projects },
     maturity: 'PROD 2026',
     topPicksTitle: `Ready-to-Deploy Solutions & Demos`,
-    pCardOrder: ['clinical', 'voice', 'rag', 'analyst', 'multimodal', 'memory'],
+    pCardOrder: ['collabboard', 'clinical', 'voice', 'rag', 'analyst', 'multimodal', 'memory'],
     railOrder: ['picks', 'ranked', 'continue', 'skills']
   },
   Explorer: {
@@ -400,7 +417,7 @@ const profileConfigs = {
     secondaryBtn: { text:'More Info', icon:'circle-alert', href:routes.about },
     maturity: 'AI 2026',
     topPicksTitle: `Today's Top Picks for Explorer`,
-    pCardOrder: ['voice', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
+    pCardOrder: ['voice', 'collabboard', 'clinical', 'analyst', 'rag', 'multimodal', 'memory'],
     railOrder: ['picks', 'ranked', 'continue', 'skills']
   }
 };
@@ -539,6 +556,12 @@ const teaserSnippet = p => {
     return `<div class="teaser-animation agents-anim">
       <div class="agent-pills"><span>Web</span><em>➔</em><span>Audio</span><em>➔</em><span>Gemini</span></div>
       <div class="teaser-meta-badge"><i data-lucide="bot"></i> MULTI-AGENT</div>
+    </div>`;
+  }
+  if(p.teaserType === 'kanban') {
+    return `<div class="teaser-animation kanban-anim">
+      <div class="kanban-pills"><span>To Do</span><em>➔</em><span>In Progress</span><em>➔</em><span>Done</span></div>
+      <div class="teaser-meta-badge"><i data-lucide="layout-grid"></i> REALTIME SYNC</div>
     </div>`;
   }
   return `<div class="teaser-animation graph-anim">
@@ -688,7 +711,7 @@ function renderBrowseRails(prof){
 
   const railsMap = {
     picks: rail(cfg.topPicksTitle, orderedProjects.map(p=>card(p))),
-    ranked: rail('Top 6 in Abdullah Zafar Today', projects.map(p=>card(p,true)), 'ranked-rail'),
+    ranked: rail(`Top ${projects.length} in Abdullah Zafar Today`, projects.map(p=>card(p,true)), 'ranked-rail'),
     continue: rail(`Continue Watching for ${prof}s`, [
       experienceCard('01','Co-Founder & Lead AI Engineer','Eledra Labs','Jun 2026 — Present','76'),
       experienceCard('02','AI & Automation Intern','Spiral Lab','Jul 2026 — Sep 2026','100'),
@@ -793,14 +816,14 @@ function projectsPage(){
       <div>
         <p class="original"><span>A</span> COLLECTION · PRODUCTION BUILDS</p>
         <h1>MY LIST</h1>
-        <p>Six production-grade AI systems and architectures. Every project opens directly to its source code and live interface.</p>
+        <p>Production-grade AI systems, full-stack workspaces, and architectures. Every project opens directly to its source code and live interface.</p>
       </div>
     </section>
     <section class="catalog">
       <div class="catalog-head">
         <div class="catalog-title-group">
           <h2>Abdullah's Pinned Projects</h2>
-          <span class="catalog-count-badge">6 Production AI Repositories</span>
+          <span class="catalog-count-badge">${projects.length} Production Repositories</span>
         </div>
         <div class="catalog-actions-right">
           <a href="${links.github}?tab=repositories" target="_blank" class="github-catalog-btn" title="View all repositories on GitHub">
@@ -935,8 +958,8 @@ function aboutPage(){
       </article>
       <article tabindex="0">
         <span>03</span>
-        <h2>6 Pinned Builds</h2>
-        <p>A portfolio spanning voice, RAG, multimodal agents, memory, health, and data.</p>
+        <h2>${projects.length} Pinned Builds</h2>
+        <p>A portfolio spanning real-time voice, collaborative workspaces, RAG, multimodal agents, memory, health, and data.</p>
       </article>
     </section>
   </main>
