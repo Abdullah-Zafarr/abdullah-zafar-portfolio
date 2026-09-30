@@ -641,6 +641,176 @@ const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-ca
   </div>
 </article>`;
 
+const deckMeta = {
+  voice: {
+    accentColor: '#00e5a3',
+    accentRgb: '0, 229, 163',
+    deckPill: 'CONVERSATIONAL AI',
+    deckNode: 'SYS_NODE // VOICE',
+    deckIcon: 'phone-call',
+    deckTitle: 'Voice AI',
+    deckStat: '<750ms',
+    deckStatLabel: 'RESPONSE LATENCY'
+  },
+  clinical: {
+    accentColor: '#00d4ff',
+    accentRgb: '0, 212, 255',
+    deckPill: 'HEALTHCARE AI',
+    deckNode: 'SYS_NODE // CLINICAL',
+    deckIcon: 'activity',
+    deckTitle: 'Clinical Reporter',
+    deckStat: '99.4%',
+    deckStatLabel: 'VALIDATED ACCURACY'
+  },
+  analyst: {
+    accentColor: '#ff8400',
+    accentRgb: '255, 132, 0',
+    deckPill: 'DATAMIND AI',
+    deckNode: 'SYS_NODE // REPL',
+    deckIcon: 'terminal',
+    deckTitle: 'LLM Data Analyst',
+    deckStat: '91%',
+    deckStatLabel: 'SELF-FIX REPL'
+  },
+  collabboard: {
+    accentColor: '#facc15',
+    accentRgb: '250, 204, 21',
+    deckPill: 'COLLABORATION',
+    deckNode: 'SYS_NODE // WS',
+    deckIcon: 'layout-grid',
+    deckTitle: 'CollabBoard',
+    deckStat: 'LIVE SYNC',
+    deckStatLabel: 'SUPABASE WS'
+  },
+  rag: {
+    accentColor: '#b062ff',
+    accentRgb: '176, 98, 255',
+    deckPill: 'NATIVE RAG',
+    deckNode: 'SYS_NODE // RAG',
+    deckIcon: 'layers',
+    deckTitle: 'Native RAG Engine',
+    deckStat: 'ZERO-FW',
+    deckStatLabel: 'NATIVE CHROMADB'
+  },
+  multimodal: {
+    accentColor: '#ff4560',
+    accentRgb: '255, 69, 96',
+    deckPill: 'AGENT WORKFLOW',
+    deckNode: 'SYS_NODE // AGENT',
+    deckIcon: 'workflow',
+    deckTitle: 'Multimodal Agent',
+    deckStat: 'MULTI-TOOL',
+    deckStatLabel: 'GEMINI REASONING'
+  },
+  memory: {
+    accentColor: '#38bdf8',
+    accentRgb: '56, 189, 248',
+    deckPill: 'GRAPH MEMORY',
+    deckNode: 'SYS_NODE // MEM0',
+    deckIcon: 'cpu',
+    deckTitle: 'Mem0 Engine',
+    deckStat: 'GRAPH',
+    deckStatLabel: 'PERSISTENT MEMORY'
+  }
+};
+
+const deckCard = (p, index, total = 7) => {
+  const meta = deckMeta[p.id] || {
+    accentColor: '#00e5a3',
+    accentRgb: '0, 229, 163',
+    deckPill: p.short.toUpperCase(),
+    deckNode: `SYS_NODE // ${p.id.toUpperCase()}`,
+    deckIcon: 'code',
+    deckTitle: p.title,
+    deckStat: p.runtime,
+    deckStatLabel: 'BENCHMARK'
+  };
+
+  const mid = (total - 1) / 2;
+  const diff = index - mid;
+  const rot = (diff * 4.8).toFixed(1);
+  const yOffset = Math.round(Math.abs(diff) * Math.abs(diff) * 2.5);
+  const zBase = index + 1;
+
+  return `<article tabindex="0" class="deck-card" data-project="${p.id}" data-index="${index}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}" style="--card-rgb: ${meta.accentRgb}; --card-accent: ${meta.accentColor}; --rest-rotate: ${rot}deg; --rest-y: ${yOffset}px; --z-base: ${zBase};">
+    <div class="deck-card-top">
+      <span class="deck-pill" style="--pill-color: ${meta.accentColor};">${meta.deckPill}</span>
+      <span class="deck-node">${meta.deckNode}</span>
+    </div>
+
+    <div class="deck-card-header">
+      <div class="deck-icon" style="color: ${meta.accentColor}; background: rgba(${meta.accentRgb}, 0.12); border-color: rgba(${meta.accentRgb}, 0.3);">
+        <i data-lucide="${meta.deckIcon}"></i>
+      </div>
+      <h3 class="deck-title">${meta.deckTitle}</h3>
+    </div>
+
+    <p class="deck-desc">${p.desc}</p>
+
+    <div class="deck-metric-block">
+      <div class="deck-stat" style="color: ${meta.accentColor};">${meta.deckStat}</div>
+      <div class="deck-stat-label">${meta.deckStatLabel}</div>
+    </div>
+
+    <div class="deck-card-actions">
+      <button class="deck-action-primary" style="color: ${meta.accentColor};" onclick="event.stopPropagation(); openDetails('${p.id}')">
+        <span>LEARN MORE</span>
+        <i data-lucide="chevron-right"></i>
+      </button>
+      <div class="deck-action-links">
+        <a href="${p.repo}" target="_blank" class="deck-sub-link" title="Source Code on GitHub" onclick="event.stopPropagation();">
+          <i data-lucide="github"></i>
+        </a>
+        ${p.demo ? `<a href="${p.demo}" target="_blank" class="deck-sub-link" title="Open Live Demo" onclick="event.stopPropagation();"><i data-lucide="external-link"></i></a>` : ''}
+      </div>
+    </div>
+  </article>`;
+};
+
+const renderDeckView = items => `<div class="fanned-deck-container">
+  <div class="fanned-deck-track" id="fanned-deck-track">
+    ${items.map((p, i) => deckCard(p, i, items.length)).join('')}
+  </div>
+  <div class="deck-stage-hint">
+    <span>${items.length} CAPABILITIES — CLICK TO FOCUS</span>
+  </div>
+</div>`;
+
+function bindDeckInteractions() {
+  const track = document.getElementById('fanned-deck-track');
+  if (!track) return;
+
+  const cards = track.querySelectorAll('.deck-card');
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+
+      const isAlreadyFocused = card.classList.contains('is-focused');
+      cards.forEach(c => c.classList.remove('is-focused'));
+      
+      if (!isAlreadyFocused) {
+        card.classList.add('is-focused');
+      } else {
+        const id = card.getAttribute('data-project');
+        if (id) openDetails(id);
+      }
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const id = card.getAttribute('data-project');
+        if (id) openDetails(id);
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#fanned-deck-track')) {
+      cards.forEach(c => c.classList.remove('is-focused'));
+    }
+  });
+}
+
 const rail = (title, items, klass='') => `<section class="rail-section ${klass} reveal" data-rail-group="rail">
   <div class="rail-heading">
     <h2>${title}</h2>
@@ -809,7 +979,7 @@ function modal(){
 }
 
 function projectsPage(){
-  const isListView = localStorage.getItem('az-projects-view') === 'list';
+  const viewMode = localStorage.getItem('az-projects-view') || 'deck';
   return `${nav('projects')}
   <main class="sub-page">
     <section class="page-billboard projects-billboard">
@@ -832,13 +1002,14 @@ function projectsPage(){
             <i data-lucide="arrow-up-right"></i>
           </a>
           <div class="catalog-controls">
-            <button class="${!isListView?'active':''}" id="view-grid-btn" aria-label="Grid view" title="Grid View"><i data-lucide="grid-3x3"></i></button>
-            <button class="${isListView?'active':''}" id="view-list-btn" aria-label="List view" title="List View"><i data-lucide="list"></i></button>
+            <button class="${viewMode==='deck'?'active':''}" id="view-deck-btn" aria-label="3D Deck view" title="3D Fanned Deck View"><i data-lucide="layers"></i></button>
+            <button class="${viewMode==='grid'?'active':''}" id="view-grid-btn" aria-label="Grid view" title="Grid View"><i data-lucide="grid-3x3"></i></button>
+            <button class="${viewMode==='list'?'active':''}" id="view-list-btn" aria-label="List view" title="List View"><i data-lucide="list"></i></button>
           </div>
         </div>
       </div>
-      <div class="project-grid ${isListView?'list-mode':''}" id="catalog-container">
-        ${isListView ? projects.map(p=>listCard(p)).join('') : projects.map(p=>projectCatalogCard(p)).join('')}
+      <div class="catalog-view-stage ${viewMode}-mode" id="catalog-container">
+        ${viewMode === 'deck' ? renderDeckView(projects) : (viewMode === 'list' ? `<div class="project-grid list-mode">${projects.map(p=>listCard(p)).join('')}</div>` : `<div class="project-grid">${projects.map(p=>projectCatalogCard(p)).join('')}</div>`)}
       </div>
     </section>
   </main>
@@ -1460,7 +1631,7 @@ function initTVKeyboardNavigation(){
 
     if ((e.key === 'Enter' || e.key === ' ') && !['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(document.activeElement?.tagName)) {
       const active = document.activeElement;
-      if (active?.classList.contains('title-card') || active?.classList.contains('project-catalog-card')) {
+      if (active?.classList.contains('title-card') || active?.classList.contains('project-catalog-card') || active?.classList.contains('deck-card')) {
         e.preventDefault();
         openDetails(active.dataset.project);
       } else if (active?.classList.contains('article-card')) {
@@ -1513,7 +1684,7 @@ function setup(){
 
   $('.search-box input')?.addEventListener('input', e => {
     const val = e.target.value.toLowerCase().trim();
-    const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card');
+    const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card');
     let visibleCount = 0;
     cards.forEach(c => {
       const searchData = c.dataset.search || '';
@@ -1560,30 +1731,40 @@ function setup(){
     }
   });
 
-  // Projects View Toggle (Grid / List)
+  // Projects View Toggle (3D Deck / Grid / List)
+  const deckBtn = $('#view-deck-btn');
   const gridBtn = $('#view-grid-btn');
   const listBtn = $('#view-list-btn');
   const catalog = $('#catalog-container');
 
-  gridBtn?.addEventListener('click', () => {
-    gridBtn.classList.add('active');
-    listBtn?.classList.remove('active');
-    catalog?.classList.remove('list-mode');
-    localStorage.setItem('az-projects-view', 'grid');
-    if (catalog) catalog.innerHTML = projects.map(p => projectCatalogCard(p)).join('');
-    bindRailInteractions();
-    iconify();
-  });
+  const setProjectsViewMode = (mode) => {
+    localStorage.setItem('az-projects-view', mode);
+    deckBtn?.classList.toggle('active', mode === 'deck');
+    gridBtn?.classList.toggle('active', mode === 'grid');
+    listBtn?.classList.toggle('active', mode === 'list');
 
-  listBtn?.addEventListener('click', () => {
-    listBtn.classList.add('active');
-    gridBtn?.classList.remove('active');
-    catalog?.classList.add('list-mode');
-    localStorage.setItem('az-projects-view', 'list');
-    if (catalog) catalog.innerHTML = projects.map(p => listCard(p)).join('');
+    if (catalog) {
+      catalog.className = `catalog-view-stage ${mode}-mode`;
+      if (mode === 'deck') {
+        catalog.innerHTML = renderDeckView(projects);
+        bindDeckInteractions();
+      } else if (mode === 'list') {
+        catalog.innerHTML = `<div class="project-grid list-mode">${projects.map(p => listCard(p)).join('')}</div>`;
+      } else {
+        catalog.innerHTML = `<div class="project-grid">${projects.map(p => projectCatalogCard(p)).join('')}</div>`;
+      }
+    }
     bindRailInteractions();
     iconify();
-  });
+  };
+
+  deckBtn?.addEventListener('click', () => setProjectsViewMode('deck'));
+  gridBtn?.addEventListener('click', () => setProjectsViewMode('grid'));
+  listBtn?.addEventListener('click', () => setProjectsViewMode('list'));
+
+  if ($('#fanned-deck-track')) {
+    bindDeckInteractions();
+  }
 
   // Sound Toggle on Profile Screen
   $('#sound-toggle')?.addEventListener('click', () => {
