@@ -20,7 +20,9 @@ const files = {
   logo:'assets/icons/logo.PNG',
   resume:'assets/documents/Abdullah-Zafar-Resume.pdf',
   portrait:'assets/images/profile/abdullah-zafar.jfif',
-  spiralCert:'assets/images/certificates/spiral-lab-cert.png'
+  spiralCert:'assets/images/certificates/spiral-lab-cert.png',
+  bricklixCert:'assets/images/certificates/bricklix-cert.jpg',
+  niitLetter:'assets/images/certificates/niit-letter.png'
 };
 
 const clearParam = key => {
@@ -839,9 +841,9 @@ function experiencePage(){
         <span>Season 1</span>
       </div>
       ${episode('1','Co-Founder & Lead AI Engineer','Eledra Labs · Jun 2026 — Present','Co-founded a development agency and lead technical architecture for commercial multi-agent systems. Designed scalable backends, optimized processing loops, and owned the route from idea to production.','bot')}
-      ${episode('2','AI & Automation Intern','Spiral Lab · Jul 2026 — Sep 2026','Completed extensive 3-month AI and Automation fellowship (Batch 3). Engineered autonomous multi-agent pipelines, automated tool-calling workflows, and production LLM integrations. Verified with official Certificate of Completion.','workflow',files.spiralCert,'Spiral Lab · Certificate of Completion')}
-      ${episode('3','AI Engineering Intern','Bricklix · Mar 2026 — May 2026','Built autonomous phone voice assistants using raw-audio processing and telephony APIs. Created LLM transformation paths and ran endpoint latency analysis to improve real-time response.','audio-lines')}
-      ${episode('4','B.S. Computer Science','NASTP Institute of IT · 2025 — 2029','Building rigorous computer-science foundations alongside applied AI systems, competitive programming, and production engineering.','graduation-cap')}
+      ${episode('2','AI & Automation Intern','Spiral Lab · Jul 2026 — Sep 2026','Completed extensive 3-month AI and Automation fellowship (Batch 3). Engineered autonomous multi-agent pipelines, automated tool-calling workflows, and production LLM integrations. Verified with official Certificate of Completion.','workflow',files.spiralCert,'Spiral Lab · Certificate of Completion','AI and Automation (Batch 3) · July 2026 to September 2026 · Issued by Muhammad Jawwad Hussain, CEO')}
+      ${episode('3','AI Engineering Intern','Bricklix · Mar 2026 — May 2026','Built autonomous phone voice assistants using raw-audio processing and telephony APIs. Created LLM transformation paths and ran endpoint latency analysis to improve real-time response. Verified with official Certificate of Completion.','audio-lines',files.bricklixCert,'Bricklix · Certificate of Completion','Artificial Intelligence Internship · March 16, 2026 to May 16, 2026 · Issued by Anas Shahid, Managing Director')}
+      ${episode('4','B.S. Computer Science','NASTP Institute of IT · 2025 — 2029','Building rigorous computer-science foundations alongside applied AI systems, competitive programming, and production engineering. Verified with official Admission Offer Letter.','graduation-cap',files.niitLetter,'NASTP Institute of Information Technology · Admission Offer Letter','BS Computer Science · Session Fall 2025 · Air University Constituent College')}
     </section>
     ${stackSection()}
   </main>
@@ -849,8 +851,9 @@ function experiencePage(){
   ${certModal()}`;
 }
 
-function episode(n,title,meta,desc,icon,certUrl=null,certTitle=null){
-  return `<article class="episode reveal" tabindex="0" ${certUrl ? `data-cert="${certUrl}" data-cert-title="${certTitle}"` : ''}>
+function episode(n,title,meta,desc,icon,certUrl=null,certTitle=null,certSubtitle=null){
+  const certBtnText = n === '4' ? 'View Offer Letter' : 'View Certificate';
+  return `<article class="episode reveal" tabindex="0" ${certUrl ? `data-cert="${certUrl}" data-cert-title="${certTitle}" data-cert-subtitle="${certSubtitle || ''}"` : ''}>
     <span class="episode-index">${n}</span>
     <div class="episode-thumb">
       <i data-lucide="${icon}"></i>
@@ -859,12 +862,12 @@ function episode(n,title,meta,desc,icon,certUrl=null,certTitle=null){
     <div class="episode-content">
       <div class="episode-title-row">
         <h3>${title}</h3>
-        ${certUrl ? `<button class="cert-badge-btn" type="button" onclick="event.stopPropagation(); openCertModal('${certUrl}', '${certTitle}')" title="View Verified Certificate of Completion"><i data-lucide="award"></i> View Certificate</button>` : ''}
+        ${certUrl ? `<button class="cert-badge-btn" type="button" onclick="event.stopPropagation(); openCertModal('${certUrl}', '${certTitle}', '${certSubtitle || ''}')" title="${certBtnText}"><i data-lucide="award"></i> ${certBtnText}</button>` : ''}
       </div>
       <b>${meta}</b>
       <p>${desc}</p>
     </div>
-    <button aria-label="Play episode" onclick="${certUrl ? `event.stopPropagation(); openCertModal('${certUrl}', '${certTitle}')` : ''}"><i data-lucide="play"></i></button>
+    <button aria-label="Play episode" onclick="${certUrl ? `event.stopPropagation(); openCertModal('${certUrl}', '${certTitle}', '${certSubtitle || ''}')` : ''}"><i data-lucide="play"></i></button>
   </article>`;
 }
 
@@ -877,11 +880,11 @@ function certModal(){
         <p id="cert-modal-subtitle">AI and Automation (Batch 3) · July 2026 to September 2026 · Issued by Muhammad Jawwad Hussain, CEO</p>
       </div>
       <div class="cert-modal-image-container">
-        <img id="cert-modal-img" src="${files.spiralCert}" alt="Spiral Lab Certificate of Completion" loading="lazy">
+        <img id="cert-modal-img" src="${files.spiralCert}" alt="Credential preview" loading="lazy">
       </div>
       <div class="cert-modal-actions">
-        <a id="cert-modal-download" href="${files.spiralCert}" download="Abdullah-Zafar-Spiral-Lab-Certificate.png" class="play-btn">
-          <i data-lucide="download"></i> Download Certificate
+        <a id="cert-modal-download" href="${files.spiralCert}" download="Abdullah-Zafar-Credential.png" class="play-btn">
+          <i data-lucide="download"></i> Download Document
         </a>
         <a id="cert-modal-fullscreen" href="${files.spiralCert}" target="_blank" class="info-btn">
           <i data-lucide="external-link"></i> Full Resolution
@@ -1646,8 +1649,9 @@ function setup(){
       if (e.target.closest('.cert-badge-btn') || e.target.closest('button')) return;
       const certUrl = ep.dataset.cert;
       const certTitle = ep.dataset.certTitle;
+      const certSubtitle = ep.dataset.certSubtitle;
       if (certUrl) {
-        openCertModal(certUrl, certTitle);
+        openCertModal(certUrl, certTitle, certSubtitle);
       } else {
         const title = ep.querySelector('h3')?.textContent || 'Career Episode';
         const meta = ep.querySelector('b')?.textContent || '';
@@ -1664,8 +1668,13 @@ function setup(){
   }
 
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('cert')) {
-    openCertModal(files.spiralCert, 'Spiral Lab · Certificate of Completion');
+  const certParam = urlParams.get('cert');
+  if (certParam === 'spiral-lab' || certParam === 'spiral') {
+    openCertModal(files.spiralCert, 'Spiral Lab · Certificate of Completion', 'AI and Automation (Batch 3) · July 2026 to September 2026 · Issued by Muhammad Jawwad Hussain, CEO');
+  } else if (certParam === 'bricklix') {
+    openCertModal(files.bricklixCert, 'Bricklix · Certificate of Completion', 'Artificial Intelligence Internship · March 16, 2026 to May 16, 2026 · Issued by Anas Shahid, Managing Director');
+  } else if (certParam === 'niit' || certParam === 'nastp') {
+    openCertModal(files.niitLetter, 'NASTP Institute of Information Technology · Admission Offer Letter', 'BS Computer Science · Session Fall 2025 · Air University Constituent College');
   }
 
   // Contact Form with async submission & toast feedback
@@ -1871,16 +1880,22 @@ function openDetails(id){
   d.showModal();
 }
 
-function openCertModal(url, title){
+function openCertModal(url, title, subtitle){
   const d = $('#cert-modal');
   if(!d) return;
   const img = $('#cert-modal-img', d);
   const titleEl = $('#cert-modal-title', d);
+  const subtitleEl = $('#cert-modal-subtitle', d);
   const dl = $('#cert-modal-download', d);
   const fs = $('#cert-modal-fullscreen', d);
   if(img && url) img.src = url;
   if(titleEl && title) titleEl.textContent = title;
-  if(dl && url) dl.href = url;
+  if(subtitleEl && subtitle !== undefined) subtitleEl.textContent = subtitle;
+  if(dl && url) {
+    dl.href = url;
+    const filename = url.split('/').pop();
+    dl.download = `Abdullah-Zafar-${filename}`;
+  }
   if(fs && url) fs.href = url;
   iconify();
   d.showModal();
