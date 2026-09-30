@@ -1202,25 +1202,63 @@ function bindRailInteractions(){
 
     if(!r) return;
 
+    let scrollTimeout = null;
+    const getScrollStep = () => Math.max(r.clientWidth * 0.75, 260);
+
     const updateArrows = () => {
-      if(prevBtn) {
-        prevBtn.style.opacity = r.scrollLeft > 15 ? '1' : '0.2';
-        prevBtn.style.pointerEvents = r.scrollLeft > 15 ? 'auto' : 'none';
+      const maxScroll = Math.max(0, r.scrollWidth - r.clientWidth);
+      if (maxScroll <= 15) {
+        if (prevBtn) { prevBtn.style.opacity = '0'; prevBtn.style.pointerEvents = 'none'; }
+        if (nextBtn) { nextBtn.style.opacity = '0'; nextBtn.style.pointerEvents = 'none'; }
+        return;
       }
-      if(nextBtn) {
-        const atEnd = r.scrollLeft >= (r.scrollWidth - r.clientWidth - 15);
-        nextBtn.style.opacity = atEnd ? '0.2' : '1';
-        nextBtn.style.pointerEvents = atEnd ? 'none' : 'auto';
+
+      if (prevBtn) {
+        prevBtn.style.opacity = '0.9';
+        prevBtn.style.pointerEvents = 'auto';
+        prevBtn.setAttribute('title', r.scrollLeft <= 25 ? 'Loop to end' : 'Scroll left');
+      }
+      if (nextBtn) {
+        nextBtn.style.opacity = '0.9';
+        nextBtn.style.pointerEvents = 'auto';
+        nextBtn.setAttribute('title', r.scrollLeft >= maxScroll - 25 ? 'Restart from beginning' : 'Scroll right');
       }
     };
 
     nextBtn?.addEventListener('click', () => {
-      r.scrollBy({ left: r.clientWidth * 0.75, behavior: 'smooth' });
-      setTimeout(updateArrows, 400);
+      const maxScroll = Math.max(0, r.scrollWidth - r.clientWidth);
+      if (maxScroll <= 15) return;
+
+      // When cards end (or within 25px of the end), restart from the beginning!
+      if (r.scrollLeft >= maxScroll - 25) {
+        r.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        const step = getScrollStep();
+        if (r.scrollLeft + step >= maxScroll - 25) {
+          r.scrollTo({ left: maxScroll, behavior: 'smooth' });
+        } else {
+          r.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+      setTimeout(updateArrows, 450);
     });
+
     prevBtn?.addEventListener('click', () => {
-      r.scrollBy({ left: -r.clientWidth * 0.75, behavior: 'smooth' });
-      setTimeout(updateArrows, 400);
+      const maxScroll = Math.max(0, r.scrollWidth - r.clientWidth);
+      if (maxScroll <= 15) return;
+
+      // When at the beginning (or within 25px of start), loop to the end!
+      if (r.scrollLeft <= 25) {
+        r.scrollTo({ left: maxScroll, behavior: 'smooth' });
+      } else {
+        const step = getScrollStep();
+        if (r.scrollLeft - step <= 25) {
+          r.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          r.scrollBy({ left: -step, behavior: 'smooth' });
+        }
+      }
+      setTimeout(updateArrows, 450);
     });
 
     // Smooth drag-to-scroll support without trapping vertical wheel scroll
@@ -1259,7 +1297,20 @@ function bindRailInteractions(){
       updateArrows();
     });
 
-    r?.addEventListener('scroll', updateArrows, { passive: true });
+    r.addEventListener('scroll', () => {
+      r.classList.add('is-scrolling');
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        r.classList.remove('is-scrolling');
+        updateArrows();
+      }, 150);
+    }, { passive: true });
+
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(updateArrows);
+      ro.observe(r);
+    }
+
     updateArrows();
   });
 
