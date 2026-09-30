@@ -1441,6 +1441,307 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .catalog-controls button.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 2px 10px rgba(255,255,255,0.25); }
 .catalog-controls svg { width: 18px; height: 18px; }
 
+/* ========================================================
+   EledraLabs-Style 3D Fanned Capabilities / Projects Deck
+   ======================================================== */
+.catalog-view-stage {
+  width: 100%;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.fanned-deck-container {
+  width: 100%;
+  position: relative;
+  perspective: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 0 35px;
+  overflow: visible;
+  user-select: none;
+}
+
+.fanned-deck-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  min-height: 490px;
+  padding: 30px 10px 45px;
+  perspective-origin: center center;
+}
+
+.deck-card {
+  flex: 0 0 280px;
+  width: 280px;
+  min-height: 415px;
+  background: linear-gradient(175deg, #131722 0%, #0c0f16 100%);
+  border: 1px solid rgba(var(--card-rgb), 0.28);
+  border-radius: 12px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.85), 0 0 20px -5px rgba(var(--card-rgb), 0.15);
+  transform-origin: 50% 125%;
+  transform: translateY(var(--rest-y)) rotate(var(--rest-rotate));
+  z-index: var(--z-base);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease,
+              opacity 0.3s ease,
+              filter 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.deck-card:not(:first-child) {
+  margin-left: -108px;
+}
+
+/* Hover & Focus Interactions */
+.deck-card:hover,
+.deck-card.is-focused,
+.deck-card:focus-visible {
+  transform: translateY(-32px) rotate(0deg) scale(1.08) !important;
+  z-index: 60 !important;
+  border-color: rgba(var(--card-rgb), 0.95) !important;
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.95), 0 0 40px rgba(var(--card-rgb), 0.45) !important;
+  background: linear-gradient(175deg, #161b28 0%, #0e121b 100%) !important;
+}
+
+/* Sibling Dimming when Deck Stage is Hovered */
+.fanned-deck-track:hover .deck-card:not(:hover):not(.is-focused) {
+  opacity: 0.52;
+  filter: blur(0.4px);
+  transform: translateY(calc(var(--rest-y) + 6px)) rotate(var(--rest-rotate)) scale(0.97);
+}
+
+/* Card Interior Anatomy */
+.deck-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.deck-pill {
+  border: 1px solid var(--pill-color);
+  color: var(--pill-color);
+  background: rgba(var(--card-rgb), 0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.deck-node {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.deck-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.deck-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  border: 1px solid;
+  flex-shrink: 0;
+}
+.deck-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.deck-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.deck-desc {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+  margin: 0 0 18px 0;
+  min-height: 64px;
+}
+
+.deck-metric-block {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: auto;
+  padding: 14px 0 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.deck-stat {
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.deck-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.deck-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.deck-action-primary {
+  background: none;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.deck-action-primary:hover {
+  transform: translateX(4px);
+  opacity: 0.85;
+}
+.deck-action-primary svg {
+  width: 14px;
+  height: 14px;
+}
+
+.deck-action-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deck-sub-link {
+  color: rgba(255, 255, 255, 0.45);
+  padding: 5px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.deck-sub-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.deck-sub-link svg {
+  width: 15px;
+  height: 15px;
+}
+
+.deck-stage-hint {
+  text-align: center;
+  margin-top: 26px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.32);
+  text-transform: uppercase;
+}
+
+/* Responsiveness for 3D Deck */
+@media (max-width: 1320px) {
+  .deck-card {
+    flex: 0 0 255px;
+    width: 255px;
+    padding: 20px 18px;
+  }
+  .deck-card:not(:first-child) {
+    margin-left: -118px;
+  }
+  .deck-stat {
+    font-size: 1.85rem;
+  }
+  .deck-title {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 950px) {
+  .fanned-deck-container {
+    perspective: none;
+    padding: 30px 0 20px;
+  }
+  .fanned-deck-track {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 4% 30px;
+    gap: 16px;
+    scrollbar-width: none;
+    min-height: auto;
+  }
+  .fanned-deck-track::-webkit-scrollbar {
+    display: none;
+  }
+  .deck-card {
+    flex: 0 0 270px;
+    width: 270px;
+    margin-left: 0 !important;
+    transform: none !important;
+    scroll-snap-align: center;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  .deck-card:hover,
+  .deck-card.is-focused {
+    transform: translateY(-6px) scale(1.02) !important;
+  }
+  .fanned-deck-track:hover .deck-card:not(:hover):not(.is-focused) {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
 /* Projects Grid & Structured Netflix Cards */
 .project-grid {
   display: grid;
