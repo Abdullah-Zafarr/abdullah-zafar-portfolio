@@ -19,7 +19,8 @@ const routes = {
 const files = {
   logo:'assets/icons/logo.PNG',
   resume:'assets/documents/Abdullah-Zafar-Resume.pdf',
-  portrait:'assets/images/profile/abdullah-zafar.jfif'
+  portrait:'assets/images/profile/abdullah-zafar.jfif',
+  spiralCert:'assets/images/certificates/spiral-lab-cert.png'
 };
 
 const clearParam = key => {
@@ -58,7 +59,7 @@ const projects = [
    id:'clinical',
    title:'Autonomous Clinical Reporter',
    short:'Clinical AI',
-   image:'assets/images/projects/clinical.png?v=5',
+    image:'assets/images/projects/clinical.png?v=7',
    rank:'2',
    year:'2026',
    match:'96%',
@@ -75,7 +76,7 @@ const projects = [
    id:'analyst',
    title:'LLM Data Analyst',
    short:'DataMind AI',
-   image:'assets/images/projects/analyst.png?v=5',
+    image:'assets/images/projects/analyst.png?v=7',
    rank:'3',
    year:'2026',
    match:'95%',
@@ -138,6 +139,7 @@ const projects = [
 ];
 
 const notifications = [
+  { title:'Spiral Lab Internship Completed', time:'Just now', desc:'Graduated intensive 3-month AI & Automation fellowship (Batch 3) with verified completion credential.', icon:'award' },
   { title:'Production Voice Agent v2.0', time:'Today', desc:'Sub-750ms latency full-duplex telephony live on GitHub.', icon:'phone-call' },
   { title:'Autonomous Clinical Reporter', time:'Yesterday', desc:'Standardized diagnostic ultrasound reporter with 99.4% accuracy.', icon:'activity' },
   { title:'Codeforces Rank #70', time:'2 days ago', desc:'Ranked 70th in Pakistan with 100+ day daily streak.', icon:'trophy' },
@@ -246,7 +248,7 @@ def sync_document_collection(collection, doc_id: str, chunks: list[str]):
     tag: 'CLINICAL SYSTEMS',
     badge: 'HEALTHCARE AI',
     featured: false,
-    image: 'assets/images/projects/clinical.png',
+    image: 'assets/images/projects/clinical.png?v=7',
     summary: 'Converting unconstrained ultrasound scans into 99.4% validated diagnostic reports using LangGraph deterministic state machines and Pydantic validation.',
     repo: 'https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter',
     stack: ['LangGraph', 'Gemini', 'Pydantic', 'FastAPI', 'DICOM'],
@@ -283,7 +285,7 @@ def sync_document_collection(collection, doc_id: str, chunks: list[str]):
     tag: 'COMPETITIVE PROGRAMMING',
     badge: 'ALGORITHMS',
     featured: false,
-    image: 'assets/images/projects/analyst.png',
+    image: 'assets/images/projects/analyst.png?v=7',
     summary: 'How competitive programming principles—memory cache locality, branch prediction, and constant-factor optimization—directly elevate production backend engineering.',
     repo: 'https://codeforces.com/profile/rodrickkkk',
     stack: ['C++', 'Algorithms', 'Data Structures', 'Performance'],
@@ -431,7 +433,7 @@ const nav = active => {
         <div class="notification-dropdown" id="notif-dropdown">
           <div class="notif-header">
             <strong>Notifications</strong>
-            <span>4 New</span>
+            <span>${notifications.length} New</span>
           </div>
           <div class="notif-list">
             ${notifications.map(n => `
@@ -687,8 +689,9 @@ function renderBrowseRails(prof){
     ranked: rail('Top 6 in Abdullah Zafar Today', projects.map(p=>card(p,true)), 'ranked-rail'),
     continue: rail(`Continue Watching for ${prof}s`, [
       experienceCard('01','Co-Founder & Lead AI Engineer','Eledra Labs','Jun 2026 — Present','76'),
-      experienceCard('02','AI Engineering Intern','Bricklix','Mar 2026 — May 2026','100'),
-      experienceCard('03','B.S. Computer Science','NASTP Institute of IT','2025 — 2029','30')
+      experienceCard('02','AI & Automation Intern','Spiral Lab','Jul 2026 — Sep 2026','100'),
+      experienceCard('03','AI Engineering Intern','Bricklix','Mar 2026 — May 2026','100'),
+      experienceCard('04','B.S. Computer Science','NASTP Institute of IT','2025 — 2029','30')
     ], 'continue-rail'),
     skills: `<section class="rail-section skill-rail reveal" data-rail-group="skills">
       <div class="rail-heading">
@@ -826,7 +829,7 @@ function experiencePage(){
       <div>
         <p class="original"><span>A</span> CAREER SERIES</p>
         <h1>EXPERIENCE</h1>
-        <p>Three episodes. One trajectory: building dependable AI systems from Lahore for teams around the world.</p>
+        <p>Four episodes. One trajectory: building dependable AI systems from Lahore for teams around the world.</p>
         <a href="${files.resume}" target="_blank" class="play-btn"><i data-lucide="file-down"></i> Download Resume</a>
       </div>
     </section>
@@ -836,25 +839,57 @@ function experiencePage(){
         <span>Season 1</span>
       </div>
       ${episode('1','Co-Founder & Lead AI Engineer','Eledra Labs · Jun 2026 — Present','Co-founded a development agency and lead technical architecture for commercial multi-agent systems. Designed scalable backends, optimized processing loops, and owned the route from idea to production.','bot')}
-      ${episode('2','AI Engineering Intern','Bricklix · Mar 2026 — May 2026','Built autonomous phone voice assistants using raw-audio processing and telephony APIs. Created LLM transformation paths and ran endpoint latency analysis to improve real-time response.','audio-lines')}
-      ${episode('3','B.S. Computer Science','NASTP Institute of IT · 2025 — 2029','Building rigorous computer-science foundations alongside applied AI systems, competitive programming, and production engineering.','graduation-cap')}
+      ${episode('2','AI & Automation Intern','Spiral Lab · Jul 2026 — Sep 2026','Completed extensive 3-month AI and Automation fellowship (Batch 3). Engineered autonomous multi-agent pipelines, automated tool-calling workflows, and production LLM integrations. Verified with official Certificate of Completion.','workflow',files.spiralCert,'Spiral Lab · Certificate of Completion')}
+      ${episode('3','AI Engineering Intern','Bricklix · Mar 2026 — May 2026','Built autonomous phone voice assistants using raw-audio processing and telephony APIs. Created LLM transformation paths and ran endpoint latency analysis to improve real-time response.','audio-lines')}
+      ${episode('4','B.S. Computer Science','NASTP Institute of IT · 2025 — 2029','Building rigorous computer-science foundations alongside applied AI systems, competitive programming, and production engineering.','graduation-cap')}
     </section>
     ${stackSection()}
   </main>
-  ${footer()}`;
+  ${footer()}
+  ${certModal()}`;
 }
 
-function episode(n,title,meta,desc,icon){
-  return `<article class="episode reveal" tabindex="0">
+function episode(n,title,meta,desc,icon,certUrl=null,certTitle=null){
+  return `<article class="episode reveal" tabindex="0" ${certUrl ? `data-cert="${certUrl}" data-cert-title="${certTitle}"` : ''}>
     <span class="episode-index">${n}</span>
-    <div class="episode-thumb"><i data-lucide="${icon}"></i><span>${n}</span></div>
-    <div>
-      <h3>${title}</h3>
+    <div class="episode-thumb">
+      <i data-lucide="${icon}"></i>
+      <span>${n}</span>
+    </div>
+    <div class="episode-content">
+      <div class="episode-title-row">
+        <h3>${title}</h3>
+        ${certUrl ? `<button class="cert-badge-btn" type="button" onclick="event.stopPropagation(); openCertModal('${certUrl}', '${certTitle}')" title="View Verified Certificate of Completion"><i data-lucide="award"></i> View Certificate</button>` : ''}
+      </div>
       <b>${meta}</b>
       <p>${desc}</p>
     </div>
-    <button aria-label="Play episode"><i data-lucide="play"></i></button>
+    <button aria-label="Play episode" onclick="${certUrl ? `event.stopPropagation(); openCertModal('${certUrl}', '${certTitle}')` : ''}"><i data-lucide="play"></i></button>
   </article>`;
+}
+
+function certModal(){
+  return `<dialog class="details-modal cert-modal" id="cert-modal">
+    <button class="modal-close" aria-label="Close" onclick="$('#cert-modal')?.close()"><i data-lucide="x"></i></button>
+    <div class="cert-modal-inner">
+      <div class="cert-modal-header">
+        <h2 id="cert-modal-title">Spiral Lab · Certificate of Completion</h2>
+        <p id="cert-modal-subtitle">AI and Automation (Batch 3) · July 2026 to September 2026 · Issued by Muhammad Jawwad Hussain, CEO</p>
+      </div>
+      <div class="cert-modal-image-container">
+        <img id="cert-modal-img" src="${files.spiralCert}" alt="Spiral Lab Certificate of Completion" loading="lazy">
+      </div>
+      <div class="cert-modal-actions">
+        <a id="cert-modal-download" href="${files.spiralCert}" download="Abdullah-Zafar-Spiral-Lab-Certificate.png" class="play-btn">
+          <i data-lucide="download"></i> Download Certificate
+        </a>
+        <a id="cert-modal-fullscreen" href="${files.spiralCert}" target="_blank" class="info-btn">
+          <i data-lucide="external-link"></i> Full Resolution
+        </a>
+        <button class="info-btn" type="button" onclick="$('#cert-modal')?.close()"><i data-lucide="x"></i> Close</button>
+      </div>
+    </div>
+  </dialog>`;
 }
 
 function stackSection(){
@@ -1605,14 +1640,33 @@ function setup(){
 
   initIntersectionObserver();
 
-  // Experience Episode Interactive Feedback
+  // Experience Episode Interactive Feedback & Certificate Viewer
   $$('.episode').forEach(ep => {
-    ep.addEventListener('click', () => {
-      const title = ep.querySelector('h3')?.textContent || 'Career Episode';
-      const meta = ep.querySelector('b')?.textContent || '';
-      showToast(`${title} · ${meta}`);
+    ep.addEventListener('click', e => {
+      if (e.target.closest('.cert-badge-btn') || e.target.closest('button')) return;
+      const certUrl = ep.dataset.cert;
+      const certTitle = ep.dataset.certTitle;
+      if (certUrl) {
+        openCertModal(certUrl, certTitle);
+      } else {
+        const title = ep.querySelector('h3')?.textContent || 'Career Episode';
+        const meta = ep.querySelector('b')?.textContent || '';
+        showToast(`${title} · ${meta}`);
+      }
     });
   });
+
+  const certModalEl = $('#cert-modal');
+  if (certModalEl) {
+    certModalEl.addEventListener('click', e => {
+      if (e.target === certModalEl) certModalEl.close();
+    });
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('cert')) {
+    openCertModal(files.spiralCert, 'Spiral Lab · Certificate of Completion');
+  }
 
   // Contact Form with async submission & toast feedback
   $('#contact-form')?.addEventListener('submit', async e => {
@@ -1816,6 +1870,22 @@ function openDetails(id){
   iconify();
   d.showModal();
 }
+
+function openCertModal(url, title){
+  const d = $('#cert-modal');
+  if(!d) return;
+  const img = $('#cert-modal-img', d);
+  const titleEl = $('#cert-modal-title', d);
+  const dl = $('#cert-modal-download', d);
+  const fs = $('#cert-modal-fullscreen', d);
+  if(img && url) img.src = url;
+  if(titleEl && title) titleEl.textContent = title;
+  if(dl && url) dl.href = url;
+  if(fs && url) fs.href = url;
+  iconify();
+  d.showModal();
+}
+window.openCertModal = openCertModal;
 
 setup();
 
