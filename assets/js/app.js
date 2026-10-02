@@ -620,7 +620,7 @@ const listCard = p => `<article class="list-item-card" data-project="${p.id}" da
   </div>
 </article>`;
 
-const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-card reveal" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}">
+const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-card" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}">
   <div class="pcard-preview" onclick="openDetails('${p.id}')">
     <img src="${p.image}" alt="${p.title}" loading="lazy">
     <div class="pcard-preview-gradient"></div>
@@ -1774,6 +1774,7 @@ function setup(){
     }
     bindRailInteractions();
     iconify();
+    initIntersectionObserver?.();
   };
 
   deckBtn?.addEventListener('click', () => setProjectsViewMode('deck'));
