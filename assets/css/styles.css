@@ -1523,14 +1523,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   flex: 0 0 215px;
   width: 215px;
   min-height: 320px;
-  background: linear-gradient(175deg, #131722 0%, #0c0f16 100%);
-  border: 1px solid rgba(var(--card-rgb), 0.28);
+  background: linear-gradient(175deg, #151822 0%, #0e1118 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 10px;
   padding: 15px 13px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 18px 45px -8px rgba(0, 0, 0, 0.85), 0 0 16px -4px rgba(var(--card-rgb), 0.15);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.85);
   transform-origin: 50% 125%;
   transform: translateY(var(--rest-y)) rotate(var(--rest-rotate));
   z-index: var(--z-base);
@@ -1555,9 +1556,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .deck-card:focus-visible {
   transform: translateY(-18px) rotate(0deg) scale(1.05) !important;
   z-index: 60 !important;
-  border-color: rgba(var(--card-rgb), 0.95) !important;
-  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 30px rgba(var(--card-rgb), 0.45) !important;
-  background: linear-gradient(175deg, #161b28 0%, #0e121b 100%) !important;
+  border-color: rgba(229, 9, 20, 0.75) !important;
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 25px rgba(229, 9, 20, 0.25) !important;
+  background: linear-gradient(175deg, #191e2b 0%, #11141d 100%) !important;
 }
 
 /* Sibling Dimming when Deck Stage is Hovered */
@@ -1577,26 +1578,24 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .deck-pill {
-  border: 1px solid var(--pill-color);
-  color: var(--pill-color);
-  background: rgba(var(--card-rgb), 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.56rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 2px 6px;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
   border-radius: 4px;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.deck-node {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.54rem;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  white-space: nowrap;
+.deck-card:hover .deck-pill,
+.deck-card.is-focused .deck-pill {
+  border-color: rgba(229, 9, 20, 0.45);
+  background: rgba(229, 9, 20, 0.12);
+  color: #ffffff;
 }
 
 .deck-card-header {
@@ -1612,12 +1611,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 5px;
   display: grid;
   place-items: center;
-  border: 1px solid;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
   flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 .deck-icon svg {
   width: 13px;
   height: 13px;
+}
+
+.deck-card:hover .deck-icon,
+.deck-card.is-focused .deck-icon {
+  border-color: rgba(229, 9, 20, 0.5);
+  background: rgba(229, 9, 20, 0.15);
+  color: var(--red);
 }
 
 .deck-title {
@@ -1631,8 +1640,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .deck-desc {
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.4;
+  color: #94a3b8;
+  line-height: 1.45;
   margin: 0 0 8px 0;
   min-height: 44px;
 }
@@ -1643,21 +1652,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   gap: 8px;
   margin-top: auto;
   padding: 8px 0 5px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .deck-stat {
   font-size: 1.5rem;
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1;
+  color: #ffffff;
 }
 
 .deck-stat-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.56rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.45);
+  color: #64748b;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -1668,7 +1678,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   align-items: center;
   margin-top: 2px;
   padding-top: 5px;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .deck-action-primary {
@@ -1684,11 +1694,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  color: var(--red);
+  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
 }
 .deck-action-primary:hover {
   transform: translateX(4px);
-  opacity: 0.85;
+  color: var(--red-hover);
 }
 .deck-action-primary svg {
   width: 12px;
@@ -1702,7 +1713,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .deck-sub-link {
-  color: rgba(255, 255, 255, 0.45);
+  color: #64748b;
   padding: 4px;
   border-radius: 4px;
   display: grid;

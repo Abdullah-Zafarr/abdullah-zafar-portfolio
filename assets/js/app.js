@@ -650,70 +650,49 @@ const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-ca
 
 const deckMeta = {
   voice: {
-    accentColor: '#00e5a3',
-    accentRgb: '0, 229, 163',
     deckPill: 'CONVERSATIONAL AI',
-    deckNode: 'SYS_NODE // VOICE',
     deckIcon: 'phone-call',
     deckTitle: 'Voice AI',
     deckStat: '<750ms',
     deckStatLabel: 'RESPONSE LATENCY'
   },
   clinical: {
-    accentColor: '#00d4ff',
-    accentRgb: '0, 212, 255',
     deckPill: 'HEALTHCARE AI',
-    deckNode: 'SYS_NODE // CLINICAL',
     deckIcon: 'activity',
     deckTitle: 'Clinical Reporter',
     deckStat: '99.4%',
     deckStatLabel: 'VALIDATED ACCURACY'
   },
   analyst: {
-    accentColor: '#ff8400',
-    accentRgb: '255, 132, 0',
     deckPill: 'DATAMIND AI',
-    deckNode: 'SYS_NODE // REPL',
     deckIcon: 'terminal',
     deckTitle: 'LLM Data Analyst',
     deckStat: '91%',
     deckStatLabel: 'SELF-FIX REPL'
   },
   collabboard: {
-    accentColor: '#facc15',
-    accentRgb: '250, 204, 21',
     deckPill: 'COLLABORATION',
-    deckNode: 'SYS_NODE // WS',
     deckIcon: 'layout-grid',
     deckTitle: 'CollabBoard',
     deckStat: 'LIVE SYNC',
     deckStatLabel: 'SUPABASE WS'
   },
   rag: {
-    accentColor: '#b062ff',
-    accentRgb: '176, 98, 255',
     deckPill: 'NATIVE RAG',
-    deckNode: 'SYS_NODE // RAG',
     deckIcon: 'layers',
     deckTitle: 'Native RAG Engine',
     deckStat: 'ZERO-FW',
     deckStatLabel: 'NATIVE CHROMADB'
   },
   multimodal: {
-    accentColor: '#ff4560',
-    accentRgb: '255, 69, 96',
     deckPill: 'AGENT WORKFLOW',
-    deckNode: 'SYS_NODE // AGENT',
     deckIcon: 'workflow',
     deckTitle: 'Multimodal Agent',
     deckStat: 'MULTI-TOOL',
     deckStatLabel: 'GEMINI REASONING'
   },
   memory: {
-    accentColor: '#38bdf8',
-    accentRgb: '56, 189, 248',
     deckPill: 'GRAPH MEMORY',
-    deckNode: 'SYS_NODE // MEM0',
     deckIcon: 'cpu',
     deckTitle: 'Mem0 Engine',
     deckStat: 'GRAPH',
@@ -723,10 +702,7 @@ const deckMeta = {
 
 const deckCard = (p, index, total = 7) => {
   const meta = deckMeta[p.id] || {
-    accentColor: '#00e5a3',
-    accentRgb: '0, 229, 163',
     deckPill: p.short.toUpperCase(),
-    deckNode: `SYS_NODE // ${p.id.toUpperCase()}`,
     deckIcon: 'code',
     deckTitle: p.title,
     deckStat: p.runtime,
@@ -739,13 +715,13 @@ const deckCard = (p, index, total = 7) => {
   const yOffset = Math.round(Math.abs(diff) * Math.abs(diff) * 1.6);
   const zBase = index + 1;
 
-  return `<article tabindex="0" class="deck-card" data-project="${p.id}" data-index="${index}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}" style="--card-rgb: ${meta.accentRgb}; --card-accent: ${meta.accentColor}; --rest-rotate: ${rot}deg; --rest-y: ${yOffset}px; --z-base: ${zBase};">
+  return `<article tabindex="0" class="deck-card" data-project="${p.id}" data-index="${index}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}" style="--rest-rotate: ${rot}deg; --rest-y: ${yOffset}px; --z-base: ${zBase};">
     <div class="deck-card-top">
-      <span class="deck-pill" style="--pill-color: ${meta.accentColor};">${meta.deckPill}</span>
+      <span class="deck-pill">${meta.deckPill}</span>
     </div>
 
     <div class="deck-card-header">
-      <div class="deck-icon" style="color: ${meta.accentColor}; background: rgba(${meta.accentRgb}, 0.12); border-color: rgba(${meta.accentRgb}, 0.3);">
+      <div class="deck-icon">
         <i data-lucide="${meta.deckIcon}"></i>
       </div>
       <h3 class="deck-title">${meta.deckTitle}</h3>
@@ -754,12 +730,12 @@ const deckCard = (p, index, total = 7) => {
     <p class="deck-desc">${p.desc}</p>
 
     <div class="deck-metric-block">
-      <div class="deck-stat" style="color: ${meta.accentColor};">${meta.deckStat}</div>
+      <div class="deck-stat">${meta.deckStat}</div>
       <div class="deck-stat-label">${meta.deckStatLabel}</div>
     </div>
 
     <div class="deck-card-actions">
-      <button class="deck-action-primary" style="color: ${meta.accentColor};" onclick="event.stopPropagation(); openDetails('${p.id}')">
+      <button class="deck-action-primary" onclick="event.stopPropagation(); openDetails('${p.id}')">
         <span>LEARN MORE</span>
         <i data-lucide="chevron-right"></i>
       </button>
