@@ -1228,7 +1228,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   align-items: center;
   gap: 16px;
   width: max-content;
-  animation: skillsStripScroll 28s linear infinite;
+  animation: skillsStripScroll 28s linear infinite !important;
   will-change: transform;
 }
 
@@ -3664,16 +3664,13 @@ textarea:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
+  *:not(.skills-marquee-track):not(.skills-marquee-track *),
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .skills-marquee-track {
-    animation: none !important;
   }
   .teaser-animation,
   .scan-laser,
