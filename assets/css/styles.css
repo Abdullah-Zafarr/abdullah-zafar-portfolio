@@ -879,7 +879,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-top: none;
   box-shadow: none;
-  padding: 12px 14px 16px;
+  padding: 10px 14px 12px;
   border-radius: 0 0 6px 6px;
   opacity: 0;
   pointer-events: none;
