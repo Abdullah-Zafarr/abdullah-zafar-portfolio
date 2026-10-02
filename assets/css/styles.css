@@ -1232,6 +1232,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   will-change: transform;
 }
 
+.skills-marquee-container:hover .skills-marquee-track {
+  animation-play-state: paused !important;
+}
+
 @keyframes skillsStripScroll {
   from {
     transform: translateX(0);
