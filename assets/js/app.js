@@ -1513,6 +1513,16 @@ function initIntersectionObserver(){
 
 function initTVKeyboardNavigation(){
   let activeFocusEl = null;
+  let isKeyboardNav = false;
+
+  window.addEventListener('keydown', e => {
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab'].includes(e.key)) {
+      isKeyboardNav = true;
+    }
+  });
+  window.addEventListener('pointerdown', () => {
+    isKeyboardNav = false;
+  });
 
   function getFocusableElements() {
     const dialog = $('#details-modal');
@@ -1649,9 +1659,21 @@ function initTVKeyboardNavigation(){
 
   document.addEventListener('focusin', e => {
     if (e.target.classList?.contains('title-card') || e.target.classList?.contains('continue-card')) {
-      $$('.tv-focus').forEach(el => el.classList.remove('tv-focus'));
-      e.target.classList.add('tv-focus');
-      activeFocusEl = e.target;
+      if (isKeyboardNav) {
+        $$('.tv-focus').forEach(el => el.classList.remove('tv-focus'));
+        e.target.classList.add('tv-focus');
+        activeFocusEl = e.target;
+      }
+    }
+  });
+
+  document.addEventListener('focusout', e => {
+    if (e.target.classList?.contains('title-card') || e.target.classList?.contains('continue-card')) {
+      setTimeout(() => {
+        if (!e.target.contains(document.activeElement) && document.activeElement !== e.target) {
+          e.target.classList.remove('tv-focus');
+        }
+      }, 50);
     }
   });
 }
