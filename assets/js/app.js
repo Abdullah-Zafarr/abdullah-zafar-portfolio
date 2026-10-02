@@ -117,7 +117,7 @@ const projects = [
    rank:'5',
    year:'2026',
    match:'94%',
-   runtime:'Framework-free',
+   runtime:'42ms retrieval',
    rating:'PG',
    desc:'A production RAG engine built from scratch with OCR ingestion, vector-store purging, Groq streaming, and grounding telemetry.',
    stack:['Python','ChromaDB','OCR','Groq'],
@@ -683,8 +683,8 @@ const deckMeta = {
     deckPill: 'NATIVE RAG',
     deckIcon: 'layers',
     deckTitle: 'Native RAG Engine',
-    deckStat: 'ZERO-FW',
-    deckStatLabel: 'NATIVE CHROMADB'
+    deckStat: '42ms',
+    deckStatLabel: 'RETRIEVAL LATENCY'
   },
   multimodal: {
     deckPill: 'AGENT WORKFLOW',
