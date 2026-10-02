@@ -426,6 +426,14 @@ let soundEnabled = localStorage.getItem('az-sound') !== 'false';
 const getActiveProfile = () => sessionStorage.getItem('az-profile') || 'Recruiter';
 const pageName = document.body.dataset.page || '';
 
+function dismissCardFocus(){
+  $$('.tv-focus').forEach(el => el.classList.remove('tv-focus'));
+  $$('.title-card.card-open').forEach(el => el.classList.remove('card-open'));
+  if (document.activeElement && (document.activeElement.classList?.contains('title-card') || document.activeElement.classList?.contains('continue-card') || document.activeElement.classList?.contains('deck-card') || document.activeElement.closest?.('.details-modal') || document.activeElement.closest?.('.article-reader-modal') || document.activeElement.closest?.('.cert-modal-dialog'))) {
+    document.activeElement.blur();
+  }
+}
+
 const nav = active => {
   const prof = getActiveProfile();
   const cfg = profileConfigs[prof] || profileConfigs.Recruiter;
