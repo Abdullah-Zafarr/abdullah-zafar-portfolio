@@ -1866,6 +1866,15 @@ function setup(){
     location.href = routes.home;
   });
 
+  const handleOutsideDismiss = e => {
+    const el = e.target?.closest ? e.target : e.target?.parentElement;
+    if (!el || !el.closest('.title-card, .continue-card, .deck-card, .details-modal, .article-reader-modal, .cert-modal-dialog, .modal-close')) {
+      dismissCardFocus();
+    }
+  };
+  document.addEventListener('pointerdown', handleOutsideDismiss);
+  document.addEventListener('click', handleOutsideDismiss);
+
   const dialog = $('#details-modal');
   $('.modal-close')?.addEventListener('click', () => {
     dialog?.close();
