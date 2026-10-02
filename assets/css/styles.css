@@ -1261,11 +1261,19 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   gap: 16px;
   width: max-content;
   animation: skillsStripScroll 28s linear infinite !important;
+  animation-play-state: running !important;
   will-change: transform;
 }
 
-.skills-marquee-container:hover .skills-marquee-track {
-  animation-play-state: paused !important;
+.skills-marquee-container:hover .skills-marquee-track,
+.skills-marquee-container:focus-within .skills-marquee-track,
+.skills-marquee-track:hover,
+.skills-marquee-track:focus,
+.skills-marquee-track:active,
+.skill-tile:hover,
+.skill-tile:focus,
+.skill-tile:active {
+  animation-play-state: running !important;
 }
 
 @keyframes skillsStripScroll {
