@@ -1216,10 +1216,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   transition: transform .2s, background .2s, border-color .2s;
   outline: none;
 }
-.continue-card:hover {
+.continue-card:hover,
+.continue-card.card-open,
+.continue-card.tv-focus {
   background: #1c202c;
-  border-color: rgba(255,255,255,0.15);
-  transform: scale(1.03);
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8) !important;
+  transform: scale(1.04) !important;
 }
 .episode-number { font: bold 2.1rem 'Bebas Neue'; color: #64748b; }
 .continue-card b { font-size: .92rem; color: #fff; }
