@@ -108,7 +108,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* TV & Keyboard Focus Mode */
 .tv-focus {
   outline: none !important;
-  box-shadow: 0 0 0 3px #ffffff, 0 0 30px var(--red-glow), 0 20px 40px rgba(0,0,0,0.95) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 15px 35px rgba(0,0,0,0.9) !important;
   transform: scale(1.15) !important;
   z-index: 55 !important;
   transition: transform .25s ease, box-shadow .25s ease !important;
