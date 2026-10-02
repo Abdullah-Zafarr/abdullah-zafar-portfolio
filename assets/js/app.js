@@ -735,8 +735,8 @@ const deckCard = (p, index, total = 7) => {
 
   const mid = (total - 1) / 2;
   const diff = index - mid;
-  const rot = (diff * 4.8).toFixed(1);
-  const yOffset = Math.round(Math.abs(diff) * Math.abs(diff) * 2.5);
+  const rot = (diff * 3.6).toFixed(1);
+  const yOffset = Math.round(Math.abs(diff) * Math.abs(diff) * 1.6);
   const zBase = index + 1;
 
   return `<article tabindex="0" class="deck-card" data-project="${p.id}" data-index="${index}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}" style="--card-rgb: ${meta.accentRgb}; --card-accent: ${meta.accentColor}; --rest-rotate: ${rot}deg; --rest-y: ${yOffset}px; --z-base: ${zBase};">
