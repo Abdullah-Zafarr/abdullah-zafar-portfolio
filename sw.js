@@ -1,4 +1,4 @@
-const CACHE_NAME = 'az-portfolio-v23';
+const CACHE_NAME = 'az-portfolio-v24';
 const PRECACHE_URLS = [
   './',
   'index.html',

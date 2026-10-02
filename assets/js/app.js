@@ -70,7 +70,9 @@ const projects = [
    desc:'An event-driven healthcare platform that converts unstructured medical scans into validated, standardized diagnostic reports.',
    stack:['TypeScript','LangGraph','Pydantic','Gemini'],
    repo:'https://github.com/Abdullah-Zafarr/Autonomous-Clinical-Reporter',
-   demo:'https://ultrasound-reporting-service.vercel.app',
+   demo:'https://www.youtube.com/playlist?list=PLGJAsw1wY5LY',
+   demoLabel:'Watch in Action',
+   demoIcon:'youtube',
    teaserType:'scanner',
    teaserTag:'DICOM SCAN PARSER · 99.4% VALIDATED'
  },
@@ -588,7 +590,7 @@ const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-p
     <div class="hover-actions">
       <a href="${p.repo}" target="_blank" aria-label="Open repository" title="View Code on GitHub"><i data-lucide="play"></i></a>
       <button data-info="${p.id}" aria-label="More information" title="Open Project Details"><i data-lucide="info"></i></button>
-      ${p.demo?`<a href="${p.demo}" target="_blank" class="round secondary" aria-label="Live Demo" title="Launch Demo"><i data-lucide="external-link"></i></a>`:''}
+      ${p.demo?`<a href="${p.demo}" target="_blank" class="round secondary" aria-label="${p.demoLabel || 'Launch Demo'}" title="${p.demoLabel || 'Launch Demo'}"><i data-lucide="${p.demoIcon || 'external-link'}"></i></a>`:''}
       <span></span>
       <a href="${p.repo}" target="_blank" class="round secondary" aria-label="GitHub"><i data-lucide="github"></i></a>
     </div>
@@ -614,7 +616,7 @@ const listCard = p => `<article class="list-item-card" data-project="${p.id}" da
   <div class="list-card-actions">
     <button class="play-btn" onclick="openDetails('${p.id}')"><i data-lucide="info"></i> Details</button>
     <a href="${p.repo}" target="_blank" class="info-btn"><i data-lucide="github"></i> Code</a>
-    ${p.demo ? `<a href="${p.demo}" target="_blank" class="demo-btn"><i data-lucide="external-link"></i> Live Demo</a>` : ''}
+    ${p.demo ? `<a href="${p.demo}" target="_blank" class="demo-btn"><i data-lucide="${p.demoIcon || 'external-link'}"></i> ${p.demoLabel || 'Live Demo'}</a>` : ''}
   </div>
 </article>`;
 
@@ -643,7 +645,7 @@ const projectCatalogCard = p => `<article tabindex="0" class="project-catalog-ca
       <a href="${p.repo}" target="_blank" class="pcard-link" title="View source on GitHub">
         GitHub <i data-lucide="arrow-up-right"></i>
       </a>
-      ${p.demo ? `<a href="${p.demo}" target="_blank" class="pcard-link" title="Open live demo">Live demo <i data-lucide="arrow-up-right"></i></a>` : ''}
+      ${p.demo ? `<a href="${p.demo}" target="_blank" class="pcard-link" title="${p.demoLabel || 'Open live demo'}">${p.demoLabel || 'Live demo'} <i data-lucide="${p.demoIcon || 'arrow-up-right'}"></i></a>` : ''}
     </div>
   </div>
 </article>`;
@@ -743,7 +745,7 @@ const deckCard = (p, index, total = 7) => {
         <a href="${p.repo}" target="_blank" class="deck-sub-link" title="Source Code on GitHub" onclick="event.stopPropagation();">
           <i data-lucide="github"></i>
         </a>
-        ${p.demo ? `<a href="${p.demo}" target="_blank" class="deck-sub-link" title="Open Live Demo" onclick="event.stopPropagation();"><i data-lucide="external-link"></i></a>` : ''}
+        ${p.demo ? `<a href="${p.demo}" target="_blank" class="deck-sub-link" title="${p.demoLabel || 'Open Live Demo'}" onclick="event.stopPropagation();"><i data-lucide="${p.demoIcon || 'external-link'}"></i></a>` : ''}
       </div>
     </div>
   </article>`;
@@ -2176,7 +2178,7 @@ function openDetails(id){
   $('.modal-stack', d).textContent = p.stack.join(', ');
   $('.modal-actions', d).innerHTML = `
     <a class="play-btn" target="_blank" href="${p.repo}"><i data-lucide="github"></i> View Repository</a>
-    ${p.demo ? `<a class="info-btn" target="_blank" href="${p.demo}"><i data-lucide="external-link"></i> Live Demo</a>` : ''}
+    ${p.demo ? `<a class="info-btn" target="_blank" href="${p.demo}"><i data-lucide="${p.demoIcon || 'external-link'}"></i> ${p.demoLabel || 'Live Demo'}</a>` : ''}
     <button class="round secondary share-btn" id="modal-project-share-btn" title="Copy Project Link"><i data-lucide="share-2"></i></button>
   `;
 
