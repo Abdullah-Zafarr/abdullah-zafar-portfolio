@@ -1578,6 +1578,8 @@ function initTVKeyboardNavigation(){
       if (artDialog && artDialog.open) {
         artDialog.close();
         clearParam('article');
+        dismissCardFocus();
+        setTimeout(dismissCardFocus, 25);
         e.preventDefault();
         return;
       }
@@ -1919,12 +1921,21 @@ function setup(){
   $('.article-reader-modal .modal-close')?.addEventListener('click', () => {
     artDialog?.close();
     clearParam('article');
+    dismissCardFocus();
+    setTimeout(dismissCardFocus, 30);
   });
   artDialog?.addEventListener('click', e => {
     if (e.target === artDialog) {
       artDialog.close();
       clearParam('article');
+      dismissCardFocus();
+      setTimeout(dismissCardFocus, 30);
     }
+  });
+  artDialog?.addEventListener('close', () => {
+    clearParam('article');
+    dismissCardFocus();
+    setTimeout(dismissCardFocus, 30);
   });
 
   // Blog Category Filtering
@@ -1997,6 +2008,10 @@ function setup(){
   if (certModalEl) {
     certModalEl.addEventListener('click', e => {
       if (e.target === certModalEl) certModalEl.close();
+    });
+    certModalEl.addEventListener('close', () => {
+      dismissCardFocus();
+      setTimeout(dismissCardFocus, 30);
     });
   }
 
