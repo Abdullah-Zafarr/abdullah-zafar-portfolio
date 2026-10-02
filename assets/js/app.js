@@ -1505,9 +1505,19 @@ function bindRailInteractions(){
     openDetails(btn.dataset.info);
   }));
 
-  $$('.title-card').forEach(c => c.addEventListener('click', e => {
-    if(!e.target.closest('a,button')) openDetails(c.dataset.project);
-  }));
+  $$('.title-card').forEach(c => {
+    c.addEventListener('click', e => {
+      if (e.target.closest('a, button')) return;
+
+      const isOpen = c.classList.contains('card-open');
+      if (!isOpen) {
+        $$('.title-card.card-open').forEach(other => other !== c && other.classList.remove('card-open'));
+        c.classList.add('card-open');
+      } else {
+        openDetails(c.dataset.project);
+      }
+    });
+  });
 }
 
 let observerInstance = null;
