@@ -1517,6 +1517,12 @@ function bindRailInteractions(){
         openDetails(c.dataset.project);
       }
     });
+
+    c.addEventListener('mouseleave', () => {
+      c.classList.remove('card-open');
+      c.classList.remove('tv-focus');
+      c.blur();
+    });
   });
 }
 
@@ -1585,6 +1591,7 @@ function initTVKeyboardNavigation(){
       }
       $('#notif-dropdown')?.classList.remove('open');
       $('.mobile-drawer')?.classList.remove('open');
+      dismissCardFocus();
       return;
     }
 
