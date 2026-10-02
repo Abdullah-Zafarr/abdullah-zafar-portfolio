@@ -1570,6 +1570,8 @@ function initTVKeyboardNavigation(){
       if (dialog && dialog.open) {
         dialog.close();
         clearParam('project');
+        dismissCardFocus();
+        setTimeout(dismissCardFocus, 25);
         e.preventDefault();
         return;
       }
@@ -1896,12 +1898,21 @@ function setup(){
   $('.modal-close')?.addEventListener('click', () => {
     dialog?.close();
     clearParam('project');
+    dismissCardFocus();
+    setTimeout(dismissCardFocus, 30);
   });
   dialog?.addEventListener('click', e => {
     if (e.target === dialog) {
       dialog.close();
       clearParam('project');
+      dismissCardFocus();
+      setTimeout(dismissCardFocus, 30);
     }
+  });
+  dialog?.addEventListener('close', () => {
+    clearParam('project');
+    dismissCardFocus();
+    setTimeout(dismissCardFocus, 30);
   });
 
   const artDialog = $('#article-modal');
