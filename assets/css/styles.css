@@ -1570,7 +1570,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Card Interior Anatomy */
 .deck-card-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 8px;
   gap: 6px;

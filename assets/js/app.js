@@ -742,7 +742,6 @@ const deckCard = (p, index, total = 7) => {
   return `<article tabindex="0" class="deck-card" data-project="${p.id}" data-index="${index}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()} ${p.desc.toLowerCase()}" style="--card-rgb: ${meta.accentRgb}; --card-accent: ${meta.accentColor}; --rest-rotate: ${rot}deg; --rest-y: ${yOffset}px; --z-base: ${zBase};">
     <div class="deck-card-top">
       <span class="deck-pill" style="--pill-color: ${meta.accentColor};">${meta.deckPill}</span>
-      <span class="deck-node">${meta.deckNode}</span>
     </div>
 
     <div class="deck-card-header">
@@ -777,9 +776,6 @@ const deckCard = (p, index, total = 7) => {
 const renderDeckView = items => `<div class="fanned-deck-container">
   <div class="fanned-deck-track" id="fanned-deck-track">
     ${items.map((p, i) => deckCard(p, i, items.length)).join('')}
-  </div>
-  <div class="deck-stage-hint">
-    <span>${items.length} CAPABILITIES — CLICK TO FOCUS</span>
   </div>
 </div>`;
 
@@ -1000,14 +996,8 @@ function projectsPage(){
       <div class="catalog-head">
         <div class="catalog-title-group">
           <h2>Abdullah's Pinned Projects</h2>
-          <span class="catalog-count-badge">${projects.length} Production Repositories</span>
         </div>
         <div class="catalog-actions-right">
-          <a href="${links.github}?tab=repositories" target="_blank" class="github-catalog-btn" title="View all repositories on GitHub">
-            <i data-lucide="github"></i>
-            <span>View all on GitHub</span>
-            <i data-lucide="arrow-up-right"></i>
-          </a>
           <div class="catalog-controls">
             <button class="${viewMode==='deck'?'active':''}" id="view-deck-btn" aria-label="3D Deck view" title="3D Fanned Deck View"><i data-lucide="layers"></i></button>
             <button class="${viewMode==='grid'?'active':''}" id="view-grid-btn" aria-label="Grid view" title="Grid View"><i data-lucide="grid-3x3"></i></button>
