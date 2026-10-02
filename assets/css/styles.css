@@ -1297,11 +1297,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   box-sizing: border-box;
 }
 
-.skill-tile:hover, .skill-tile:focus-visible {
-  transform: scale(1.08);
+.skill-tile:hover, .skill-tile:focus-visible, .skill-tile.card-open {
+  transform: scale(1.08) !important;
   background: linear-gradient(145deg, #1e2230 0%, #11141e 100%);
-  border-color: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8) !important;
   z-index: 10;
 }
 
