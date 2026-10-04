@@ -18,7 +18,7 @@ const routes = {
 };
 const files = {
   logo:'assets/icons/logo.PNG',
-  resume:'assets/documents/Abdullah-Zafar-Resume.pdf',
+  resume:'assets/documents/Abdullah-Zafar-Resume.pdf?v=2',
   portrait:'assets/images/profile/abdullah-zafar.jfif',
   spiralCert:'assets/images/certificates/spiral-lab-cert.png',
   bricklixCert:'assets/images/certificates/bricklix-cert.jpg',
