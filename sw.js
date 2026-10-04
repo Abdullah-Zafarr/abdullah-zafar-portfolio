@@ -1,4 +1,4 @@
-const CACHE_NAME = 'az-portfolio-v27';
+const CACHE_NAME = 'az-portfolio-v28';
 const PRECACHE_URLS = [
   './',
   'index.html',
@@ -12,7 +12,9 @@ const PRECACHE_URLS = [
   'assets/images/certificates/spiral-lab-cert.png',
   'assets/images/certificates/bricklix-cert.jpg',
   'assets/images/certificates/niit-letter.png',
-  'assets/images/projects/collabboard.png'
+  'assets/images/projects/collabboard.png',
+  'assets/images/projects/VIDEO%20FOR%20EXPERIENCE%20BACKGROUND.webm',
+  'assets/images/projects/BACKGROUND%20VIDEO%20FOR%20BLOGS.webm'
 ];
 
 self.addEventListener('install', event => {
@@ -52,6 +54,38 @@ self.addEventListener('fetch', event => {
           return response;
         })
         .catch(() => caches.match(request).then(cached => cached || caches.match('./')))
+    );
+    return;
+  }
+
+  // Video / Audio Range requests: serve from cache if available
+  if (request.headers.has('range')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async cache => {
+        const cachedResponse = await cache.match(request.url, { ignoreSearch: true });
+        if (cachedResponse) {
+          const arrayBuffer = await cachedResponse.arrayBuffer();
+          const rangeHeader = request.headers.get('range');
+          const bytesMatch = rangeHeader.match(/bytes=(\d+)-(\d*)/);
+          if (bytesMatch) {
+            const start = parseInt(bytesMatch[1], 10);
+            const total = arrayBuffer.byteLength;
+            const end = bytesMatch[2] ? parseInt(bytesMatch[2], 10) : total - 1;
+            const chunk = arrayBuffer.slice(start, end + 1);
+            return new Response(chunk, {
+              status: 206,
+              statusText: 'Partial Content',
+              headers: {
+                'Content-Range': `bytes ${start}-${end}/${total}`,
+                'Accept-Ranges': 'bytes',
+                'Content-Length': chunk.byteLength,
+                'Content-Type': cachedResponse.headers.get('Content-Type') || (url.pathname.endsWith('.webm') ? 'video/webm' : 'video/mp4')
+              }
+            });
+          }
+        }
+        return fetch(request);
+      })
     );
     return;
   }
