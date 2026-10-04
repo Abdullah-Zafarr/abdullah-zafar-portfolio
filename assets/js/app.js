@@ -1026,7 +1026,8 @@ function experiencePage(){
   return `${nav('experience')}
   <main class="sub-page">
     <section class="page-billboard experience-billboard">
-      <video class="billboard-video" autoplay loop muted playsinline poster="assets/images/projects/background%20image%20for%20experience.png?v=2">
+      <video class="billboard-video" autoplay loop muted playsinline preload="auto" poster="assets/images/projects/background%20image%20for%20experience.png?v=2">
+        <source src="assets/images/projects/VIDEO%20FOR%20EXPERIENCE%20BACKGROUND.webm" type="video/webm">
         <source src="assets/images/projects/VIDEO%20FOR%20EXPERIENCE%20BACKGROUND.mp4" type="video/mp4">
       </video>
       <div>
@@ -1291,7 +1292,8 @@ function blogPage() {
   return `${nav('blog')}
   <main class="sub-page blog-page">
     <section class="page-billboard blog-billboard">
-      <video class="billboard-video" autoplay loop muted playsinline poster="assets/images/projects/background%20image%20for%20blogs.png">
+      <video class="billboard-video" autoplay loop muted playsinline preload="auto" poster="assets/images/projects/background%20image%20for%20blogs.png">
+        <source src="assets/images/projects/BACKGROUND%20VIDEO%20FOR%20BLOGS.webm" type="video/webm">
         <source src="assets/images/projects/BACKGROUND%20VIDEO%20FOR%20BLOGS.mp4" type="video/mp4">
       </video>
       <div>
