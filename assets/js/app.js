@@ -425,15 +425,15 @@ const profileConfigs = {
 };
 
 let soundEnabled = localStorage.getItem('az-sound') !== 'false';
-const getSavedProfile = () => sessionStorage.getItem('az-profile') || localStorage.getItem('az-profile');
+try { localStorage.removeItem('az-profile'); } catch(e) {}
+const getSavedProfile = () => sessionStorage.getItem('az-profile');
 const setProfile = name => {
   if (!name) return;
   sessionStorage.setItem('az-profile', name);
-  localStorage.setItem('az-profile', name);
 };
 const clearProfile = () => {
   sessionStorage.removeItem('az-profile');
-  localStorage.removeItem('az-profile');
+  try { localStorage.removeItem('az-profile'); } catch(e) {}
 };
 const getActiveProfile = () => {
   const forcedProfile = new URLSearchParams(location.search).get('profile');
