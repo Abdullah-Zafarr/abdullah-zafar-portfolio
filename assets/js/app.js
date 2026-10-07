@@ -425,7 +425,29 @@ const profileConfigs = {
 };
 
 let soundEnabled = localStorage.getItem('az-sound') !== 'false';
-const getActiveProfile = () => sessionStorage.getItem('az-profile') || 'Recruiter';
+const getSavedProfile = () => sessionStorage.getItem('az-profile') || localStorage.getItem('az-profile');
+const setProfile = name => {
+  if (!name) return;
+  sessionStorage.setItem('az-profile', name);
+  localStorage.setItem('az-profile', name);
+};
+const clearProfile = () => {
+  sessionStorage.removeItem('az-profile');
+  localStorage.removeItem('az-profile');
+};
+const getActiveProfile = () => {
+  const forcedProfile = new URLSearchParams(location.search).get('profile');
+  if (forcedProfile && profileConfigs[forcedProfile]) {
+    setProfile(forcedProfile);
+    return forcedProfile;
+  }
+  return getSavedProfile() || 'Recruiter';
+};
+const hasSelectedProfile = () => {
+  const forcedProfile = new URLSearchParams(location.search).get('profile');
+  if (forcedProfile && profileConfigs[forcedProfile]) return true;
+  return !!getSavedProfile();
+};
 const pageName = document.body.dataset.page || '';
 
 function dismissCardFocus(){
@@ -497,6 +519,12 @@ const nav = active => {
     <a href="${routes.about}">About</a>
     <a href="${routes.blog}">Blog</a>
     <a href="${routes.contact}">Contact</a>
+    <button class="profile-menu mobile-profile-item" style="background:none;border:none;border-bottom:1px solid #222736;padding:13px 0;display:flex;align-items:center;gap:12px;color:var(--text-main);font-size:1.15rem;font-weight:600;cursor:pointer;width:100%;text-align:left;">
+      <span class="nav-avatar" style="width:28px;height:28px;border-radius:4px;overflow:hidden;display:inline-flex;">
+        <img src="${profileMemes[prof] || profileMemes.Recruiter}" alt="${prof}" style="width:100%;height:100%;object-fit:cover;">
+      </span>
+      <span>Switch Profile (${prof})</span>
+    </button>
   </aside>`;
 };
 
@@ -888,8 +916,9 @@ function renderBrowseRails(prof){
 function home(){
   const prof = getActiveProfile();
   const cfg = profileConfigs[prof] || profileConfigs.Recruiter;
+  const showGate = !hasSelectedProfile();
 
-  return `${profileGate()}
+  return `${showGate ? profileGate() : ''}
   ${nav('home')}
   <main class="browse-page">
     <section class="billboard" id="hero-billboard">
@@ -1295,10 +1324,12 @@ function blogPage() {
 
 const renderers = { home, projects:projectsPage, experience:experiencePage, about:aboutPage, blog:blogPage, contact:contactPage };
 if (pageName && renderers[pageName]) $('#site').innerHTML = renderers[pageName]();
+if (pageName === 'home' && hasSelectedProfile()) document.title = 'Home - Abdullah Zafar';
 iconify();
 
 function applyProfileUI(profileName) {
-  sessionStorage.setItem('az-profile', profileName);
+  setProfile(profileName);
+  if (pageName === 'home') document.title = 'Home - Abdullah Zafar';
   const cfg = profileConfigs[profileName] || profileConfigs.Recruiter;
 
   const pill = $('#profile-pill');
@@ -1581,7 +1612,7 @@ function initTVKeyboardNavigation(){
 
     if (e.key === 'p' || e.key === 'P') {
       if (!dialog?.open && !artDialog?.open) {
-        sessionStorage.removeItem('az-profile');
+        clearProfile();
         location.href = routes.home;
         return;
       }
@@ -1814,46 +1845,43 @@ function setup(){
 
   const gate = $('#profiles');
   if (gate) {
-    const forcedProfile = new URLSearchParams(location.search).get('profile');
-    const isLanding = location.pathname.endsWith('/') || location.pathname.endsWith('/index.html');
-    if (forcedProfile) sessionStorage.setItem('az-profile', forcedProfile);
-
-    $$('.viewer', gate).forEach(v => v.addEventListener('click', () => {
-      const selected = v.dataset.profile;
-      sessionStorage.setItem('az-profile', selected);
-      v.classList.add('chosen');
-      $$('.viewer', gate).filter(x => x !== v).forEach(x => x.classList.add('not-chosen'));
-      gate.classList.add('profile-selecting');
-
-      if (soundEnabled) {
-        const sound = new Audio('assets/audio/netflix-sound.mp3');
-        sound.volume = 0.72;
-        sound.play().catch(() => {});
-      }
-
-      setTimeout(() => {
-        gate.classList.add('profile-exit');
-        applyProfileUI(selected);
-      }, 1250);
-
-      setTimeout(() => gate.remove(), 1900);
-    }));
-
-    const savedProfile = sessionStorage.getItem('az-profile');
-    if (savedProfile && (!isLanding || forcedProfile)) {
+    const savedProfile = getSavedProfile();
+    if (savedProfile) {
       gate.remove();
       applyProfileUI(savedProfile);
-    }
+    } else {
+      $$('.viewer', gate).forEach(v => v.addEventListener('click', () => {
+        const selected = v.dataset.profile;
+        setProfile(selected);
+        v.classList.add('chosen');
+        $$('.viewer', gate).filter(x => x !== v).forEach(x => x.classList.add('not-chosen'));
+        gate.classList.add('profile-selecting');
 
-    $('.manage-profiles', gate)?.addEventListener('click', () => {
-      showToast('Select any persona above to customize the billboard focus, project ordering, and tone.');
-    });
+        if (soundEnabled) {
+          const sound = new Audio('assets/audio/netflix-sound.mp3');
+          sound.volume = 0.72;
+          sound.play().catch(() => {});
+        }
+
+        setTimeout(() => {
+          gate.classList.add('profile-exit');
+          applyProfileUI(selected);
+          if (pageName === 'home') document.title = 'Home - Abdullah Zafar';
+        }, 1250);
+
+        setTimeout(() => gate.remove(), 1900);
+      }));
+
+      $('.manage-profiles', gate)?.addEventListener('click', () => {
+        showToast('Select any persona above to customize the billboard focus, project ordering, and tone.');
+      });
+    }
   }
 
-  $('.profile-menu')?.addEventListener('click', () => {
-    sessionStorage.removeItem('az-profile');
+  $$('.profile-menu').forEach(btn => btn.addEventListener('click', () => {
+    clearProfile();
     location.href = routes.home;
-  });
+  }));
 
   const handleOutsideDismiss = e => {
     const el = e.target?.closest ? e.target : e.target?.parentElement;
