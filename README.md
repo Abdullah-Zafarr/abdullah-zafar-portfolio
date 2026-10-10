@@ -182,11 +182,14 @@ This project requires **zero build dependencies** or package installations. You 
 git clone https://github.com/Abdullah-Zafarr/abdullah-zafar-portfolio.git
 cd abdullah-zafar-portfolio
 
-# Start a local HTTP server
+# Option A: Start a local HTTP server with Python
 python -m http.server 8000
+
+# Option B: Start with Node.js / npx
+npx serve .
 ```
 
-Then open [http://localhost:8000](http://localhost:8000) in your browser.
+Then open [http://localhost:8000](http://localhost:8000) (or the port indicated by your server) in your browser.
 
 ---
 
