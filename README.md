@@ -13,6 +13,7 @@
     <a href="https://www.linkedin.com/in/abdullahz-dev/"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn" /></a>
     <a href="https://github.com/Abdullah-Zafarr"><img src="https://img.shields.io/badge/GitHub-Abdullah--Zafarr-181717?style=for-the-badge&logo=github" alt="GitHub" /></a>
     <a href="https://codeforces.com/profile/rodrickkkk"><img src="https://img.shields.io/badge/Codeforces-Rank_70_(PK)-1F8ACB?style=for-the-badge&logo=codeforces&logoColor=white" alt="Codeforces" /></a>
+    <a href="mailto:abdullahzafar.codes@gmail.com"><img src="https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
   </p>
 
   ### 📺 Visual Showcase
