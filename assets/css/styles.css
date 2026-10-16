@@ -3875,13 +3875,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .profiles-logo { top: 20px; }
   .netflix-nav { height: 58px; padding: 0 19px; }
   .nav-logo img { width: 118px; }
-  .nav-tools > .search-toggle { display: none; }
   .search-box.open {
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    top: 59px;
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    top: 10px;
     width: auto;
+    height: 40px;
+    z-index: 1000;
+  }
+  .search-dropdown {
+    position: fixed;
+    top: 56px;
+    left: 14px;
+    right: 14px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - 75px);
   }
   .billboard {
     min-height: 670px;
