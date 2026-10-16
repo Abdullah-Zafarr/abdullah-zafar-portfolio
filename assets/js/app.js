@@ -478,6 +478,7 @@ const nav = active => {
           <input aria-label="Search projects, skills, articles" placeholder="Titles, skills, projects (e.g. voice, python, rag)" autocomplete="off" spellcheck="false">
           <button class="search-close" type="button" aria-label="Clear search" title="Clear search"><i data-lucide="x"></i></button>
         </div>
+        <div class="search-dropdown" id="search-dropdown" hidden></div>
       </div>
       <div class="notification-wrapper">
         <button class="nav-tool notif-toggle" aria-label="Notifications" title="Recent Updates">
@@ -1585,13 +1586,20 @@ function initTVKeyboardNavigation(){
         e.preventDefault();
         return;
       }
-      if (searchBox?.classList.contains('open')) {
-        searchBox.classList.remove('open');
+      const searchDrop = $('#search-dropdown');
+      if (searchBox?.classList.contains('open') || (searchDrop && !searchDrop.hidden)) {
+        searchBox?.classList.remove('open');
+        if (searchDrop) {
+          searchDrop.hidden = true;
+          searchDrop.innerHTML = '';
+        }
         const input = $('.search-box input');
         if (input) input.value = '';
-        $$('.title-card, .list-item-card, .article-card, .project-catalog-card').forEach(c => {
+        $('.search-close')?.classList.remove('has-val');
+        $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card').forEach(c => {
           c.hidden = false;
         });
+        $('#search-empty-state')?.remove();
         e.preventDefault();
         return;
       }
@@ -1716,60 +1724,315 @@ function setup(){
   $('.mobile-toggle')?.addEventListener('click', () => $('.mobile-drawer')?.classList.add('open'));
   $('.drawer-close')?.addEventListener('click', () => $('.mobile-drawer')?.classList.remove('open'));
 
-  // Search
-  const resetSearch = () => {
-    const input = $('.search-box input');
-    if (input) input.value = '';
-    $$('.title-card, .list-item-card, .article-card, .project-catalog-card').forEach(c => {
+  // Search Engine & Live Dropdown Controller
+  const searchBox = $('.search-box');
+  const searchInput = $('.search-box input');
+  const searchToggle = $('.search-toggle');
+  const searchClose = $('.search-close');
+  const searchDropdown = $('#search-dropdown');
+
+  const highlightMatch = (text, query) => {
+    if (!query || !text) return text || '';
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark class="search-highlight">$1</mark>');
+  };
+
+  const closeSearchDropdown = () => {
+    if (searchDropdown) {
+      searchDropdown.hidden = true;
+      searchDropdown.innerHTML = '';
+    }
+  };
+
+  const openSearchBar = () => {
+    searchBox?.classList.add('open');
+    searchInput?.focus();
+    if (searchInput?.value?.trim()) {
+      renderSearchDropdown(searchInput.value.trim());
+    }
+  };
+
+  const closeSearchBar = () => {
+    searchBox?.classList.remove('open');
+    closeSearchDropdown();
+    if (searchInput) {
+      searchInput.value = '';
+      searchClose?.classList.remove('has-val');
+    }
+    $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card').forEach(c => {
       c.hidden = false;
     });
     $('#search-empty-state')?.remove();
   };
 
-  $('.search-toggle')?.addEventListener('click', () => {
-    $('.search-box')?.classList.add('open');
-    $('.search-box input')?.focus();
-  });
-  $('.search-close')?.addEventListener('click', () => {
-    $('.search-box')?.classList.remove('open');
-    resetSearch();
-  });
+  const resetSearch = () => {
+    if (searchInput) {
+      searchInput.value = '';
+      searchClose?.classList.remove('has-val');
+    }
+    closeSearchDropdown();
+    $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card').forEach(c => {
+      c.hidden = false;
+    });
+    $('#search-empty-state')?.remove();
+  };
 
-  $('.search-box input')?.addEventListener('input', e => {
-    const val = e.target.value.toLowerCase().trim();
-    const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card');
-    let visibleCount = 0;
-    cards.forEach(c => {
-      const searchData = c.dataset.search || '';
-      const match = val ? searchData.includes(val) : true;
-      c.hidden = !match;
-      if (match) visibleCount++;
+  const renderSearchDropdown = (query) => {
+    if (!searchDropdown) return;
+    const q = (query || '').toLowerCase().trim();
+    if (!q) {
+      closeSearchDropdown();
+      return;
+    }
+
+    const matchedProjects = (typeof projects !== 'undefined' ? projects : []).filter(p => {
+      const searchStr = `${p.title || ''} ${p.short || ''} ${p.desc || ''} ${(p.stack || []).join(' ')}`.toLowerCase();
+      return searchStr.includes(q);
     });
 
-    let emptyState = $('#search-empty-state');
-    if (val && visibleCount === 0) {
-      if (!emptyState) {
-        emptyState = document.createElement('div');
-        emptyState.id = 'search-empty-state';
-        emptyState.className = 'search-empty-state';
-        const targetContainer = $('#catalog-container') || $('#articles-grid') || $('#browse-rails-container') || $('main');
-        targetContainer?.insertAdjacentElement('afterbegin', emptyState);
-      }
-      emptyState.innerHTML = `
-        <div class="empty-state-content">
-          <i data-lucide="search-x" class="empty-search-icon"></i>
-          <h3>No titles found for "${val}"</h3>
-          <p>We couldn't find any matches. Try searching for <code>Voice AI</code>, <code>RAG</code>, <code>LangGraph</code>, or <code>Python</code>.</p>
-          <button class="play-btn clear-search-btn" id="empty-clear-search-btn"><i data-lucide="rotate-ccw"></i> Clear Search</button>
+    const matchedArticles = (typeof articles !== 'undefined' ? articles : []).filter(a => {
+      const searchStr = `${a.title || ''} ${a.summary || ''} ${a.category || ''} ${(a.stack || []).join(' ')}`.toLowerCase();
+      return searchStr.includes(q);
+    });
+
+    searchDropdown.hidden = false;
+
+    if (matchedProjects.length === 0 && matchedArticles.length === 0) {
+      searchDropdown.innerHTML = `
+        <div class="search-drop-empty">
+          <i data-lucide="search-x" class="search-empty-icon"></i>
+          <strong>No matches found for "${query}"</strong>
+          <p>Try searching by key technology or architecture:</p>
+          <div class="search-quick-tags">
+            <button type="button" class="quick-filter-tag" data-q="Voice AI">Voice AI</button>
+            <button type="button" class="quick-filter-tag" data-q="RAG">RAG</button>
+            <button type="button" class="quick-filter-tag" data-q="LangGraph">LangGraph</button>
+            <button type="button" class="quick-filter-tag" data-q="Python">Python</button>
+            <button type="button" class="quick-filter-tag" data-q="FastAPI">FastAPI</button>
+          </div>
         </div>
       `;
-      iconify();
-      $('#empty-clear-search-btn')?.addEventListener('click', () => {
-        resetSearch();
-        $('.search-box input')?.focus();
-      });
     } else {
-      emptyState?.remove();
+      searchDropdown.innerHTML = `
+        <div class="search-drop-inner">
+          ${matchedProjects.length ? `
+            <div class="search-drop-section">
+              <div class="search-drop-section-title">
+                <span>PROJECTS</span>
+                <small>${matchedProjects.length} found</small>
+              </div>
+              <div class="search-drop-items">
+                ${matchedProjects.map(p => `
+                  <div class="search-drop-item" data-project-id="${p.id}" tabindex="0">
+                    <img src="${p.image}" alt="${p.title}" class="search-drop-thumb" onerror="this.style.display='none'">
+                    <div class="search-drop-info">
+                      <div class="search-drop-heading">
+                        <strong>${highlightMatch(p.title, q)}</strong>
+                        <span class="search-drop-badge">${p.match || '98%'} Match</span>
+                      </div>
+                      <p class="search-drop-desc">${p.desc}</p>
+                      <div class="search-drop-tags">
+                        ${(p.stack || []).map(s => `<span class="${s.toLowerCase().includes(q) ? 'match-tag' : ''}">${s}</span>`).join('')}
+                      </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="search-drop-chevron"></i>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${matchedArticles.length ? `
+            <div class="search-drop-section">
+              <div class="search-drop-section-title">
+                <span>ENGINEERING LOGS</span>
+                <small>${matchedArticles.length} found</small>
+              </div>
+              <div class="search-drop-items">
+                ${matchedArticles.map(a => `
+                  <div class="search-drop-item article-drop-item" data-article-id="${a.id}" tabindex="0">
+                    <div class="search-drop-icon"><i data-lucide="book-open"></i></div>
+                    <div class="search-drop-info">
+                      <div class="search-drop-heading">
+                        <strong>${highlightMatch(a.title, q)}</strong>
+                        <span class="search-drop-read">${a.readTime || '5 min read'}</span>
+                      </div>
+                      <p class="search-drop-desc">${a.summary}</p>
+                      <div class="search-drop-tags">
+                        <span class="category-tag">${a.category}</span>
+                        ${(a.stack || []).map(s => `<span class="${s.toLowerCase().includes(q) ? 'match-tag' : ''}">${s}</span>`).join('')}
+                      </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="search-drop-chevron"></i>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="search-drop-footer">
+            <a href="${routes.projects}?search=${encodeURIComponent(query)}" class="search-drop-all-btn">
+              <span>View all results in Projects Catalog</span>
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    iconify();
+
+    $$('.search-drop-item[data-project-id]', searchDropdown).forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.projectId;
+        closeSearchDropdown();
+        if (typeof openDetails === 'function') openDetails(id);
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          const id = el.dataset.projectId;
+          closeSearchDropdown();
+          if (typeof openDetails === 'function') openDetails(id);
+        }
+      });
+    });
+
+    $$('.search-drop-item[data-article-id]', searchDropdown).forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.articleId;
+        closeSearchDropdown();
+        if (typeof openArticle === 'function') openArticle(id);
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          const id = el.dataset.articleId;
+          closeSearchDropdown();
+          if (typeof openArticle === 'function') openArticle(id);
+        }
+      });
+    });
+
+    $$('.quick-filter-tag', searchDropdown).forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const tag = btn.dataset.q;
+        if (searchInput) {
+          searchInput.value = tag;
+          searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+          searchInput.focus();
+        }
+      });
+    });
+  };
+
+  const executeSearch = (val) => {
+    const q = (val || '').trim();
+    if (!q) return;
+
+    if (pageName === 'projects') {
+      closeSearchDropdown();
+      const catalogEl = $('#catalog-container');
+      if (catalogEl) {
+        catalogEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      location.href = `${routes.projects}?search=${encodeURIComponent(q)}`;
+    }
+  };
+
+  // Toggle button click: open if closed; if open and has text, execute search; if open and empty, close
+  searchToggle?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!searchBox?.classList.contains('open')) {
+      openSearchBar();
+    } else {
+      const val = searchInput?.value?.trim() || '';
+      if (val) {
+        executeSearch(val);
+      } else {
+        closeSearchBar();
+      }
+    }
+  });
+
+  // Clear button click
+  searchClose?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (searchInput?.value) {
+      resetSearch();
+      searchInput.focus();
+    } else {
+      closeSearchBar();
+    }
+  });
+
+  // Live input handler
+  searchInput?.addEventListener('input', e => {
+    const val = e.target.value;
+    const trimmed = val.toLowerCase().trim();
+
+    if (val.length > 0) {
+      searchClose?.classList.add('has-val');
+    } else {
+      searchClose?.classList.remove('has-val');
+    }
+
+    renderSearchDropdown(trimmed);
+
+    // If on projects or blog page, live-filter cards on the page
+    if (pageName === 'projects' || pageName === 'blog') {
+      const cards = $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card');
+      let visibleCount = 0;
+      cards.forEach(c => {
+        const searchData = c.dataset.search || '';
+        const match = trimmed ? searchData.includes(trimmed) : true;
+        c.hidden = !match;
+        if (match) visibleCount++;
+      });
+
+      let emptyState = $('#search-empty-state');
+      if (trimmed && visibleCount === 0) {
+        if (!emptyState) {
+          emptyState = document.createElement('div');
+          emptyState.id = 'search-empty-state';
+          emptyState.className = 'search-empty-state';
+          const targetContainer = $('#catalog-container') || $('#articles-grid');
+          targetContainer?.insertAdjacentElement('afterbegin', emptyState);
+        }
+        emptyState.innerHTML = `
+          <div class="empty-state-content">
+            <i data-lucide="search-x" class="empty-search-icon"></i>
+            <h3>No titles found for "${trimmed}"</h3>
+            <p>We couldn't find any matches. Try searching for <code>Voice AI</code>, <code>RAG</code>, <code>LangGraph</code>, or <code>Python</code>.</p>
+            <button class="play-btn clear-search-btn" id="empty-clear-search-btn"><i data-lucide="rotate-ccw"></i> Clear Search</button>
+          </div>
+        `;
+        iconify();
+        $('#empty-clear-search-btn')?.addEventListener('click', () => {
+          resetSearch();
+          searchInput?.focus();
+        });
+      } else {
+        emptyState?.remove();
+      }
+    }
+  });
+
+  // Enter key in search box
+  searchInput?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      executeSearch(searchInput.value);
+    }
+  });
+
+  // Click outside search container to close dropdown and collapse if empty
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-wrapper')) {
+      closeSearchDropdown();
+      if (!searchInput?.value?.trim()) {
+        searchBox?.classList.remove('open');
+      }
     }
   });
 
@@ -1966,6 +2229,19 @@ function setup(){
   const targetArticle = new URLSearchParams(location.search).get('article');
   if (targetArticle) {
     setTimeout(() => openArticle(targetArticle), 150);
+  }
+
+  // Direct Search Param Support (e.g. ?search=voice)
+  const targetSearch = new URLSearchParams(location.search).get('search');
+  if (targetSearch) {
+    setTimeout(() => {
+      openSearchBar();
+      if (searchInput) {
+        searchInput.value = targetSearch;
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        closeSearchDropdown();
+      }
+    }, 150);
   }
 
   // Article Modal Reading Progress
