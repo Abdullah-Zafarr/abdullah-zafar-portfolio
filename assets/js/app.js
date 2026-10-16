@@ -472,10 +472,12 @@ const nav = active => {
       <a class="${active==='contact'?'active':''}" href="${routes.contact}">Contact</a>
     </nav>
     <div class="nav-tools">
-      <button class="nav-tool search-toggle" aria-label="Search"><i data-lucide="search"></i></button>
-      <div class="search-box">
-        <input aria-label="Search projects" placeholder="Titles, skills, projects (e.g. voice, python, rag)">
-        <button aria-label="Close search" class="search-close"><i data-lucide="x"></i></button>
+      <div class="search-wrapper">
+        <div class="search-box">
+          <button class="nav-tool search-toggle" type="button" aria-label="Search" title="Search (Press / or S)"><i data-lucide="search"></i></button>
+          <input aria-label="Search projects, skills, articles" placeholder="Titles, skills, projects (e.g. voice, python, rag)" autocomplete="off" spellcheck="false">
+          <button class="search-close" type="button" aria-label="Clear search" title="Clear search"><i data-lucide="x"></i></button>
+        </div>
       </div>
       <div class="notification-wrapper">
         <button class="nav-tool notif-toggle" aria-label="Notifications" title="Recent Updates">
