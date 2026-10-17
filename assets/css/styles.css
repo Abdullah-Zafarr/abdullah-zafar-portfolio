@@ -541,7 +541,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .search-box.open:focus-within {
   border-color: #fff;
-  box-shadow: 0 0 14px rgba(229, 9, 20, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 .search-box .search-toggle {
   background: none;
@@ -555,6 +555,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   cursor: pointer;
   padding: 0;
   transition: color .2s, transform .15s;
+  outline: none !important;
+}
+.search-box .search-toggle:focus,
+.search-box .search-toggle:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 .search-box .search-toggle:hover {
   transform: scale(1.08);
@@ -565,13 +571,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   opacity: 0;
   padding: 0;
   background: transparent;
-  border: 0;
+  border: 0 !important;
   color: #fff;
   font-family: inherit;
   font-size: .82rem;
-  outline: 0;
+  outline: none !important;
+  box-shadow: none !important;
   pointer-events: none;
   transition: width .3s cubic-bezier(0.16, 1, 0.3, 1), opacity .2s;
+}
+.search-box input:focus,
+.search-box input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 .search-box.open input {
   width: 100%;
@@ -582,6 +595,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .search-box input::placeholder {
   color: #64748b;
   font-size: .78rem;
+}
+.search-box .search-close:focus,
+.search-box .search-close:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 .search-box .search-close {
   background: none;
@@ -868,7 +886,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   border-color: var(--red);
   color: #fff;
 }
-
 .mobile-toggle { display: none; background: none; border: 0; color: #fff; }
 .mobile-drawer {
   position: fixed;
