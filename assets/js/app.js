@@ -1828,7 +1828,6 @@ function setup(){
                     <div class="search-drop-info">
                       <div class="search-drop-heading">
                         <strong>${highlightMatch(p.title, q)}</strong>
-                        <span class="search-drop-badge">${p.match || '98%'} Match</span>
                       </div>
                       <p class="search-drop-desc">${p.desc}</p>
                       <div class="search-drop-tags">
