@@ -73,7 +73,7 @@ Every visitor receives a personalized experience based on their role:
 ### 📦 2. Dual-View Minimalist Project Catalog & Live Teasers
 - **Grid / List Mode Toggle:** Switch seamlessly between a visual 3x3 poster grid and a detailed engineering list with persistent `localStorage` state.
 - **Deep-Linking & Sharing:** Direct URL parameter linking (`?project=voice`) and 1-click clipboard sharing with interactive toast feedback.
-- **Universal Instant Search & Live Dropdown:** Live client-side search across titles, stacks, and summaries with an interactive results popover, direct 1-click modal viewing, deep-link query parameter support (`?search=voice`), and quick suggestion tags (`Voice AI`, `RAG`, `LangGraph`, `Python`).
+- **Universal Instant Search & Live Dropdown:** ARIA-compliant combobox search across titles, stacks, and summaries with live suggestions, arrow-key focus traversal (<kbd>↓</kbd>/<kbd>↑</kbd>), cross-page modal deep-linking (`?search=voice`), and quick suggestion tags (`Voice AI`, `RAG`, `LangGraph`, `Python`).
 - **Live Teaser Micro-Animations:**
   - 🎙️ **Sub-750ms Waveform:** Animated audio stream bars for telephony pipelines.
   - 🩺 **DICOM Laser Scanner:** Grid scan laser animation for clinical parser.
@@ -90,12 +90,12 @@ Every visitor receives a personalized experience based on their role:
 
 ### 🎮 4. Spatial TV Remote & Accessible Navigation
 Full spatial 2D keyboard navigation and WCAG 2.1 AA accessibility:
-- <kbd>Arrow Keys</kbd> — Spatial 2D focus traversal
+- <kbd>Arrow Keys</kbd> — Spatial 2D focus traversal & live search suggestion cycling
 - <kbd>Enter</kbd> / <kbd>Space</kbd> — Open focused project, catalog card, article, or career episode
 - <kbd>/</kbd> or <kbd>S</kbd> — Focus universal instant search
 - <kbd>P</kbd> — Return to "Who's Watching?" profile gate
 - <kbd>Esc</kbd> — Close active modal, mobile drawer, or search dropdown & bar
-- **Accessibility:** High-contrast `:focus-visible` outline rings and `@media (prefers-reduced-motion: reduce)` compliance.
+- **Accessibility:** WAI-ARIA combobox/listbox roles, high-contrast `:focus-visible` outline rings, and `@media (prefers-reduced-motion: reduce)` compliance.
 
 ### ⚡ 5. Interactive Glitch Footer, Transmissions & PWA
 - **"Next Episode" Wordmark Cycler:** Interactive mega-wordmark (`#footer-easter-egg`) cycling famous engineering quotes with glitch effects and audio feedback.
