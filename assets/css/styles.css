@@ -707,6 +707,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   background: rgba(255, 255, 255, 0.08);
   transform: translateX(2px);
 }
+.search-drop-item:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  outline: 2px solid rgba(229, 9, 20, 0.7);
+  outline-offset: -1px;
+}
 .search-drop-thumb {
   width: 52px;
   height: 38px;
@@ -885,6 +890,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   background: rgba(229, 9, 20, 0.2);
   border-color: var(--red);
   color: #fff;
+}
+.search-drop-all-btn:focus-visible,
+.quick-filter-tag:focus-visible {
+  outline: 2px solid rgba(229, 9, 20, 0.7);
+  outline-offset: 2px;
 }
 .mobile-toggle { display: none; background: none; border: 0; color: #fff; }
 .mobile-drawer {

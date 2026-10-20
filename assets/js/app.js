@@ -475,10 +475,10 @@ const nav = active => {
       <div class="search-wrapper">
         <div class="search-box">
           <button class="nav-tool search-toggle" type="button" aria-label="Search" title="Search (Press / or S)"><i data-lucide="search"></i></button>
-          <input aria-label="Search projects, skills, articles" placeholder="Titles, skills, projects (e.g. voice, python, rag)" autocomplete="off" spellcheck="false">
+          <input id="search-input" name="q" aria-label="Search projects, skills, articles" placeholder="Titles, skills, projects (e.g. voice, python, rag)" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-dropdown">
           <button class="search-close" type="button" aria-label="Clear search" title="Clear search"><i data-lucide="x"></i></button>
         </div>
-        <div class="search-dropdown" id="search-dropdown" hidden></div>
+        <div class="search-dropdown" id="search-dropdown" role="listbox" aria-label="Search suggestions" hidden></div>
       </div>
       <div class="notification-wrapper">
         <button class="nav-tool notif-toggle" aria-label="Notifications" title="Recent Updates">
@@ -1609,7 +1609,7 @@ function initTVKeyboardNavigation(){
       return;
     }
 
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' || e.target.closest?.('#search-dropdown, .search-box')) {
       return;
     }
 
@@ -1741,6 +1741,7 @@ function setup(){
     if (searchDropdown) {
       searchDropdown.hidden = true;
       searchDropdown.innerHTML = '';
+      searchInput?.setAttribute('aria-expanded', 'false');
     }
   };
 
@@ -1758,6 +1759,7 @@ function setup(){
     if (searchInput) {
       searchInput.value = '';
       searchClose?.classList.remove('has-val');
+      searchInput.setAttribute('aria-expanded', 'false');
     }
     $$('.title-card, .list-item-card, .article-card, .project-catalog-card, .deck-card').forEach(c => {
       c.hidden = false;
@@ -1796,6 +1798,7 @@ function setup(){
     });
 
     searchDropdown.hidden = false;
+    searchInput?.setAttribute('aria-expanded', 'true');
 
     if (matchedProjects.length === 0 && matchedArticles.length === 0) {
       searchDropdown.innerHTML = `
@@ -1823,7 +1826,7 @@ function setup(){
               </div>
               <div class="search-drop-items">
                 ${matchedProjects.map(p => `
-                  <div class="search-drop-item" data-project-id="${p.id}" tabindex="0">
+                  <div class="search-drop-item" data-project-id="${p.id}" tabindex="0" role="option">
                     <img src="${p.image}" alt="${p.title}" class="search-drop-thumb" onerror="this.style.display='none'">
                     <div class="search-drop-info">
                       <div class="search-drop-heading">
@@ -1849,7 +1852,7 @@ function setup(){
               </div>
               <div class="search-drop-items">
                 ${matchedArticles.map(a => `
-                  <div class="search-drop-item article-drop-item" data-article-id="${a.id}" tabindex="0">
+                  <div class="search-drop-item article-drop-item" data-article-id="${a.id}" tabindex="0" role="option">
                     <div class="search-drop-icon"><i data-lucide="book-open"></i></div>
                     <div class="search-drop-info">
                       <div class="search-drop-heading">
@@ -2017,11 +2020,61 @@ function setup(){
     }
   });
 
-  // Enter key in search box
+  // Enter & navigation keys in search box
   searchInput?.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       e.preventDefault();
       executeSearch(searchInput.value);
+    } else if (e.key === 'ArrowDown') {
+      if (searchDropdown && !searchDropdown.hidden) {
+        const firstItem = searchDropdown.querySelector('.search-drop-item, .quick-filter-tag, .search-drop-all-btn');
+        if (firstItem) {
+          e.preventDefault();
+          firstItem.focus();
+        }
+      }
+    }
+  });
+
+  // Keyboard navigation within the live search dropdown
+  searchDropdown?.addEventListener('keydown', e => {
+    const focusable = $$('.search-drop-item, .quick-filter-tag, .search-drop-all-btn', searchDropdown);
+    if (!focusable.length) return;
+
+    const currIdx = focusable.indexOf(document.activeElement);
+
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape'].includes(e.key)) {
+      e.stopPropagation();
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currIdx === -1 || currIdx === focusable.length - 1) {
+        focusable[0].focus();
+      } else {
+        focusable[currIdx + 1].focus();
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currIdx <= 0) {
+        searchInput?.focus();
+        if (searchInput) {
+          const len = searchInput.value.length;
+          searchInput.setSelectionRange(len, len);
+        }
+      } else {
+        focusable[currIdx - 1].focus();
+      }
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      focusable[0]?.focus();
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      focusable[focusable.length - 1]?.focus();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      closeSearchDropdown();
+      searchInput?.focus();
     }
   });
 
