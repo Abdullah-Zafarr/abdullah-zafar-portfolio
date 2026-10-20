@@ -2452,8 +2452,12 @@ function showToast(msg) {
 
 function openArticle(id){
   const a = articles.find(x => x.id === id);
+  if(!a) return;
   const d = $('#article-modal');
-  if(!a || !d) return;
+  if(!d) {
+    location.href = `${routes.blog}?article=${encodeURIComponent(id)}`;
+    return;
+  }
 
   const url = new URL(window.location);
   url.searchParams.set('article', a.id);
@@ -2525,8 +2529,12 @@ function openArticle(id){
 
 function openDetails(id){
   const p = projects.find(x => x.id === id);
+  if(!p) return;
   const d = $('#details-modal');
-  if(!p || !d) return;
+  if(!d) {
+    location.href = `${routes.projects}?project=${encodeURIComponent(id)}`;
+    return;
+  }
 
   const url = new URL(window.location);
   url.searchParams.set('project', p.id);
