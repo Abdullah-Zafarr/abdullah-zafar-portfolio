@@ -1152,6 +1152,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   outline: none;
   box-sizing: border-box;
   background: #11141d;
+  cursor: pointer;
 }
 .title-card:hover, .title-card.card-open, .title-card.tv-focus {
   transform: scale(1.15);
