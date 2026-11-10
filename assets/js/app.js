@@ -614,16 +614,16 @@ const teaserSnippet = p => {
 const card = (p, rank=false) => `<article tabindex="0" class="title-card" data-project="${p.id}" data-search="${p.title.toLowerCase()} ${p.stack.join(' ').toLowerCase()}">
   ${rank?`<span class="top-number">${p.rank}</span>`:''}
   <div class="card-poster">
-    <img src="${p.image}" alt="${p.title} interface" loading="lazy">
+    <img src="${p.image}" alt="${p.title} interface" loading="lazy" draggable="false">
     <span class="card-title">${p.short}</span>
   </div>
   <div class="card-hover">
     <div class="hover-actions">
-      <a href="${p.repo}" target="_blank" aria-label="Open repository" title="View Code on GitHub"><i data-lucide="play"></i></a>
+      <a href="${p.repo}" target="_blank" rel="noopener noreferrer" aria-label="Open repository" title="View Code on GitHub"><i data-lucide="play"></i></a>
       <button data-info="${p.id}" aria-label="More information" title="Open Project Details"><i data-lucide="info"></i></button>
-      ${p.demo?`<a href="${p.demo}" target="_blank" class="round secondary" aria-label="${p.demoLabel || 'Launch Demo'}" title="${p.demoLabel || 'Launch Demo'}"><i data-lucide="${p.demoIcon || 'external-link'}"></i></a>`:''}
+      ${p.demo?`<a href="${p.demo}" target="_blank" rel="noopener noreferrer" class="round secondary" aria-label="${p.demoLabel || 'Launch Demo'}" title="${p.demoLabel || 'Launch Demo'}"><i data-lucide="${p.demoIcon || 'external-link'}"></i></a>`:''}
       <span></span>
-      <a href="${p.repo}" target="_blank" class="round secondary" aria-label="GitHub"><i data-lucide="github"></i></a>
+      <a href="${p.repo}" target="_blank" rel="noopener noreferrer" class="round secondary" aria-label="GitHub"><i data-lucide="github"></i></a>
     </div>
   </div>
 </article>`;
@@ -1451,15 +1451,17 @@ function bindRailInteractions(){
 
     // Smooth drag-to-scroll support without trapping vertical wheel scroll
     let isDown = false;
+    let hasDragged = false;
     let startX = 0;
     let startScroll = 0;
 
     r.addEventListener('mousedown', (e) => {
-      if (e.target.closest('a, button')) return;
+      if (e.button !== 0 || e.target.closest('a, button')) return;
       isDown = true;
+      hasDragged = false;
+      delete r.dataset.dragged;
       startX = e.pageX - r.offsetLeft;
       startScroll = r.scrollLeft;
-      r.classList.add('is-dragging');
     });
 
     r.addEventListener('mouseleave', () => {
@@ -1473,14 +1475,22 @@ function bindRailInteractions(){
       if (isDown) {
         isDown = false;
         r.classList.remove('is-dragging');
+        if (hasDragged) {
+          r.dataset.dragged = 'true';
+          setTimeout(() => { delete r.dataset.dragged; }, 80);
+        }
       }
     });
 
     r.addEventListener('mousemove', (e) => {
       if (!isDown) return;
-      e.preventDefault();
       const x = e.pageX - r.offsetLeft;
-      const walk = (x - startX) * 1.4;
+      const delta = x - startX;
+      if (!hasDragged && Math.abs(delta) < 6) return;
+      hasDragged = true;
+      r.classList.add('is-dragging');
+      e.preventDefault();
+      const walk = delta * 1.4;
       r.scrollLeft = startScroll - walk;
       updateArrows();
     });
@@ -1511,13 +1521,12 @@ function bindRailInteractions(){
   $$('.title-card').forEach(c => {
     c.addEventListener('click', e => {
       if (e.target.closest('a, button')) return;
+      const railEl = c.closest('.title-rail');
+      if (railEl?.classList.contains('is-dragging') || railEl?.dataset.dragged === 'true') return;
 
-      const isOpen = c.classList.contains('card-open');
-      if (!isOpen) {
-        $$('.title-card.card-open').forEach(other => other !== c && other.classList.remove('card-open'));
-        c.classList.add('card-open');
-      } else {
-        openDetails(c.dataset.project);
+      const p = projects.find(x => x.id === c.dataset.project);
+      if (p?.repo) {
+        window.open(p.repo, '_blank', 'noopener,noreferrer');
       }
     });
 
@@ -1680,7 +1689,11 @@ function initTVKeyboardNavigation(){
 
     if ((e.key === 'Enter' || e.key === ' ') && !['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(document.activeElement?.tagName)) {
       const active = document.activeElement;
-      if (active?.classList.contains('title-card') || active?.classList.contains('project-catalog-card') || active?.classList.contains('deck-card')) {
+      if (active?.classList.contains('title-card')) {
+        e.preventDefault();
+        const p = projects.find(x => x.id === active.dataset.project);
+        if (p?.repo) window.open(p.repo, '_blank', 'noopener,noreferrer');
+      } else if (active?.classList.contains('project-catalog-card') || active?.classList.contains('deck-card')) {
         e.preventDefault();
         openDetails(active.dataset.project);
       } else if (active?.classList.contains('article-card')) {
